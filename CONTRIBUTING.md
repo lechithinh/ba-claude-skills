@@ -41,6 +41,13 @@ Domain knowledge from practitioners is the most valuable contribution.
 - ✅ Keeps `SKILL.md` focused (ideally < 200 lines); put long references in extra files inside the skill folder.
 - ❌ No confidential client data in examples.
 
+## Website (GitHub Pages)
+The site at https://lechithinh.github.io/ba-claude-skills/ is built from `docs/`. Learn pages, domain reference pages and examples are **generated** — after editing a `LEARN.md`, a domain reference or an example, run:
+```bash
+python3 scripts/build_docs.py
+```
+and commit the changes in `docs/`. When adding a new skill or domain, add its SEO title and description in `scripts/build_docs.py`.
+
 ## Pull requests
 - One skill or one topic per PR.
 - Describe what you changed and show a before/after if you improved an existing skill.

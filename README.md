@@ -1,169 +1,139 @@
 <div align="center">
 
-# 🧩 BA Claude Skills
+<a href="https://lechithinh.github.io/ba-claude-skills/"><img src="assets/banner.png" alt="Business Analyst Skills for Claude — requirements, user stories, diagrams, banking and e-commerce domain knowledge" width="100%"></a>
 
-### AI skills for Business Analysts that **know your business domain**.
+# Business Analyst Skills for Claude
 
-BA method (BABOK) **+** domain knowledge (Banking, E-commerce) **+** English & Tiếng Việt
+**Claude skills for Business Analysts: requirements analysis, user stories with Gherkin acceptance criteria, functional decomposition, BPMN/UML diagrams in Mermaid — plus Banking & E-commerce domain knowledge.** BABOK-aligned. English & Tiếng Việt.
 
-[![GitHub stars](https://img.shields.io/github/stars/lechithinh/ba-claude-skills?style=social)](https://github.com/lechithinh/ba-claude-skills/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/lechithinh/ba-claude-skills?style=flat&logo=github)](https://github.com/lechithinh/ba-claude-skills/stargazers)
+[![Release](https://img.shields.io/github/v/release/lechithinh/ba-claude-skills)](https://github.com/lechithinh/ba-claude-skills/releases)
+[![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-D97757)](#quick-start)
+[![Last commit](https://img.shields.io/github/last-commit/lechithinh/ba-claude-skills)](https://github.com/lechithinh/ba-claude-skills/commits/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Method skills](https://img.shields.io/badge/method_skills-5-blue)](#-method-skills--how-a-ba-works)
-[![Domain packs](https://img.shields.io/badge/domain_packs-banking_%7C_e--commerce-orange)](#-domain-packs--what-a-ba-must-know)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**English** · [Tiếng Việt](README.vi.md)
+[**Website**](https://lechithinh.github.io/ba-claude-skills/) · [**Tiếng Việt**](README.vi.md) · [Examples](examples/domain-showcase/README.md) · [Changelog](CHANGELOG.md)
 
 </div>
 
----
+## Quick start
 
-## The problem
+In [Claude Code](https://docs.claude.com/en/docs/claude-code):
 
-AI can already write a user story. But a user story for a **bank transfer** that forgets *timeouts, limits and reconciliation*, or an **order cancellation** rule that forgets *vouchers, COD and split orders*, is exactly the kind of gap that turns into a production incident or a failed UAT.
-
-Generic AI knows *how to write*. A senior BA knows **what to ask** in a specific domain. This repo packages both.
-
-## What makes this repo different
-
-| | Generic prompts | Typical AI skill collections | **BA Claude Skills** |
-|---|:-:|:-:|:-:|
-| Structured BA method (BABOK techniques, IDs, traceability) | ❌ | ✅ | ✅ |
-| Quality gate: scores & rewrites weak requirements | ❌ | ⚠️ rare | ✅ `requirements-linter` |
-| **Domain knowledge packs** (rules, processes, data model, integrations, regulations, BA checklists) | ❌ | ❌ | ✅ **Banking · E-commerce** |
-| Vietnam context (NAPAS/CITAD, eKYC, COD, e-invoice, local regulations) | ❌ | ❌ | ✅ |
-| Bilingual output (EN / VI) | ⚠️ | ❌ | ✅ |
-| Teaches the technique (`LEARN.md` per skill) | ❌ | ❌ | ✅ |
-| End-to-end example you can inspect | ❌ | ⚠️ | ✅ |
-
-## See the difference
-
-Same prompt — *"Write a user story with acceptance criteria for interbank transfer on mobile banking"*:
-
-<table>
-<tr><th width="50%">❌ Generic</th><th width="50%">✅ <code>user-story-writer</code> + <code>domain-banking</code></th></tr>
-<tr><td valign="top">
-
-- Successful transfer
-- Insufficient balance
-
-**2 scenarios.**
-
-</td><td valign="top">
-
-- Successful transfer **with name inquiry**
-- Beneficiary not found / account closed
-- **Per-transaction & daily limit** exceeded
-- **Biometric authentication above threshold**
-- **Switch timeout → Pending → reconciliation → auto-refund**
-- **Duplicate submission (idempotency)**
-- Fee not covered by balance
-- \+ 5 open questions for Compliance & Operations
-
-**7 scenarios + questions.**
-
-</td></tr>
-</table>
-
-👉 Full outputs: [banking transfer](examples/domain-showcase/banking-interbank-transfer.md) · [e-commerce order cancellation](examples/domain-showcase/ecommerce-cancel-order.md)
-
-## How it works
-
-```mermaid
-flowchart LR
-  U["Your request<br/>+ notes / transcript / mockup"] --> M["Method skill<br/>(how a BA works)"]
-  U --> D["Domain pack<br/>(what a BA must know)"]
-  M --> O["Stakeholder-ready output<br/>requirements · stories · diagrams<br/>+ open questions"]
-  D --> O
-```
-
-Claude loads the **method skill** for the task and the **domain pack** for the context — automatically, from what you write. Domain packs use progressive disclosure: only the relevant reference file is read, so context stays small.
-
-## 🧰 Method skills — *how a BA works*
-
-| Skill | What you get | Try saying |
-|---|---|---|
-| [**meeting-to-requirements**](skills/meeting-to-requirements/SKILL.md) | Transcript → goals, FR, NFR, business rules, open questions, action items — each traced to a quote | *"Extract requirements from this meeting transcript"* |
-| [**requirements-linter**](skills/requirements-linter/SKILL.md) ⭐ | 0–10 score per requirement, flags vague / untestable / compound / **missing domain scenarios**, rewrites them | *"Lint these requirements"* |
-| [**functional-decomposition**](skills/functional-decomposition/SKILL.md) | System → modules → features → functions, Mermaid tree, CRUD gap check | *"Functional decomposition for a mobile banking app"* |
-| [**user-story-writer**](skills/user-story-writer/SKILL.md) | INVEST stories + Gherkin AC with error paths, story splitting, Jira CSV | *"Write user stories for checkout"* |
-| [**ba-diagrams**](skills/ba-diagrams/SKILL.md) | Right diagram for the question, in valid Mermaid: swimlane, use case, sequence, ERD, state, context | *"Draw the order state diagram"* |
-
-## 🏦 Domain packs — *what a BA must know*
-
-| Pack | Covers | Inside |
-|---|---|---|
-| [**domain-banking**](skills/domain-banking/SKILL.md) | Retail & digital banking: eKYC onboarding, accounts, transfers (internal / NAPAS / CITAD), cards, lending, term deposits, disputes, EOD | Glossary (40+ terms EN–VI) · processes & capability map · business-rule patterns (limits, auth thresholds, cut-off, timeout/pending, maker-checker) · data model & status sets · integration landscape · regulations · **BA checklist** · KPIs |
-| [**domain-ecommerce**](skills/domain-ecommerce/SKILL.md) | Online stores & marketplaces: catalog, pricing & vouchers, cart & checkout, payment, OMS, fulfillment, shipping & COD, returns & refunds, seller settlement | Glossary · processes · business-rule patterns (stacking, reservation, split orders, refund routing) · data model & status sets · integrations (payment, carriers, e-invoice, marketplaces) · regulations · **BA checklist** · KPIs |
-
-Each pack's `references/checklist.md` is the "questions a senior BA in this domain always asks" — the part juniors don't know to ask.
-
-> ⚠️ Regulation files are community drafts with a *last reviewed* date. They tell you **what to ask Compliance/Legal** — they are not legal advice.
-
-## 🚀 Install
-
-**Claude Code** (recommended)
 ```bash
 /plugin marketplace add lechithinh/ba-claude-skills
 /plugin install ba-claude-skills@ba-claude-skills
 ```
 
-**Manual**
-```bash
-git clone https://github.com/lechithinh/ba-claude-skills.git
-cp -r ba-claude-skills/skills/* ~/.claude/skills/
-```
+Then just ask: *"Write user stories with acceptance criteria for interbank transfer in our mobile banking app."*
+Using Claude.ai, Cursor or Codex? See [other installs](#other-installs).
 
-**Claude.ai** — zip a folder under `skills/` (e.g. `skills/domain-banking`) and upload it in **Settings → Capabilities → Skills**. Upload a method skill *and* the domain pack you need.
+## Who is this for
 
-**Cursor, Codex, Gemini CLI…** — see [`AGENTS.md`](AGENTS.md).
+- **Business Analysts & Product Owners** who want stakeholder-ready output, not generic AI text.
+- **BAs moving into a new domain** (banking, e-commerce) who need to know *what to ask*.
+- **BA teams & trainers** who want a shared, BABOK-aligned way of working with AI.
 
-## 🧭 How to use
+## Why it's different
 
-You don't call skills by name — just describe the task and the domain. Mentioning the domain ("mobile banking", "marketplace", "ngân hàng", "sàn TMĐT") is what pulls in the domain pack.
+AI already knows *how to write* a requirement. A senior BA knows **what to ask** in a specific business domain. This repo packages both:
 
-### Recipes
-
-| Situation | Say this | Skills used |
+| | AI without context | **With BA Claude Skills** |
 |---|---|---|
-| After a stakeholder meeting | *"Extract requirements from this transcript. Context: e-wallet top-up for a bank."* + paste | meeting-to-requirements + domain-banking |
-| Reviewing a BRD before sign-off | *"Lint section 3 of this BRD for a marketplace checkout."* + paste | requirements-linter + domain-ecommerce |
-| Starting a new project | *"Functional decomposition for a digital lending app."* | functional-decomposition + domain-banking |
-| Sprint refinement | *"Write user stories with Gherkin AC for return & refund on our online store."* | user-story-writer + domain-ecommerce |
-| Designing statuses | *"Draw the state diagram for order, payment and shipment and how they affect each other."* | ba-diagrams + domain-ecommerce |
-| Learning a new domain | *"I'm new to banking. Explain the transfer process and what I must ask stakeholders."* | domain-banking |
+| Method | Free-form text | BABOK techniques, IDs, traceability, quality score |
+| Domain | Generic happy path | Domain packs add rules, edge cases and questions for **Banking** and **E-commerce** |
+| Unknown business values | Often invented | Left as `[value — confirm]` + an open-questions list |
+| Diagrams | Often fail to render | Mermaid with a render-safety checklist |
+| Language | English-first | English & Vietnamese, with Vietnam context (NAPAS, eKYC, COD, e-invoice) |
 
-### Tips for best results
-1. **Give context in one line**: business model, channel, actors (e.g. *"B2C fashion store, app + web, own warehouse, COD allowed"*).
-2. **Paste real material**: transcripts, BRD sections, screenshots of mockups.
-3. **Chain the skills**: transcript → requirements → lint → decomposition → stories → diagrams. See the [clinic booking case study](examples/clinic-booking/README.md).
-4. **Answer the open questions** — the `[value — confirm]` placeholders are intentional: the skills never invent your business rules.
+### Same prompt, with and without a domain pack
 
-## 📚 Examples
+*"Write a user story with acceptance criteria for interbank transfer on mobile banking."*
 
-| Example | Shows |
+| AI without context | `user-story-writer` + `domain-banking` |
 |---|---|
-| [Domain showcase](examples/domain-showcase/README.md) | Same prompt with vs without a domain pack (banking, e-commerce) |
-| [Clinic booking case study](examples/clinic-booking/README.md) | Full chain from a Vietnamese meeting transcript to requirements, lint report, decomposition, user stories and diagrams |
+| ✔ Successful transfer<br>✔ Insufficient balance<br><br>**2 scenarios** | ✔ Successful transfer **with beneficiary name inquiry**<br>✔ Beneficiary not found / closed<br>✔ **Per-transaction & daily limits**<br>✔ **Biometric authentication above threshold**<br>✔ **Timeout → pending → reconciliation → auto-refund**<br>✔ **Duplicate submission (idempotency)**<br>✔ Fee not covered by balance<br><br>**7 scenarios + 5 open questions for Compliance & Ops** |
 
-## 🗺️ Roadmap
+→ Full outputs: [banking transfer](examples/domain-showcase/banking-interbank-transfer.md) · [e-commerce order cancellation](examples/domain-showcase/ecommerce-cancel-order.md)
 
-**Next domain packs:** Payments & e-wallets · Insurance · Logistics · Healthcare
-**Next method skills:** decision table · screen spec (from mockups) · API spec (OpenAPI) · UAT test cases · traceability matrix
-Full list: [ROADMAP.md](ROADMAP.md) · [Request a skill or domain](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md)
+## What's inside
 
-## 🤝 Contributing — become a domain maintainer
+**Method skills: how a BA works**
 
-Working as a BA in banking, e-commerce, insurance, logistics, healthcare…? Your domain knowledge is the most valuable contribution here. Domain maintainers are credited in the pack and in this README. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and [`templates/DOMAIN_TEMPLATE`](templates/DOMAIN_TEMPLATE/SKILL.md).
+| Skill | Output |
+|---|---|
+| [`meeting-to-requirements`](skills/meeting-to-requirements/SKILL.md) | Transcript → goals, functional & non-functional requirements, business rules, open questions, each traced to a quote |
+| [`requirements-linter`](skills/requirements-linter/SKILL.md) | 0–10 quality score per requirement; flags vague, untestable, compound and **missing domain scenarios**; rewrites them |
+| [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | System → modules → features → functions, Mermaid tree, CRUD gap check |
+| [`user-story-writer`](skills/user-story-writer/SKILL.md) | INVEST user stories, Gherkin acceptance criteria with error paths, Jira CSV |
+| [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Swimlane process, use case, sequence, ERD, state and context diagrams in Mermaid |
 
-## 👤 Author
+**Domain packs: what a BA must know**
 
-Built by **[Le Chi Thinh](https://github.com/lechithinh)** — Business Analyst sharing practical BA + AI workflows.
+| Pack | Covers |
+|---|---|
+| [`domain-banking`](skills/domain-banking/SKILL.md) | eKYC onboarding, accounts, transfers (internal / NAPAS / CITAD), cards, lending, deposits, disputes |
+| [`domain-ecommerce`](skills/domain-ecommerce/SKILL.md) | Catalog, pricing & vouchers, checkout, payment, orders, fulfillment, shipping & COD, returns, marketplace settlement |
 
-If this repo helps you, ⭐ **star it** so other BAs can find it.
+Each pack contains a glossary, processes, business-rule patterns, **a BA question checklist**, a data model with status sets, integrations, regulatory touchpoints and KPIs. Every method skill also ships a `LEARN.md` that teaches the technique behind it.
+
+## How to use
+
+Describe the task **and the business context**. Claude loads the right method skill and domain pack automatically.
+
+| When | Say |
+|---|---|
+| After a stakeholder meeting | *"Extract requirements from this transcript. Context: e-wallet top-up in a bank app."* |
+| Before BRD sign-off | *"Lint section 3 of this BRD for a marketplace checkout."* |
+| New project | *"Functional decomposition for a digital lending app."* |
+| Sprint refinement | *"User stories with Gherkin for returns & refunds in our online store."* |
+| Status design | *"State diagrams for order, payment and shipment, and how they affect each other."* |
+
+**Tips:** give the business model in one line (*"B2C fashion store, app + web, COD allowed"*), paste real material, and chain the skills: transcript → requirements → lint → decomposition → stories → diagrams. See the [clinic booking case study](examples/clinic-booking/README.md).
+
+## Other installs
+
+- **Manual (Claude Code):** `git clone https://github.com/lechithinh/ba-claude-skills.git && cp -r ba-claude-skills/skills/* ~/.claude/skills/`
+- **Claude.ai:** download skill zips from [Releases](https://github.com/lechithinh/ba-claude-skills/releases) and upload them in **Settings → Capabilities → Skills**. Upload a method skill *and* the domain pack you need.
+- **Cursor, Codex, Gemini CLI and other agents:** point the agent to [`AGENTS.md`](AGENTS.md).
+
+## FAQ
+
+<details><summary><b>Do I need to call skills by name?</b></summary>
+No. Describe the task and the context ("mobile banking", "marketplace"). Claude picks the skills from their descriptions.
+</details>
+
+<details><summary><b>Will it invent business rules or regulations?</b></summary>
+The skills are instructed not to. Unknown values become <code>[value — confirm]</code> placeholders plus open questions. Regulation files are community drafts with a "last reviewed" date. Use them to know what to ask Compliance or Legal; they are not legal advice.
+</details>
+
+<details><summary><b>Does it work in Vietnamese?</b></summary>
+Yes. Skills reply in your language, and the domain packs include English–Vietnamese glossaries and Vietnam-specific context.
+</details>
+
+<details><summary><b>My domain isn't covered. Can I add it?</b></summary>
+Yes. Copy <a href="templates/DOMAIN_TEMPLATE/SKILL.md"><code>templates/DOMAIN_TEMPLATE</code></a> and follow <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>. Domain maintainers are credited.
+</details>
+
+<details><summary><b>Is my data sent anywhere?</b></summary>
+Skills are plain Markdown instructions. Your data goes only to the AI tool you already use, under that tool's terms.
+</details>
+
+## Roadmap
+
+**Domain packs next:** Payments & e-wallets · Insurance · Logistics · Healthcare
+**Method skills next:** decision table · screen spec from mockups · API spec (OpenAPI) · UAT test cases · traceability matrix
+
+[Full roadmap](ROADMAP.md) · [Request a skill or domain](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md)
+
+## Contributing
+
+Practitioner domain knowledge is the most valuable contribution. If you work as a BA in banking, e-commerce, insurance, logistics or healthcare, read [CONTRIBUTING.md](CONTRIBUTING.md) and become a **domain maintainer**.
+
+## Author
+
+Built by **[Le Chi Thinh](https://github.com/lechithinh)**, a Business Analyst sharing practical BA + AI workflows. If this saves you time, please ⭐ star the repo so other BAs can find it.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=lechithinh/ba-claude-skills&type=Date)](https://star-history.com/#lechithinh/ba-claude-skills&Date)
 
-## License
-
-[MIT](LICENSE)
+[MIT License](LICENSE)

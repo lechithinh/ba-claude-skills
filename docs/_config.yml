@@ -1,0 +1,27 @@
+title: Business Analyst Skills for Claude
+description: Claude skills for Business Analysts — requirements analysis, user stories with Gherkin acceptance criteria, functional decomposition, BPMN/UML diagrams, plus Banking & E-commerce domain knowledge. BABOK-aligned, English & Vietnamese.
+url: https://lechithinh.github.io
+baseurl: /ba-claude-skills
+lang: en
+author:
+  name: Le Chi Thinh
+  url: https://github.com/lechithinh
+image: /assets/social-preview.png
+logo: /assets/social-preview.png
+github_repo: https://github.com/lechithinh/ba-claude-skills
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+relative_links:
+  enabled: true
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
