@@ -1,0 +1,13 @@
+{
+  "name": "ba-claude-skills",
+  "version": "0.1.0",
+  "description": "Claude skills for Business Analysts: elicitation, requirements analysis, functional decomposition, user stories, diagrams and requirement quality checks. BABOK-aligned, English & Vietnamese.",
+  "author": {
+    "name": "Le Chi Thinh",
+    "url": "https://github.com/lechithinh"
+  },
+  "homepage": "https://github.com/lechithinh/ba-claude-skills",
+  "repository": "https://github.com/lechithinh/ba-claude-skills",
+  "license": "MIT",
+  "keywords": ["business-analysis", "requirements", "babok", "user-stories", "bpmn", "uml", "mermaid"]
+}

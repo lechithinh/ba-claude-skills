@@ -1,0 +1,21 @@
+{
+  "name": "ba-claude-skills",
+  "owner": {
+    "name": "Le Chi Thinh",
+    "url": "https://github.com/lechithinh"
+  },
+  "metadata": {
+    "description": "Business Analyst skills for Claude — from meeting notes to requirements, decomposition, user stories and diagrams.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "ba-claude-skills",
+      "source": "./",
+      "description": "BABOK-aligned Business Analyst toolkit: meeting-to-requirements, requirements linter, functional decomposition, user story writer, BA diagrams.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "tags": ["business-analysis", "requirements", "babok"]
+    }
+  ]
+}
