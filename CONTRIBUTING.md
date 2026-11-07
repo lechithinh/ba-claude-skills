@@ -22,6 +22,17 @@ Thanks for helping Business Analysts work better with AI! 🙌 Contributions in 
 5. Test it: run the skill on at least **2 different inputs** in Claude Code or Claude.ai and paste one result in your PR.
 6. Update the skill tables in `README.md`, `README.vi.md` and `ROADMAP.md`.
 
+## Adding or improving a domain pack ⭐
+Domain knowledge from practitioners is the most valuable contribution.
+1. Open an issue "Domain: <name>" to claim it and avoid duplicate work.
+2. Copy the template: `cp -r templates/DOMAIN_TEMPLATE skills/domain-<name>` and use `skills/domain-banking` as the reference example.
+3. Fill all 8 reference files. Prioritize **`checklist.md`** (questions a senior BA always asks) and **`business-rules.md`** (patterns, with values as `[confirm]`).
+4. `regulations.md` must have a **Last reviewed** date, cite each document, and never present a regulation as legal advice.
+5. Write generic industry practice — **no confidential employer/client information**.
+6. Add a before/after showcase in `examples/domain-showcase/`.
+
+**Domain maintainers** review PRs for their pack and are credited in the pack's `SKILL.md` and in the README.
+
 ## Quality bar for skills
 - ✅ Has a clear **process** (numbered steps) and an **output format**.
 - ✅ Never invents business facts — uses `[value — confirm]` placeholders.

@@ -35,6 +35,7 @@ Any of: a list of requirements, user stories, a pasted BRD/SRS section, or a fil
 | DAN | Dangling reference | −1 | "the report", "the above", "hệ thống cũ" without definition |
 | AC  | User story without acceptance criteria | −2 | Story format with no AC / no Given-When-Then |
 | INV | INVEST violation (stories only) | −1 each | Not Independent, Negotiable, Valuable, Estimable, Small, Testable |
+| DOM | Missing domain scenario (when a domain pack applies) | −2 each (max −4) | A scenario the domain checklist says must be specified is absent — cite the checklist item |
 
 ## Output format
 
@@ -70,6 +71,9 @@ Any of: a list of requirements, user stories, a pasted BRD/SRS section, or a fil
 ### Top 3 patterns to fix across the document
 1. …
 ```
+
+## Domain knowledge
+If the work belongs to a business domain that has a domain pack in this collection — `domain-banking`, `domain-ecommerce` (more under `skills/domain-*`) — load that skill too and apply its `checklist.md` and `business-rules.md`. Add a **DOM** finding (−2) for each domain scenario the requirement misses (e.g. timeout/pending for bank transfers, voucher stacking for e-commerce checkout), citing the checklist item. If no pack exists, state which domain assumptions you made.
 
 ## Guardrails
 - Quote the user's exact words when flagging; never paraphrase the defect.

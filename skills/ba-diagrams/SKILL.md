@@ -39,6 +39,9 @@ If the user's request is ambiguous, pick the best fit, say why in one line, and 
 3. A short **legend / notes**: assumptions, open questions, things deliberately left out.
 4. Offer the next useful diagram (e.g. after a process flow → the state diagram of the main object).
 
+## Domain knowledge
+If the work belongs to a business domain that has a domain pack in this collection — `domain-banking`, `domain-ecommerce` (more under `skills/domain-*`) — load that skill too. Use the pack's status sets (`data-model.md`) for state diagrams, its processes (`processes.md`) for process flows, and its integration landscape (`integrations.md`) for context/sequence diagrams. If no pack exists, state which domain assumptions you made.
+
 ## Mermaid safety checklist (avoid render errors)
 - Quote any label containing `( ) [ ] { } : ; , " / #` or non-ASCII → `A["Huỷ lịch (trước 2h)"]`.
 - Do not use `end` as a node ID (reserved); use `endNode`.

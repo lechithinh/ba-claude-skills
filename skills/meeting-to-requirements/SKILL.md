@@ -60,6 +60,9 @@ Reply in the language of the transcript unless the user asks otherwise. Mixed Vi
 - Build the scope tree with `functional-decomposition`
 ```
 
+## Domain knowledge
+If the work belongs to a business domain that has a domain pack in this collection — `domain-banking`, `domain-ecommerce` (more under `skills/domain-*`) — load that skill too and apply its `checklist.md` and `business-rules.md`. Add domain questions the stakeholders did not raise to *Open questions*, tagged `[domain]`. If no pack exists, state which domain assumptions you made.
+
 ## Guardrails
 - Requirements use "shall"/"phải" statements with an actor; keep them atomic (one behaviour each).
 - Keep quotes ≤ 20 words; trim with "…".

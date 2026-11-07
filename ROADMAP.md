@@ -1,6 +1,16 @@
 # Roadmap
 
-Skills are organized by **BABOK v3 knowledge area**. ✅ = available · 🔜 = planned. Vote with 👍 on the matching issue or [request a new skill](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md).
+## Domain packs
+- ✅ `domain-banking` — retail & digital banking (Vietnam focus)
+- ✅ `domain-ecommerce` — online stores & marketplaces (Vietnam focus)
+- 🔜 `domain-payments` — e-wallets, payment gateways, QR, reconciliation
+- 🔜 `domain-insurance` — products, policy issuance, premiums, claims
+- 🔜 `domain-logistics` — warehouse, last-mile, COD, 3PL
+- 🔜 `domain-healthcare` — clinics/hospitals, appointments, EMR, insurance claims
+- 🔜 `domain-hr` — HRM, payroll, timekeeping
+
+## Method skills
+Method skills are organized by **BABOK v3 knowledge area**. ✅ = available · 🔜 = planned. Vote with 👍 on the matching issue or [request a new skill](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md).
 
 ## Business Analysis Planning & Monitoring
 - 🔜 `stakeholder-map` — stakeholder list, Power/Interest grid, RACI
@@ -24,6 +34,8 @@ Skills are organized by **BABOK v3 knowledge area**. ✅ = available · 🔜 = p
 - ✅ `functional-decomposition`
 - ✅ `user-story-writer`
 - ✅ `ba-diagrams`
+- 🔜 `decision-table` — rules → decision table with missing/conflicting combinations and test cases
+- 🔜 `screen-spec` — field-level screen specification from a mockup image
 - 🔜 `nfr-checklist` — ISO 25010-based NFR elicitation
 - 🔜 `business-rules-catalog`
 - 🔜 `use-case-spec` — fully dressed use case specification

@@ -60,6 +60,9 @@ After all stories, provide:
 - **Story map summary** — table of stories grouped by module/feature.
 - **Jira CSV** (only if the user asks or says "Jira"): columns `Summary,Issue Type,Description,Priority,Labels` with descriptions escaped for CSV.
 
+## Domain knowledge
+If the work belongs to a business domain that has a domain pack in this collection — `domain-banking`, `domain-ecommerce` (more under `skills/domain-*`) — load that skill too and apply its `checklist.md` and `business-rules.md`. Add the domain's typical alternative/error scenarios to acceptance criteria and reference the business-rule pattern used. If no pack exists, state which domain assumptions you made.
+
 ## Guardrails
 - Stories describe behaviour visible to a user; technical tasks go in "Notes" or a separate "Enabler" item.
 - Avoid UI-prescriptive AC ("click the blue button") unless the user asks for UI-level detail.

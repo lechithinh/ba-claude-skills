@@ -54,6 +54,9 @@ flowchart TD
 - Assumptions
 ~~~
 
+## Domain knowledge
+If the work belongs to a business domain that has a domain pack in this collection — `domain-banking`, `domain-ecommerce` (more under `skills/domain-*`) — load that skill too and apply its `checklist.md` and `business-rules.md`. Use the pack's capability map in `processes.md` as the Level-1 starting point and check for typical functions that are missing. If no pack exists, state which domain assumptions you made.
+
 ## Guardrails
 - Keep diagrams readable: if > 40 nodes, draw Level 1–2 only and one sub-diagram per module.
 - Mermaid: quote labels containing parentheses or special characters, e.g. `A["Export (PDF)"]`.
