@@ -42,11 +42,11 @@ Sau đó chỉ cần nói: *"Viết user story kèm acceptance criteria cho ch�
 
 Một sơ đồ BPMN có thể trông hoàn hảo mà vẫn giấu lỗi. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) không chỉ vẽ: skill **cho token chạy qua từng kịch bản** và chỉ ra chính xác chỗ quy trình bị kẹt. Sơ đồ demo dùng nhãn tiếng Anh để người đọc quốc tế cũng hiểu; skill vẫn trả lời theo ngôn ngữ của bạn.
 
-<p align="center"><img src="assets/token-demo-asis.svg" alt="Sơ đồ BPMN động, AS-IS: token chạy hết kịch bản thành công, rồi ở kịch bản cổng thanh toán không trả kết quả thì kẹt ở 'Receive payment result' và hiện nhãn đỏ STUCK" width="100%"></p>
+<p align="center"><img src="assets/bpmn-token-as-is.svg" alt="Sơ đồ BPMN động, AS-IS: token chạy hết kịch bản thành công, rồi ở kịch bản cổng thanh toán không trả kết quả thì kẹt ở 'Receive payment result' và hiện nhãn đỏ STUCK" width="100%"></p>
 
 **AS-IS: nhìn thì ổn.** Kịch bản A (thanh toán thành công) chạy trọn vẹn. Kịch bản E ("cổng thanh toán không bao giờ trả lời") khiến token **kẹt vĩnh viễn** ở *Receive payment result*. Ngoài đời, đó là đơn hàng treo và khách có thể đã bị trừ tiền.
 
-<p align="center"><img src="assets/token-demo-tobe.svg" alt="Sơ đồ BPMN động, TO-BE: có timer 5 phút gắn vào task chờ, token thoát ra và kết thúc ở 'Order awaiting reconciliation' thuộc lane Operations" width="100%"></p>
+<p align="center"><img src="assets/bpmn-token-to-be.svg" alt="Sơ đồ BPMN động, TO-BE: có timer 5 phút gắn vào task chờ, token thoát ra và kết thúc ở 'Order awaiting reconciliation' thuộc lane Operations" width="100%"></p>
 
 **TO-BE: cách sửa.** Skill đề xuất **timer 5 phút** gắn vào task đang chờ. Khi hết giờ, token đi luồng ngoại lệ sang *Order awaiting reconciliation* (bước của bộ phận Vận hành) thay vì chờ mãi. Mỗi lựa chọn ký hiệu đều kèm *vì sao dùng, vì sao không dùng cách khác*.
 

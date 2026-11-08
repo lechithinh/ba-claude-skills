@@ -43,11 +43,11 @@ Then just ask: *"Write user stories with acceptance criteria for interbank trans
 
 A BPMN diagram can look perfect and still hide a bug. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) doesn't just draw: it **runs tokens through scenarios** and shows exactly where the process gets stuck.
 
-<p align="center"><img src="assets/token-demo-asis.svg" alt="Animated BPMN diagram, AS-IS: a token completes the happy path, then in the scenario where the payment gateway never replies the token gets stuck on 'Receive payment result' and a red STUCK badge appears" width="100%"></p>
+<p align="center"><img src="assets/bpmn-token-as-is.svg" alt="Animated BPMN diagram, AS-IS: a token completes the happy path, then in the scenario where the payment gateway never replies the token gets stuck on 'Receive payment result' and a red STUCK badge appears" width="100%"></p>
 
 **AS-IS: it looks fine.** Scenario A (payment succeeds) runs end to end. Scenario E ("the payment gateway never replies") leaves the token **stuck forever** on *Receive payment result*. In real life that means a hanging order and a customer who may already have been charged.
 
-<p align="center"><img src="assets/token-demo-tobe.svg" alt="Animated BPMN diagram, TO-BE: with a 5-minute timer boundary event, the token leaves the waiting task and ends at 'Order awaiting reconciliation' in the Operations lane" width="100%"></p>
+<p align="center"><img src="assets/bpmn-token-to-be.svg" alt="Animated BPMN diagram, TO-BE: with a 5-minute timer boundary event, the token leaves the waiting task and ends at 'Order awaiting reconciliation' in the Operations lane" width="100%"></p>
 
 **TO-BE: the fix.** The skill proposes a **5-minute timer** on the waiting task. When it fires, the token takes the exception path to *Order awaiting reconciliation* (an Operations step) instead of waiting forever. Every symbol choice comes with *why this one, and why not the alternative*.
 
