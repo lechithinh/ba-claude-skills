@@ -8,7 +8,7 @@ hide_title: true
 ---
 
 <div class="hero">
-  <img src="{{ '/assets/banner.png' | relative_url }}" alt="Bộ skill Claude cho Business Analyst — phân tích yêu cầu, user story, sơ đồ, nghiệp vụ ngân hàng và thương mại điện tử">
+  <img src="{{ '/assets/readme-banner.png' | relative_url }}" alt="Bộ skill Claude cho Business Analyst: 10+ skill phương pháp và 5+ domain pack">
   <h1>Bộ Skill Claude cho Business Analyst</h1>
   <p class="lead">Skill Claude mã nguồn mở làm việc như một BA lâu năm: phân tích yêu cầu, viết user story kèm acceptance criteria, phân rã chức năng, vẽ sơ đồ BPMN/UML, <b>cùng kiến thức nghiệp vụ Ngân hàng và Thương mại điện tử</b>.</p>
   <a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Xem trên GitHub</a>

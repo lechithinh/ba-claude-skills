@@ -8,7 +8,7 @@ hide_title: true
 ---
 
 <div class="hero">
-  <img src="{{ '/assets/banner.png' | relative_url }}" alt="Business Analyst Skills for Claude — requirements, user stories, diagrams, banking and e-commerce domain knowledge">
+  <img src="{{ '/assets/readme-banner.png' | relative_url }}" alt="Business Analyst Skills for Claude: 10+ method skills and 5+ domain packs">
   <h1>Business Analyst Skills for Claude</h1>
   <p class="lead">Open-source Claude skills that work like a senior Business Analyst: requirements analysis, user stories with Gherkin acceptance criteria, functional decomposition and BPMN/UML diagrams, <b>plus domain knowledge for Banking and E-commerce</b>.</p>
   <a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Get it on GitHub</a>

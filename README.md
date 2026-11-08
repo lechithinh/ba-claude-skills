@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://lechithinh.github.io/ba-claude-skills/"><img src="assets/banner.png" alt="Business Analyst Skills for Claude: requirements, user stories, diagrams, banking and e-commerce domain knowledge" width="100%"></a>
+<a href="https://lechithinh.github.io/ba-claude-skills/"><img src="assets/readme-banner.png" alt="Business Analyst Skills for Claude: 10+ method skills and 5+ domain packs (banking, e-commerce, payments, lending, logistics)" width="100%"></a>
 
 # Business Analyst Skills for Claude
 

@@ -6,7 +6,7 @@ lang: en
 author:
   name: Le Chi Thinh
   url: https://github.com/lechithinh
-logo: /assets/social-preview.png
+logo: /assets/github-social-preview.png
 github_repo: https://github.com/lechithinh/ba-claude-skills
 markdown: kramdown
 kramdown:
@@ -24,6 +24,6 @@ defaults:
       path: ""
     values:
       layout: default
-      image: /assets/social-preview.png
+      image: /assets/github-social-preview.png
 webmaster_verifications:
   google: zolDDb15ua5lcNJLvhJLXu6a7YBmtSQFPtLPqn9s-YM

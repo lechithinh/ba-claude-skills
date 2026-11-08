@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://lechithinh.github.io/ba-claude-skills/vi/"><img src="assets/banner.png" alt="Bộ skill Claude cho Business Analyst: phân tích yêu cầu, user story, sơ đồ, nghiệp vụ ngân hàng và thương mại điện tử" width="100%"></a>
+<a href="https://lechithinh.github.io/ba-claude-skills/vi/"><img src="assets/readme-banner.png" alt="Bộ skill Claude cho Business Analyst: 10+ skill phương pháp và 5+ domain pack (ngân hàng, thương mại điện tử, thanh toán, cho vay, logistics)" width="100%"></a>
 
 # Bộ Skill Claude cho Business Analyst
 
