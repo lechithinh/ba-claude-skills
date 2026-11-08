@@ -47,9 +47,9 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 
 ### Cùng một prompt, có và không có domain pack
 
-*"Viết user story kèm acceptance criteria cho chức năng chuyển tiền liên ngân hàng trên mobile banking."*
+*"Viết user story kèm acceptance criteria cho chức năng chuyển tiền liên ngân hàng trên mobile banking."* So sánh: AI không có bối cảnh và `user-story-writer` + `domain-banking`.
 
-| Kịch bản | AI không có bối cảnh | `user-story-writer` + `domain-banking` | Vì sao quan trọng |
+| Kịch bản | AI không có bối cảnh | Có domain pack | Vì sao quan trọng |
 |---|:-:|:-:|---|
 | Chuyển tiền thành công | ✅ | ✅ có truy vấn tên người thụ hưởng | Hiện tên chủ tài khoản trước khi xác nhận giúp tránh chuyển nhầm người |
 | Không đủ số dư | ✅ | ✅ tính cả phí | Số dư có thể đủ cho số tiền nhưng không đủ cho số tiền + phí |

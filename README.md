@@ -48,9 +48,9 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 
 ### Same prompt, with and without a domain pack
 
-*"Write a user story with acceptance criteria for interbank transfer on mobile banking."*
+*"Write a user story with acceptance criteria for interbank transfer on mobile banking."* Compared: AI without context vs `user-story-writer` + `domain-banking`.
 
-| Scenario | AI without context | `user-story-writer` + `domain-banking` | Why it matters |
+| Scenario | AI without context | With domain pack | Why it matters |
 |---|:-:|:-:|---|
 | Successful transfer | ✅ | ✅ with beneficiary name inquiry | Showing the account name before confirming prevents sending money to the wrong person |
 | Insufficient balance | ✅ | ✅ including fee | The balance may cover the amount but not amount + fee |
