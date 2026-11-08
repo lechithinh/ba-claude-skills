@@ -1,0 +1,37 @@
+{
+  "name": "Đăng ký & eKYC mở tài khoản – ngân hàng số",
+  "lanes": [
+    {"id": "kh", "name": "Khách hàng"},
+    {"id": "app", "name": "App ngân hàng"},
+    {"id": "ekyc", "name": "eKYC Provider"},
+    {"id": "td", "name": "Thẩm định"}
+  ],
+  "nodes": [
+    {"id": "s", "type": "start", "lane": "kh", "name": "Khách muốn mở tài khoản"},
+    {"id": "t1", "type": "user_task", "lane": "kh", "name": "Nhập thông tin cá nhân"},
+    {"id": "t2", "type": "user_task", "lane": "kh", "name": "Chụp giấy tờ và khuôn mặt"},
+    {"id": "t3", "type": "service_task", "lane": "app", "name": "Gửi hồ sơ xác thực"},
+    {"id": "t4", "type": "service_task", "lane": "ekyc", "name": "Đối chiếu CCCD và liveness"},
+    {"id": "g1", "type": "xor", "lane": "app", "name": "Kết quả khớp?"},
+    {"id": "t5", "type": "service_task", "lane": "app", "name": "Tạo tài khoản trên Core"},
+    {"id": "t6", "type": "send_task", "lane": "app", "name": "Thông báo kích hoạt"},
+    {"id": "e1", "type": "end", "lane": "app", "name": "Tài khoản đã kích hoạt"},
+    {"id": "t7", "type": "user_task", "lane": "td", "name": "Thẩm định hồ sơ thủ công"},
+    {"id": "g2", "type": "xor", "lane": "td", "name": "Hồ sơ được duyệt?"},
+    {"id": "e2", "type": "end", "lane": "td", "name": "Hồ sơ bị từ chối"}
+  ],
+  "flows": [
+    {"from": "s", "to": "t1"},
+    {"from": "t1", "to": "t2"},
+    {"from": "t2", "to": "t3"},
+    {"from": "t3", "to": "t4"},
+    {"from": "t4", "to": "g1"},
+    {"from": "g1", "to": "t5", "name": "Khớp"},
+    {"from": "g1", "to": "t7", "name": "Không khớp", "default": true},
+    {"from": "t5", "to": "t6"},
+    {"from": "t6", "to": "e1"},
+    {"from": "t7", "to": "g2"},
+    {"from": "g2", "to": "t5", "name": "Duyệt"},
+    {"from": "g2", "to": "e2", "name": "Từ chối", "default": true}
+  ]
+}

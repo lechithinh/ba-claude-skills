@@ -1,0 +1,37 @@
+flowchart TD
+    subgraph kh["Khách hàng"]
+        s(("Muốn đặt món"))
+        t1["Chọn món và đặt đơn"]
+    end
+    subgraph ht["Hệ thống"]
+        t2["Thanh toán qua ví"]
+        t3["Báo thanh toán thất bại"]
+        e2((("Đơn bị huỷ")))
+        p1{"+ "}
+        t4["Tìm tài xế"]
+        t6["Nhắc quán"]
+        e3((("Đã nhắc quán")))
+        p2{"+ "}
+    end
+    subgraph qa["Quán ăn"]
+        t5["Chuẩn bị món"]
+    end
+    subgraph tx["Tài xế"]
+        t7["Lấy món và giao cho khách"]
+        e1((("Đã giao món")))
+    end
+    t2 -.- b1(["Lỗi thanh toán"])
+    t5 -.- b2(["Sau 15 phút"])
+    s --> t1
+    t1 --> t2
+    t2 --> p1
+    b1 --> t3
+    t3 --> e2
+    p1 --> t4
+    p1 --> t5
+    t4 --> p2
+    t5 --> p2
+    b2 --> t6
+    t6 --> e3
+    p2 --> t7
+    t7 --> e1

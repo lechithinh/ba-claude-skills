@@ -1,0 +1,240 @@
+{
+  "name": "Gọi xe công nghệ",
+  "lanes": [
+    {
+      "id": "dp",
+      "name": "Hệ thống điều phối"
+    },
+    {
+      "id": "app",
+      "name": "Ứng dụng"
+    }
+  ],
+  "pools": [
+    {
+      "id": "driver",
+      "name": "Tài xế",
+      "position": "top"
+    },
+    {
+      "id": "cust",
+      "name": "Khách hàng",
+      "position": "bottom"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "type": "start_message",
+      "lane": "app",
+      "name": "Nhận yêu cầu đặt xe"
+    },
+    {
+      "id": "t1",
+      "type": "send_task",
+      "lane": "app",
+      "name": "Tính và gửi giá cước"
+    },
+    {
+      "id": "m1",
+      "type": "xor",
+      "lane": "dp",
+      "name": ""
+    },
+    {
+      "id": "t2",
+      "type": "service_task",
+      "lane": "dp",
+      "name": "Tìm tài xế gần nhất"
+    },
+    {
+      "id": "t3",
+      "type": "send_task",
+      "lane": "dp",
+      "name": "Gửi yêu cầu cho tài xế"
+    },
+    {
+      "id": "g1",
+      "type": "event_based",
+      "lane": "dp",
+      "name": ""
+    },
+    {
+      "id": "c1",
+      "type": "message_catch",
+      "lane": "dp",
+      "name": "Tài xế nhận chuyến"
+    },
+    {
+      "id": "c2",
+      "type": "timer",
+      "lane": "dp",
+      "name": "Hết 60 giây"
+    },
+    {
+      "id": "g2",
+      "type": "xor",
+      "lane": "dp",
+      "name": "Đã thử 3 tài xế?"
+    },
+    {
+      "id": "t4",
+      "type": "send_task",
+      "lane": "app",
+      "name": "Thông báo tài xế đang đến"
+    },
+    {
+      "id": "e1",
+      "type": "end",
+      "lane": "app",
+      "name": "Đã ghép chuyến"
+    },
+    {
+      "id": "t5",
+      "type": "send_task",
+      "lane": "app",
+      "name": "Báo không tìm được xe"
+    },
+    {
+      "id": "e2",
+      "type": "end",
+      "lane": "app",
+      "name": "Không có xe"
+    }
+  ],
+  "flows": [
+    {
+      "from": "s",
+      "to": "t1"
+    },
+    {
+      "from": "t1",
+      "to": "m1"
+    },
+    {
+      "from": "m1",
+      "to": "t2"
+    },
+    {
+      "from": "t2",
+      "to": "t3"
+    },
+    {
+      "from": "t3",
+      "to": "g1"
+    },
+    {
+      "from": "g1",
+      "to": "c1"
+    },
+    {
+      "from": "g1",
+      "to": "c2"
+    },
+    {
+      "from": "c1",
+      "to": "t4"
+    },
+    {
+      "from": "t4",
+      "to": "e1"
+    },
+    {
+      "from": "c2",
+      "to": "g2"
+    },
+    {
+      "from": "g2",
+      "to": "m1",
+      "name": "Chưa"
+    },
+    {
+      "from": "g2",
+      "to": "t5",
+      "name": "Rồi"
+    },
+    {
+      "from": "t5",
+      "to": "e2"
+    }
+  ],
+  "messages": [
+    {
+      "id": "r1",
+      "from": "cust",
+      "to": "s",
+      "name": "Yêu cầu đặt xe"
+    },
+    {
+      "id": "r2",
+      "from": "t1",
+      "to": "cust",
+      "name": "Giá cước"
+    },
+    {
+      "id": "r3",
+      "from": "t3",
+      "to": "driver",
+      "name": "Yêu cầu chuyến"
+    },
+    {
+      "id": "r4",
+      "from": "driver",
+      "to": "c1",
+      "name": "Nhận chuyến"
+    },
+    {
+      "id": "r5",
+      "from": "t4",
+      "to": "cust",
+      "name": "Thông tin tài xế"
+    },
+    {
+      "id": "r6",
+      "from": "t5",
+      "to": "cust",
+      "name": "Không có xe"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Tài xế nhận ngay",
+      "choices": {
+        "g1": "c1"
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "B",
+      "name": "Hết 60 giây, thử tài xế khác",
+      "choices": {
+        "g1": [
+          "c2",
+          "c1"
+        ],
+        "g2": [
+          "Chưa"
+        ]
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "C",
+      "name": "3 tài xế đều không nhận",
+      "choices": {
+        "g1": [
+          "c2",
+          "c2",
+          "c2"
+        ],
+        "g2": [
+          "Chưa",
+          "Chưa",
+          "Rồi"
+        ]
+      },
+      "expect": "e2"
+    }
+  ]
+}

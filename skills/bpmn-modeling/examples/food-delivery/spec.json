@@ -1,0 +1,191 @@
+{
+  "name": "Đặt đồ ăn giao tận nơi",
+  "lanes": [
+    {
+      "id": "kh",
+      "name": "Khách hàng"
+    },
+    {
+      "id": "ht",
+      "name": "Hệ thống"
+    },
+    {
+      "id": "qa",
+      "name": "Quán ăn"
+    },
+    {
+      "id": "tx",
+      "name": "Tài xế"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "type": "start",
+      "lane": "kh",
+      "name": "Muốn đặt món"
+    },
+    {
+      "id": "t1",
+      "type": "user_task",
+      "lane": "kh",
+      "name": "Chọn món và đặt đơn"
+    },
+    {
+      "id": "t2",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Thanh toán qua ví"
+    },
+    {
+      "id": "b1",
+      "type": "boundary_error",
+      "attached_to": "t2",
+      "name": "Lỗi thanh toán"
+    },
+    {
+      "id": "t3",
+      "type": "send_task",
+      "lane": "ht",
+      "name": "Báo thanh toán thất bại"
+    },
+    {
+      "id": "e2",
+      "type": "end",
+      "lane": "ht",
+      "name": "Đơn bị huỷ"
+    },
+    {
+      "id": "p1",
+      "type": "and",
+      "lane": "ht",
+      "name": ""
+    },
+    {
+      "id": "t4",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Tìm tài xế"
+    },
+    {
+      "id": "t5",
+      "type": "user_task",
+      "lane": "qa",
+      "name": "Chuẩn bị món"
+    },
+    {
+      "id": "b2",
+      "type": "boundary_timer",
+      "attached_to": "t5",
+      "interrupting": false,
+      "name": "Sau 15 phút"
+    },
+    {
+      "id": "t6",
+      "type": "send_task",
+      "lane": "ht",
+      "name": "Nhắc quán"
+    },
+    {
+      "id": "e3",
+      "type": "end",
+      "lane": "ht",
+      "name": "Đã nhắc quán"
+    },
+    {
+      "id": "p2",
+      "type": "and",
+      "lane": "ht",
+      "name": ""
+    },
+    {
+      "id": "t7",
+      "type": "user_task",
+      "lane": "tx",
+      "name": "Lấy món và giao cho khách"
+    },
+    {
+      "id": "e1",
+      "type": "end",
+      "lane": "tx",
+      "name": "Đã giao món"
+    }
+  ],
+  "flows": [
+    {
+      "from": "s",
+      "to": "t1"
+    },
+    {
+      "from": "t1",
+      "to": "t2"
+    },
+    {
+      "from": "t2",
+      "to": "p1"
+    },
+    {
+      "from": "b1",
+      "to": "t3"
+    },
+    {
+      "from": "t3",
+      "to": "e2"
+    },
+    {
+      "from": "p1",
+      "to": "t4"
+    },
+    {
+      "from": "p1",
+      "to": "t5"
+    },
+    {
+      "from": "t4",
+      "to": "p2"
+    },
+    {
+      "from": "t5",
+      "to": "p2"
+    },
+    {
+      "from": "b2",
+      "to": "t6"
+    },
+    {
+      "from": "t6",
+      "to": "e3"
+    },
+    {
+      "from": "p2",
+      "to": "t7"
+    },
+    {
+      "from": "t7",
+      "to": "e1"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Đặt món thành công",
+      "expect": "e1"
+    },
+    {
+      "id": "B",
+      "name": "Quán nấu quá 15 phút",
+      "fire": [
+        "b2"
+      ],
+      "expect": "e1"
+    },
+    {
+      "id": "C",
+      "name": "Thanh toán lỗi",
+      "fire": [
+        "b1"
+      ],
+      "expect": "e2"
+    }
+  ]
+}

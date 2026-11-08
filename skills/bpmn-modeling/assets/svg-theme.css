@@ -1,0 +1,34 @@
+/* Theme cho SVG sinh bởi scripts/spec_to_svg.py.
+   Đổi màu theo thương hiệu bằng cách sửa các biến bên dưới. */
+.bpmn-svg {
+  --bp-bg: #F7F5EF;          /* nền sơ đồ */
+  --bp-paper: #FFFFFF;       /* nền task, event, gateway */
+  --bp-ink: #1B1B1F;         /* nét và chữ */
+  --bp-muted: #6B6B75;       /* chữ phụ, nhãn đường nối */
+  --bp-pool: #E9E5DA;        /* dải tên pool / lane, pool thu gọn */
+  --bp-pool-accent: #F2C94C; /* dải tên pool chính */
+  --bp-font: "Be Vietnam Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bp-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-family: var(--bp-font);
+}
+.bpmn-svg .bg { fill: var(--bp-bg); }
+.bpmn-svg .pool { fill: none; stroke: var(--bp-ink); stroke-width: 2; }
+.bpmn-svg .pool-head { fill: var(--bp-pool-accent); stroke: var(--bp-ink); stroke-width: 2; }
+.bpmn-svg .lane-head { fill: var(--bp-pool); stroke: var(--bp-ink); stroke-width: 1.5; }
+.bpmn-svg .lane-line { stroke: var(--bp-ink); stroke-width: 1.5; }
+.bpmn-svg .ext-pool { fill: var(--bp-pool); stroke: var(--bp-ink); stroke-width: 2; }
+.bpmn-svg .shape { fill: var(--bp-paper); stroke: var(--bp-ink); stroke-width: 2; }
+.bpmn-svg .shape.end { stroke-width: 4.5; }
+.bpmn-svg .shape.thin { stroke-width: 1.5; }
+.bpmn-svg .shape.dashed { stroke-dasharray: 5 3; }
+.bpmn-svg .ink { fill: var(--bp-ink); }
+.bpmn-svg .line { fill: none; stroke: var(--bp-ink); stroke-width: 1.4; }
+.bpmn-svg .flow { fill: none; stroke: var(--bp-ink); stroke-width: 2; stroke-linejoin: round; }
+.bpmn-svg .msg { fill: none; stroke: var(--bp-ink); stroke-width: 1.6; stroke-dasharray: 7 5; }
+.bpmn-svg text { fill: var(--bp-ink); }
+.bpmn-svg .t-node { font-size: 12.5px; }
+.bpmn-svg .t-label { font-size: 12px; }
+.bpmn-svg .t-flow { font-size: 11px; font-family: var(--bp-mono); font-weight: 700; fill: var(--bp-ink); }
+.bpmn-svg .t-msg { font-size: 11px; font-family: var(--bp-mono); fill: var(--bp-muted); }
+.bpmn-svg .t-pool { font-size: 14px; font-weight: 700; }
+.bpmn-svg .t-lane { font-size: 12.5px; font-weight: 700; }

@@ -1,0 +1,103 @@
+{
+  "name": "Mua đồ uống tại quầy",
+  "lanes": [
+    {
+      "id": "kh",
+      "name": "Khách hàng"
+    },
+    {
+      "id": "nv",
+      "name": "Nhân viên quầy"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "type": "start",
+      "lane": "kh",
+      "name": "Khách tới quầy"
+    },
+    {
+      "id": "t1",
+      "type": "task",
+      "lane": "kh",
+      "name": "Gọi món"
+    },
+    {
+      "id": "t2",
+      "type": "task",
+      "lane": "nv",
+      "name": "Kiểm tra món còn không"
+    },
+    {
+      "id": "g1",
+      "type": "xor",
+      "lane": "nv",
+      "name": "Còn món?"
+    },
+    {
+      "id": "t3",
+      "type": "task",
+      "lane": "nv",
+      "name": "Thu tiền và giao món"
+    },
+    {
+      "id": "e1",
+      "type": "end",
+      "lane": "nv",
+      "name": "Khách nhận món"
+    },
+    {
+      "id": "e2",
+      "type": "end",
+      "lane": "nv",
+      "name": "Khách không mua"
+    }
+  ],
+  "flows": [
+    {
+      "from": "s",
+      "to": "t1"
+    },
+    {
+      "from": "t1",
+      "to": "t2"
+    },
+    {
+      "from": "t2",
+      "to": "g1"
+    },
+    {
+      "from": "g1",
+      "to": "t3",
+      "name": "Còn"
+    },
+    {
+      "from": "g1",
+      "to": "e2",
+      "name": "Hết"
+    },
+    {
+      "from": "t3",
+      "to": "e1"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Còn món",
+      "choices": {
+        "g1": "Còn"
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "B",
+      "name": "Hết món",
+      "choices": {
+        "g1": "Hết"
+      },
+      "expect": "e2"
+    }
+  ]
+}

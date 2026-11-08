@@ -1,0 +1,71 @@
+{
+  "name": "Đặt vé xe khách trực tuyến",
+  "lanes": [
+    {"id": "kh", "name": "Hành khách"},
+    {"id": "ht", "name": "Hệ thống đặt vé"}
+  ],
+  "pools": [
+    {"id": "pay", "name": "Cổng thanh toán", "position": "bottom"}
+  ],
+  "nodes": [
+    {"id": "s", "type": "start", "lane": "kh", "name": "Cần đi xe khách"},
+    {"id": "t1", "type": "user_task", "lane": "kh", "name": "Nhập tuyến và ngày đi"},
+    {"id": "t2", "type": "service_task", "lane": "ht", "name": "Tìm chuyến còn chỗ"},
+    {"id": "g1", "type": "xor", "lane": "ht", "name": "Có chuyến phù hợp?"},
+    {"id": "e0", "type": "end", "lane": "ht", "name": "Không có chuyến"},
+    {"id": "m1", "type": "xor", "lane": "kh", "name": ""},
+    {"id": "t3", "type": "user_task", "lane": "kh", "name": "Chọn chuyến và ghế"},
+    {"id": "t4", "type": "service_task", "lane": "ht", "name": "Giữ ghế 10 phút"},
+    {"id": "g2", "type": "xor", "lane": "ht", "name": "Giữ ghế được?"},
+    {"id": "t5", "type": "user_task", "lane": "kh", "name": "Nhập thông tin hành khách"},
+    {"id": "b1", "type": "boundary_timer", "attached_to": "t5", "interrupting": true, "name": "Hết 10 phút giữ ghế"},
+    {"id": "t6", "type": "send_task", "lane": "ht", "name": "Gửi yêu cầu thanh toán"},
+    {"id": "g3", "type": "event_based", "lane": "ht", "name": ""},
+    {"id": "c1", "type": "message_catch", "lane": "ht", "name": "Nhận kết quả thanh toán"},
+    {"id": "c2", "type": "timer", "lane": "ht", "name": "Hết 10 phút giữ ghế"},
+    {"id": "g4", "type": "xor", "lane": "ht", "name": "Thanh toán thành công?"},
+    {"id": "t7", "type": "service_task", "lane": "ht", "name": "Xuất vé điện tử"},
+    {"id": "t8", "type": "send_task", "lane": "ht", "name": "Gửi vé cho hành khách"},
+    {"id": "e1", "type": "end", "lane": "kh", "name": "Đã có vé"},
+    {"id": "m2", "type": "xor", "lane": "ht", "name": ""},
+    {"id": "t9", "type": "service_task", "lane": "ht", "name": "Nhả ghế đã giữ"},
+    {"id": "e2", "type": "end", "lane": "kh", "name": "Đặt vé không thành công"}
+  ],
+  "flows": [
+    {"from": "s", "to": "t1"},
+    {"from": "t1", "to": "t2"},
+    {"from": "t2", "to": "g1"},
+    {"from": "g1", "to": "e0", "name": "Không"},
+    {"from": "g1", "to": "m1", "name": "Có", "default": true},
+    {"from": "m1", "to": "t3"},
+    {"from": "t3", "to": "t4"},
+    {"from": "t4", "to": "g2"},
+    {"from": "g2", "to": "m1", "name": "Không (ghế đã bán)"},
+    {"from": "g2", "to": "t5", "name": "Được", "default": true},
+    {"from": "t5", "to": "t6"},
+    {"from": "b1", "to": "m2"},
+    {"from": "t6", "to": "g3"},
+    {"from": "g3", "to": "c1"},
+    {"from": "g3", "to": "c2"},
+    {"from": "c1", "to": "g4"},
+    {"from": "c2", "to": "m2"},
+    {"from": "g4", "to": "t7", "name": "Có", "default": true},
+    {"from": "g4", "to": "m2", "name": "Không"},
+    {"from": "t7", "to": "t8"},
+    {"from": "t8", "to": "e1"},
+    {"from": "m2", "to": "t9"},
+    {"from": "t9", "to": "e2"}
+  ],
+  "messages": [
+    {"id": "r1", "from": "t6", "to": "pay", "name": "Yêu cầu thanh toán"},
+    {"id": "r2", "from": "pay", "to": "c1", "name": "Kết quả giao dịch"}
+  ],
+  "scenarios": [
+    {"id": "A", "name": "Đặt vé thành công", "choices": {"g1": "Có", "g2": "Được", "g3": "c1", "g4": "Có"}, "expect": "e1"},
+    {"id": "B", "name": "Không có chuyến phù hợp", "choices": {"g1": "Không"}, "expect": "e0"},
+    {"id": "C", "name": "Ghế vừa bị người khác mua, chọn lại rồi thành công", "choices": {"g1": "Có", "g2": ["Không (ghế đã bán)", "Được"], "g3": "c1", "g4": "Có"}, "expect": "e1"},
+    {"id": "D", "name": "Thanh toán bị từ chối", "choices": {"g1": "Có", "g2": "Được", "g3": "c1", "g4": "Không"}, "expect": "e2"},
+    {"id": "E", "name": "Cổng thanh toán im lặng, hết 10 phút", "choices": {"g1": "Có", "g2": "Được", "g3": "c2"}, "silent": ["r2"], "expect": "e2"},
+    {"id": "F", "name": "Hành khách bỏ dở lúc nhập thông tin", "choices": {"g1": "Có", "g2": "Được"}, "fire": ["b1"], "expect": "e2"}
+  ]
+}

@@ -1,0 +1,39 @@
+flowchart TD
+    subgraph dp["Hệ thống điều phối"]
+        m1{""}
+        t2["Tìm tài xế gần nhất"]
+        t3["Gửi yêu cầu cho tài xế"]
+        g1{""}
+        c1(["Tài xế nhận chuyến"])
+        c2(["Hết 60 giây"])
+        g2{"Đã thử 3 tài xế?"}
+    end
+    subgraph app["Ứng dụng"]
+        s(("Nhận yêu cầu đặt xe"))
+        t1["Tính và gửi giá cước"]
+        t4["Thông báo tài xế đang đến"]
+        e1((("Đã ghép chuyến")))
+        t5["Báo không tìm được xe"]
+        e2((("Không có xe")))
+    end
+    pool_driver[["Tài xế"]]
+    pool_cust[["Khách hàng"]]
+    s --> t1
+    t1 --> m1
+    m1 --> t2
+    t2 --> t3
+    t3 --> g1
+    g1 --> c1
+    g1 --> c2
+    c1 --> t4
+    t4 --> e1
+    c2 --> g2
+    g2 -->|Chưa| m1
+    g2 -->|Rồi| t5
+    t5 --> e2
+    pool_cust -.->|Yêu cầu đặt xe| s
+    t1 -.->|Giá cước| pool_cust
+    t3 -.->|Yêu cầu chuyến| pool_driver
+    pool_driver -.->|Nhận chuyến| c1
+    t4 -.->|Thông tin tài xế| pool_cust
+    t5 -.->|Không có xe| pool_cust

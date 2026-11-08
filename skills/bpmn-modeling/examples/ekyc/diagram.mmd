@@ -1,0 +1,33 @@
+flowchart TD
+    subgraph kh["Khách hàng"]
+        s(("Khách muốn mở tài khoản"))
+        t1["Nhập thông tin cá nhân"]
+        t2["Chụp giấy tờ và khuôn mặt"]
+    end
+    subgraph app["App ngân hàng"]
+        t3["Gửi hồ sơ xác thực"]
+        g1{"Kết quả khớp?"}
+        t5["Tạo tài khoản trên Core"]
+        t6["Thông báo kích hoạt"]
+        e1((("Tài khoản đã kích hoạt")))
+    end
+    subgraph ekyc["eKYC Provider"]
+        t4["Đối chiếu CCCD và liveness"]
+    end
+    subgraph td["Thẩm định"]
+        t7["Thẩm định hồ sơ thủ công"]
+        g2{"Hồ sơ được duyệt?"}
+        e2((("Hồ sơ bị từ chối")))
+    end
+    s --> t1
+    t1 --> t2
+    t2 --> t3
+    t3 --> t4
+    t4 --> g1
+    g1 -->|Khớp| t5
+    g1 -->|Không khớp| t7
+    t5 --> t6
+    t6 --> e1
+    t7 --> g2
+    g2 -->|Duyệt| t5
+    g2 -->|Từ chối| e2

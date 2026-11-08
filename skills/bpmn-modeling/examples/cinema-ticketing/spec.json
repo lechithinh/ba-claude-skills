@@ -1,0 +1,290 @@
+{
+  "name": "Đặt vé xem phim online",
+  "lanes": [
+    {
+      "id": "kh",
+      "name": "Khách hàng"
+    },
+    {
+      "id": "ht",
+      "name": "Hệ thống đặt vé"
+    }
+  ],
+  "pools": [
+    {
+      "id": "pay",
+      "name": "Cổng thanh toán",
+      "position": "top"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "type": "start",
+      "lane": "kh",
+      "name": "Khách muốn mua vé"
+    },
+    {
+      "id": "t1",
+      "type": "user_task",
+      "lane": "kh",
+      "name": "Chọn phim và suất chiếu"
+    },
+    {
+      "id": "m1",
+      "type": "xor",
+      "lane": "kh",
+      "name": ""
+    },
+    {
+      "id": "t2",
+      "type": "user_task",
+      "lane": "kh",
+      "name": "Chọn ghế"
+    },
+    {
+      "id": "t3",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Kiểm tra và giữ ghế"
+    },
+    {
+      "id": "g1",
+      "type": "xor",
+      "lane": "ht",
+      "name": "Ghế còn trống?"
+    },
+    {
+      "id": "t4",
+      "type": "user_task",
+      "lane": "kh",
+      "name": "Chọn combo và thanh toán"
+    },
+    {
+      "id": "b1",
+      "type": "boundary_timer",
+      "attached_to": "t4",
+      "interrupting": true,
+      "name": "Hết 10 phút"
+    },
+    {
+      "id": "t5",
+      "type": "send_task",
+      "lane": "ht",
+      "name": "Gửi yêu cầu thanh toán"
+    },
+    {
+      "id": "t6",
+      "type": "receive_task",
+      "lane": "ht",
+      "name": "Nhận kết quả thanh toán"
+    },
+    {
+      "id": "g2",
+      "type": "xor",
+      "lane": "ht",
+      "name": "Thanh toán thành công?"
+    },
+    {
+      "id": "p1",
+      "type": "and",
+      "lane": "ht",
+      "name": ""
+    },
+    {
+      "id": "t8",
+      "type": "send_task",
+      "lane": "ht",
+      "name": "Gửi vé QR qua email"
+    },
+    {
+      "id": "t9",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Cộng điểm thành viên"
+    },
+    {
+      "id": "p2",
+      "type": "and",
+      "lane": "ht",
+      "name": ""
+    },
+    {
+      "id": "e1",
+      "type": "end",
+      "lane": "ht",
+      "name": "Khách đã có vé"
+    },
+    {
+      "id": "m2",
+      "type": "xor",
+      "lane": "ht",
+      "name": ""
+    },
+    {
+      "id": "t7",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Nhả ghế đang giữ"
+    },
+    {
+      "id": "e2",
+      "type": "end",
+      "lane": "ht",
+      "name": "Đơn bị huỷ"
+    }
+  ],
+  "flows": [
+    {
+      "from": "s",
+      "to": "t1"
+    },
+    {
+      "from": "t1",
+      "to": "m1"
+    },
+    {
+      "from": "m1",
+      "to": "t2"
+    },
+    {
+      "from": "t2",
+      "to": "t3"
+    },
+    {
+      "from": "t3",
+      "to": "g1"
+    },
+    {
+      "from": "g1",
+      "to": "t4",
+      "name": "Có"
+    },
+    {
+      "from": "g1",
+      "to": "m1",
+      "name": "Không"
+    },
+    {
+      "from": "t4",
+      "to": "t5"
+    },
+    {
+      "from": "t5",
+      "to": "t6"
+    },
+    {
+      "from": "t6",
+      "to": "g2"
+    },
+    {
+      "from": "g2",
+      "to": "p1",
+      "name": "Có"
+    },
+    {
+      "from": "g2",
+      "to": "m2",
+      "name": "Không"
+    },
+    {
+      "from": "p1",
+      "to": "t8"
+    },
+    {
+      "from": "p1",
+      "to": "t9"
+    },
+    {
+      "from": "t8",
+      "to": "p2"
+    },
+    {
+      "from": "t9",
+      "to": "p2"
+    },
+    {
+      "from": "p2",
+      "to": "e1"
+    },
+    {
+      "from": "b1",
+      "to": "m2"
+    },
+    {
+      "from": "m2",
+      "to": "t7"
+    },
+    {
+      "from": "t7",
+      "to": "e2"
+    }
+  ],
+  "messages": [
+    {
+      "id": "mreq",
+      "from": "t5",
+      "to": "pay",
+      "name": "Yêu cầu thanh toán"
+    },
+    {
+      "id": "mres",
+      "from": "pay",
+      "to": "t6",
+      "name": "Kết quả giao dịch"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Mua thành công",
+      "choices": {
+        "g1": "Có",
+        "g2": "Có"
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "B",
+      "name": "Ghế vừa bị người khác giữ",
+      "choices": {
+        "g1": [
+          "Không",
+          "Có"
+        ],
+        "g2": "Có"
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "C",
+      "name": "Thanh toán thất bại",
+      "choices": {
+        "g1": "Có",
+        "g2": "Không"
+      },
+      "expect": "e2"
+    },
+    {
+      "id": "D",
+      "name": "Khách bỏ dở quá 10 phút",
+      "choices": {
+        "g1": "Có"
+      },
+      "fire": [
+        "b1"
+      ],
+      "expect": "e2"
+    },
+    {
+      "id": "E",
+      "name": "Cổng thanh toán không trả kết quả",
+      "choices": {
+        "g1": "Có"
+      },
+      "silent": [
+        "mres"
+      ]
+    }
+  ]
+}

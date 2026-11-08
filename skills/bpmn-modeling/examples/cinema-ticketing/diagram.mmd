@@ -1,0 +1,47 @@
+flowchart TD
+    subgraph kh["Khách hàng"]
+        s(("Khách muốn mua vé"))
+        t1["Chọn phim và suất chiếu"]
+        m1{""}
+        t2["Chọn ghế"]
+        t4["Chọn combo và thanh toán"]
+    end
+    subgraph ht["Hệ thống đặt vé"]
+        t3["Kiểm tra và giữ ghế"]
+        g1{"Ghế còn trống?"}
+        t5["Gửi yêu cầu thanh toán"]
+        t6["Nhận kết quả thanh toán"]
+        g2{"Thanh toán thành công?"}
+        p1{"+ "}
+        t8["Gửi vé QR qua email"]
+        t9["Cộng điểm thành viên"]
+        p2{"+ "}
+        e1((("Khách đã có vé")))
+        m2{""}
+        t7["Nhả ghế đang giữ"]
+        e2((("Đơn bị huỷ")))
+    end
+    pool_pay[["Cổng thanh toán"]]
+    t4 -.- b1(["Hết 10 phút"])
+    s --> t1
+    t1 --> m1
+    m1 --> t2
+    t2 --> t3
+    t3 --> g1
+    g1 -->|Có| t4
+    g1 -->|Không| m1
+    t4 --> t5
+    t5 --> t6
+    t6 --> g2
+    g2 -->|Có| p1
+    g2 -->|Không| m2
+    p1 --> t8
+    p1 --> t9
+    t8 --> p2
+    t9 --> p2
+    p2 --> e1
+    b1 --> m2
+    m2 --> t7
+    t7 --> e2
+    t5 -.->|Yêu cầu thanh toán| pool_pay
+    pool_pay -.->|Kết quả giao dịch| t6

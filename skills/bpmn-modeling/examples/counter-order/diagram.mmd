@@ -1,0 +1,18 @@
+flowchart TD
+    subgraph kh["Khách hàng"]
+        s(("Khách tới quầy"))
+        t1["Gọi món"]
+    end
+    subgraph nv["Nhân viên quầy"]
+        t2["Kiểm tra món còn không"]
+        g1{"Còn món?"}
+        t3["Thu tiền và giao món"]
+        e1((("Khách nhận món")))
+        e2((("Khách không mua")))
+    end
+    s --> t1
+    t1 --> t2
+    t2 --> g1
+    g1 -->|Còn| t3
+    g1 -->|Hết| e2
+    t3 --> e1

@@ -1,0 +1,53 @@
+flowchart TD
+    subgraph kh["Hành khách"]
+        s(("Cần đi xe khách"))
+        t1["Nhập tuyến và ngày đi"]
+        m1{""}
+        t3["Chọn chuyến và ghế"]
+        t5["Nhập thông tin hành khách"]
+        e1((("Đã có vé")))
+        e2((("Đặt vé không thành công")))
+    end
+    subgraph ht["Hệ thống đặt vé"]
+        t2["Tìm chuyến còn chỗ"]
+        g1{"Có chuyến phù hợp?"}
+        e0((("Không có chuyến")))
+        t4["Giữ ghế 10 phút"]
+        g2{"Giữ ghế được?"}
+        t6["Gửi yêu cầu thanh toán"]
+        g3{""}
+        c1(["Nhận kết quả thanh toán"])
+        c2(["Hết 10 phút giữ ghế"])
+        g4{"Thanh toán thành công?"}
+        t7["Xuất vé điện tử"]
+        t8["Gửi vé cho hành khách"]
+        m2{""}
+        t9["Nhả ghế đã giữ"]
+    end
+    pool_pay[["Cổng thanh toán"]]
+    t5 -.- b1(["Hết 10 phút giữ ghế"])
+    s --> t1
+    t1 --> t2
+    t2 --> g1
+    g1 -->|Không| e0
+    g1 -->|Có| m1
+    m1 --> t3
+    t3 --> t4
+    t4 --> g2
+    g2 -->|Không (ghế đã bán)| m1
+    g2 -->|Được| t5
+    t5 --> t6
+    b1 --> m2
+    t6 --> g3
+    g3 --> c1
+    g3 --> c2
+    c1 --> g4
+    c2 --> m2
+    g4 -->|Có| t7
+    g4 -->|Không| m2
+    t7 --> t8
+    t8 --> e1
+    m2 --> t9
+    t9 --> e2
+    t6 -.->|Yêu cầu thanh toán| pool_pay
+    pool_pay -.->|Kết quả giao dịch| c1
