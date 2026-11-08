@@ -50,9 +50,16 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 
 *"Write a user story with acceptance criteria for interbank transfer on mobile banking."*
 
-| AI without context | `user-story-writer` + `domain-banking` |
-|---|---|
-| ✔ Successful transfer<br>✔ Insufficient balance<br><br>**2 scenarios** | ✔ Successful transfer **with beneficiary name inquiry**<br>✔ Beneficiary not found / closed<br>✔ **Per-transaction & daily limits**<br>✔ **Biometric authentication above threshold**<br>✔ **Timeout → pending → reconciliation → auto-refund**<br>✔ **Duplicate submission (idempotency)**<br>✔ Fee not covered by balance<br><br>**7 scenarios + 5 open questions for Compliance & Ops** |
+| Scenario | AI without context | `user-story-writer` + `domain-banking` | Why it matters |
+|---|:-:|:-:|---|
+| Successful transfer | ✅ | ✅ with beneficiary name inquiry | Showing the account name before confirming prevents sending money to the wrong person |
+| Insufficient balance | ✅ | ✅ including fee | The balance may cover the amount but not amount + fee |
+| Beneficiary not found / account closed | ❌ | ✅ | The customer must be stopped before authentication, not after |
+| Per-transaction & daily limits | ❌ | ✅ | Limits differ by channel and customer segment and must be configurable |
+| Biometric authentication above threshold | ❌ | ✅ | Regulatory requirement in Vietnam; thresholds are confirmed with Compliance |
+| **Timeout → pending → reconciliation → auto-refund** | ❌ | ✅ | Unhandled timeouts are a classic source of production incidents and complaints |
+| Duplicate submission (idempotency) | ❌ | ✅ | A double tap or network retry must never debit the customer twice |
+| **Total** | **2 scenarios** | **7 scenarios + 5 open questions** | Open questions go to Compliance & Operations instead of being guessed |
 
 → Full outputs: [banking transfer](examples/domain-showcase/banking-interbank-transfer.md) · [e-commerce order cancellation](examples/domain-showcase/ecommerce-cancel-order.md)
 

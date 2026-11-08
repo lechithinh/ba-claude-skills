@@ -49,9 +49,16 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 
 *"Viết user story kèm acceptance criteria cho chức năng chuyển tiền liên ngân hàng trên mobile banking."*
 
-| AI không có bối cảnh | `user-story-writer` + `domain-banking` |
-|---|---|
-| ✔ Chuyển tiền thành công<br>✔ Không đủ số dư<br><br>**2 kịch bản** | ✔ Chuyển thành công **có truy vấn tên người thụ hưởng**<br>✔ Tài khoản thụ hưởng không tồn tại / đã đóng<br>✔ **Vượt hạn mức giao dịch / ngày**<br>✔ **Xác thực sinh trắc học khi vượt ngưỡng**<br>✔ **Timeout → đang xử lý → đối soát → tự hoàn tiền**<br>✔ **Bấm xác nhận 2 lần (chống trùng)**<br>✔ Số dư không đủ trả phí<br><br>**7 kịch bản + 5 câu hỏi cho Compliance & Vận hành** |
+| Kịch bản | AI không có bối cảnh | `user-story-writer` + `domain-banking` | Vì sao quan trọng |
+|---|:-:|:-:|---|
+| Chuyển tiền thành công | ✅ | ✅ có truy vấn tên người thụ hưởng | Hiện tên chủ tài khoản trước khi xác nhận giúp tránh chuyển nhầm người |
+| Không đủ số dư | ✅ | ✅ tính cả phí | Số dư có thể đủ cho số tiền nhưng không đủ cho số tiền + phí |
+| Tài khoản thụ hưởng không tồn tại / đã đóng | ❌ | ✅ | Phải chặn trước bước xác thực, không phải sau đó |
+| Hạn mức theo giao dịch & theo ngày | ❌ | ✅ | Hạn mức khác nhau theo kênh, phân khúc khách hàng và phải cấu hình được |
+| Xác thực sinh trắc học khi vượt ngưỡng | ❌ | ✅ | Yêu cầu pháp lý tại Việt Nam; ngưỡng cần Compliance xác nhận |
+| **Timeout → đang xử lý → đối soát → tự hoàn tiền** | ❌ | ✅ | Timeout không được xử lý là nguồn sự cố production và khiếu nại kinh điển |
+| Bấm xác nhận 2 lần (chống trùng) | ❌ | ✅ | Bấm đúp hay app tự gửi lại không bao giờ được trừ tiền hai lần |
+| **Tổng** | **2 kịch bản** | **7 kịch bản + 5 câu hỏi mở** | Câu hỏi mở được gửi cho Compliance & Vận hành thay vì tự đoán |
 
 → Xem đầy đủ: [chuyển tiền ngân hàng](examples/domain-showcase/banking-interbank-transfer.md) · [hủy đơn hàng TMĐT](examples/domain-showcase/ecommerce-cancel-order.md)
 
