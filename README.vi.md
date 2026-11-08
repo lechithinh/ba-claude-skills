@@ -83,28 +83,30 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 
 **Skill phương pháp: BA làm việc thế nào**
 
-| Skill | Kết quả |
-|---|---|
-| [`meeting-to-requirements`](skills/meeting-to-requirements/SKILL.md) | Biên bản họp → mục tiêu, yêu cầu chức năng & phi chức năng, business rule, câu hỏi mở, có trích dẫn nguồn |
-| [`requirements-linter`](skills/requirements-linter/SKILL.md) | Chấm điểm từ 0 đến 10 cho từng yêu cầu; phát hiện mơ hồ, không kiểm thử được, gộp yêu cầu và **thiếu kịch bản nghiệp vụ**; đề xuất viết lại |
-| [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | Hệ thống → module → tính năng → chức năng, sơ đồ cây Mermaid, kiểm tra CRUD |
-| [`user-story-writer`](skills/user-story-writer/SKILL.md) | User story chuẩn INVEST, AC Gherkin có kịch bản lỗi, CSV cho Jira |
-| [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) | BPMN 2.0 từ mô tả: Mermaid, `.bpmn`, SVG, **mô phỏng token** tìm kịch bản bị kẹt, lint, AS-IS → TO-BE |
-| [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Sơ đồ quy trình swimlane, use case, sequence, ERD, trạng thái, context bằng Mermaid |
-| [`screen-spec`](skills/screen-spec/SKILL.md) | Đặc tả màn hình từ ảnh mockup: bảng trường, validation, hành vi nút, các trạng thái, câu hỏi mở (tách điều nhìn thấy với điều giả định) |
-| [`decision-table`](skills/decision-table/SKILL.md) | Rule nghiệp vụ thành bảng quyết định; script tìm tổ hợp **thiếu**, **mâu thuẫn**, **chồng lấn** và sinh test case |
-| [`edge-case-finder`](skills/edge-case-finder/SKILL.md) | Phản biện "nếu… thì sao" cho yêu cầu: danh sách ngắn, xếp ưu tiên, kèm câu hỏi theo stakeholder và AC Gherkin |
-| [`api-spec`](skills/api-spec/SKILL.md) | Bản nháp API contract từ yêu cầu: bảng endpoint, mã lỗi nghiệp vụ, OpenAPI 3.0 YAML |
+<table>
+<tr><th width="260">Skill</th><th>Kết quả</th></tr>
+<tr><td nowrap><a href="skills/meeting-to-requirements/SKILL.md"><code>meeting-to-requirements</code></a></td><td>Biên bản họp → mục tiêu, yêu cầu chức năng &amp; phi chức năng, business rule, câu hỏi mở, có trích dẫn nguồn</td></tr>
+<tr><td nowrap><a href="skills/requirements-linter/SKILL.md"><code>requirements-linter</code></a></td><td>Chấm điểm từ 0 đến 10 cho từng yêu cầu; phát hiện mơ hồ, không kiểm thử được, gộp yêu cầu và <b>thiếu kịch bản nghiệp vụ</b>; đề xuất viết lại</td></tr>
+<tr><td nowrap><a href="skills/functional-decomposition/SKILL.md"><code>functional-decomposition</code></a></td><td>Hệ thống → module → tính năng → chức năng, sơ đồ cây Mermaid, kiểm tra CRUD</td></tr>
+<tr><td nowrap><a href="skills/user-story-writer/SKILL.md"><code>user-story-writer</code></a></td><td>User story chuẩn INVEST, AC Gherkin có kịch bản lỗi, CSV cho Jira</td></tr>
+<tr><td nowrap><a href="skills/bpmn-modeling/SKILL.md"><code>bpmn-modeling</code></a></td><td>BPMN 2.0 từ mô tả: Mermaid, <code>.bpmn</code>, SVG, <b>mô phỏng token</b> tìm kịch bản bị kẹt, lint, AS-IS → TO-BE</td></tr>
+<tr><td nowrap><a href="skills/ba-diagrams/SKILL.md"><code>ba-diagrams</code></a></td><td>Sơ đồ quy trình swimlane, use case, sequence, ERD, trạng thái, context bằng Mermaid</td></tr>
+<tr><td nowrap><a href="skills/screen-spec/SKILL.md"><code>screen-spec</code></a></td><td>Đặc tả màn hình từ ảnh mockup: bảng trường, validation, hành vi nút, các trạng thái, câu hỏi mở (tách điều nhìn thấy với điều giả định)</td></tr>
+<tr><td nowrap><a href="skills/decision-table/SKILL.md"><code>decision-table</code></a></td><td>Rule nghiệp vụ thành bảng quyết định; script tìm tổ hợp <b>thiếu</b>, <b>mâu thuẫn</b>, <b>chồng lấn</b> và sinh test case</td></tr>
+<tr><td nowrap><a href="skills/edge-case-finder/SKILL.md"><code>edge-case-finder</code></a></td><td>Phản biện "nếu… thì sao" cho yêu cầu: danh sách ngắn, xếp ưu tiên, kèm câu hỏi theo stakeholder và AC Gherkin</td></tr>
+<tr><td nowrap><a href="skills/api-spec/SKILL.md"><code>api-spec</code></a></td><td>Bản nháp API contract từ yêu cầu: bảng endpoint, mã lỗi nghiệp vụ, OpenAPI 3.0 YAML</td></tr>
+</table>
 
 **Domain pack: BA cần biết gì**
 
-| Pack | Phạm vi |
-|---|---|
-| [`domain-banking`](skills/domain-banking/SKILL.md) | eKYC, tài khoản, chuyển tiền (nội bộ / NAPAS / CITAD), thẻ, cho vay, tiền gửi, tra soát |
-| [`domain-ecommerce`](skills/domain-ecommerce/SKILL.md) | Danh mục, giá & voucher, checkout, thanh toán, đơn hàng, kho, vận chuyển & COD, đổi trả, đối soát seller |
-| [`domain-payments`](skills/domain-payments/SKILL.md) | Ví điện tử, cổng thanh toán/PSP, QR, nạp/rút tiền, hoàn tiền và chargeback, quyết toán, đối soát |
-| [`domain-lending`](skills/domain-lending/SKILL.md) | Cho vay tiêu dùng và BNPL: khởi tạo, ra quyết định, cách tính lãi, thứ tự phân bổ thanh toán, thu hồi nợ theo DPD |
-| [`domain-logistics`](skills/domain-logistics/SKILL.md) | Giao hàng và kho: chặng cuối, giao thất bại, đối soát COD, trọng lượng quy đổi, cơ bản WMS |
+<table>
+<tr><th width="260">Pack</th><th>Phạm vi</th></tr>
+<tr><td nowrap><a href="skills/domain-banking/SKILL.md"><code>domain-banking</code></a></td><td>eKYC, tài khoản, chuyển tiền (nội bộ / NAPAS / CITAD), thẻ, cho vay, tiền gửi, tra soát</td></tr>
+<tr><td nowrap><a href="skills/domain-ecommerce/SKILL.md"><code>domain-ecommerce</code></a></td><td>Danh mục, giá &amp; voucher, checkout, thanh toán, đơn hàng, kho, vận chuyển &amp; COD, đổi trả, đối soát seller</td></tr>
+<tr><td nowrap><a href="skills/domain-payments/SKILL.md"><code>domain-payments</code></a></td><td>Ví điện tử, cổng thanh toán/PSP, QR, nạp/rút tiền, hoàn tiền và chargeback, quyết toán, đối soát</td></tr>
+<tr><td nowrap><a href="skills/domain-lending/SKILL.md"><code>domain-lending</code></a></td><td>Cho vay tiêu dùng và BNPL: khởi tạo, ra quyết định, cách tính lãi, thứ tự phân bổ thanh toán, thu hồi nợ theo DPD</td></tr>
+<tr><td nowrap><a href="skills/domain-logistics/SKILL.md"><code>domain-logistics</code></a></td><td>Giao hàng và kho: chặng cuối, giao thất bại, đối soát COD, trọng lượng quy đổi, cơ bản WMS</td></tr>
+</table>
 
 Mỗi pack gồm thuật ngữ Anh-Việt, quy trình, pattern business rule, **checklist câu hỏi cho BA**, data model kèm trạng thái, bản đồ tích hợp, điểm chạm pháp lý và KPI. Mỗi skill phương pháp có thêm file `LEARN.md` giải thích kỹ thuật BA phía sau.
 

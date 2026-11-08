@@ -84,28 +84,30 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 
 **Method skills: how a BA works**
 
-| Skill | Output |
-|---|---|
-| [`meeting-to-requirements`](skills/meeting-to-requirements/SKILL.md) | Transcript → goals, functional & non-functional requirements, business rules, open questions, each traced to a quote |
-| [`requirements-linter`](skills/requirements-linter/SKILL.md) | 0 to 10 quality score per requirement; flags vague, untestable, compound and **missing domain scenarios**; rewrites them |
-| [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | System → modules → features → functions, Mermaid tree, CRUD gap check |
-| [`user-story-writer`](skills/user-story-writer/SKILL.md) | INVEST user stories, Gherkin acceptance criteria with error paths, Jira CSV |
-| [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) | BPMN 2.0 from a description: Mermaid, `.bpmn`, SVG, **token-run simulation** that finds stuck scenarios, lint, AS-IS → TO-BE |
-| [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Swimlane process, use case, sequence, ERD, state and context diagrams in Mermaid |
-| [`screen-spec`](skills/screen-spec/SKILL.md) | Screen specification from a mockup image: field table, validations, button behaviour, states, open questions (what is seen vs assumed) |
-| [`decision-table`](skills/decision-table/SKILL.md) | Business rules to a decision table; a script finds **missing**, **conflicting** and **overlapping** rule combinations and generates tests |
-| [`edge-case-finder`](skills/edge-case-finder/SKILL.md) | "What if…" review of a requirement: a short prioritised list of edge cases with questions per stakeholder and Gherkin AC |
-| [`api-spec`](skills/api-spec/SKILL.md) | Draft API contract from requirements: endpoint table, business error codes, OpenAPI 3.0 YAML |
+<table>
+<tr><th width="260">Skill</th><th>Output</th></tr>
+<tr><td nowrap><a href="skills/meeting-to-requirements/SKILL.md"><code>meeting-to-requirements</code></a></td><td>Transcript → goals, functional &amp; non-functional requirements, business rules, open questions, each traced to a quote</td></tr>
+<tr><td nowrap><a href="skills/requirements-linter/SKILL.md"><code>requirements-linter</code></a></td><td>0 to 10 quality score per requirement; flags vague, untestable, compound and <b>missing domain scenarios</b>; rewrites them</td></tr>
+<tr><td nowrap><a href="skills/functional-decomposition/SKILL.md"><code>functional-decomposition</code></a></td><td>System → modules → features → functions, Mermaid tree, CRUD gap check</td></tr>
+<tr><td nowrap><a href="skills/user-story-writer/SKILL.md"><code>user-story-writer</code></a></td><td>INVEST user stories, Gherkin acceptance criteria with error paths, Jira CSV</td></tr>
+<tr><td nowrap><a href="skills/bpmn-modeling/SKILL.md"><code>bpmn-modeling</code></a></td><td>BPMN 2.0 from a description: Mermaid, <code>.bpmn</code>, SVG, <b>token-run simulation</b> that finds stuck scenarios, lint, AS-IS → TO-BE</td></tr>
+<tr><td nowrap><a href="skills/ba-diagrams/SKILL.md"><code>ba-diagrams</code></a></td><td>Swimlane process, use case, sequence, ERD, state and context diagrams in Mermaid</td></tr>
+<tr><td nowrap><a href="skills/screen-spec/SKILL.md"><code>screen-spec</code></a></td><td>Screen specification from a mockup image: field table, validations, button behaviour, states, open questions (what is seen vs assumed)</td></tr>
+<tr><td nowrap><a href="skills/decision-table/SKILL.md"><code>decision-table</code></a></td><td>Business rules to a decision table; a script finds <b>missing</b>, <b>conflicting</b> and <b>overlapping</b> rule combinations and generates tests</td></tr>
+<tr><td nowrap><a href="skills/edge-case-finder/SKILL.md"><code>edge-case-finder</code></a></td><td>"What if…" review of a requirement: a short prioritised list of edge cases with questions per stakeholder and Gherkin AC</td></tr>
+<tr><td nowrap><a href="skills/api-spec/SKILL.md"><code>api-spec</code></a></td><td>Draft API contract from requirements: endpoint table, business error codes, OpenAPI 3.0 YAML</td></tr>
+</table>
 
 **Domain packs: what a BA must know**
 
-| Pack | Covers |
-|---|---|
-| [`domain-banking`](skills/domain-banking/SKILL.md) | eKYC onboarding, accounts, transfers (internal / NAPAS / CITAD), cards, lending, deposits, disputes |
-| [`domain-ecommerce`](skills/domain-ecommerce/SKILL.md) | Catalog, pricing & vouchers, checkout, payment, orders, fulfillment, shipping & COD, returns, marketplace settlement |
-| [`domain-payments`](skills/domain-payments/SKILL.md) | E-wallet, payment gateway/PSP, QR, top-up, withdrawal, refund and chargeback, settlement, reconciliation |
-| [`domain-lending`](skills/domain-lending/SKILL.md) | Consumer loans and BNPL: origination, decisioning, interest methods, repayment allocation, collections by DPD |
-| [`domain-logistics`](skills/domain-logistics/SKILL.md) | Parcel delivery and warehouse: last mile, failed delivery, COD remittance, volumetric weight, WMS basics |
+<table>
+<tr><th width="260">Pack</th><th>Covers</th></tr>
+<tr><td nowrap><a href="skills/domain-banking/SKILL.md"><code>domain-banking</code></a></td><td>eKYC onboarding, accounts, transfers (internal / NAPAS / CITAD), cards, lending, deposits, disputes</td></tr>
+<tr><td nowrap><a href="skills/domain-ecommerce/SKILL.md"><code>domain-ecommerce</code></a></td><td>Catalog, pricing &amp; vouchers, checkout, payment, orders, fulfillment, shipping &amp; COD, returns, marketplace settlement</td></tr>
+<tr><td nowrap><a href="skills/domain-payments/SKILL.md"><code>domain-payments</code></a></td><td>E-wallet, payment gateway/PSP, QR, top-up, withdrawal, refund and chargeback, settlement, reconciliation</td></tr>
+<tr><td nowrap><a href="skills/domain-lending/SKILL.md"><code>domain-lending</code></a></td><td>Consumer loans and BNPL: origination, decisioning, interest methods, repayment allocation, collections by DPD</td></tr>
+<tr><td nowrap><a href="skills/domain-logistics/SKILL.md"><code>domain-logistics</code></a></td><td>Parcel delivery and warehouse: last mile, failed delivery, COD remittance, volumetric weight, WMS basics</td></tr>
+</table>
 
 Each pack contains a glossary, processes, business-rule patterns, **a BA question checklist**, a data model with status sets, integrations, regulatory touchpoints and KPIs. Every method skill also ships a `LEARN.md` that teaches the technique behind it.
 
