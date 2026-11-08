@@ -12,7 +12,7 @@ layout: home
 <div><span class="eyebrow">Mã nguồn mở · MIT · Tiếng Việt &amp; English</span>
 <h1>Bộ skill Claude cho <span class="gr">Business Analyst</span></h1>
 <p class="lead">Skill Claude mã nguồn mở làm việc như một BA lâu năm: yêu cầu, user story, phân rã chức năng, BPMN, bảng quyết định, API spec, <b>cùng những câu hỏi nghiệp vụ mà BA giàu kinh nghiệm luôn đặt ra</b>.</p>
-<a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Xem trên GitHub</a><a class="btn" href="#bat-dau-nhanh">Bắt đầu nhanh</a><a class="btn" href="#demo">Xem demo</a>
+<div class="hero-cta"><a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Xem trên GitHub</a><a class="btn" href="#bat-dau-nhanh">Bắt đầu nhanh</a><a class="btn" href="#demo">Xem demo</a></div>
 <div class="stats"><div class="stat"><b class="gr">10+</b><span>skill phương pháp</span></div><div class="stat"><b class="gr">5+</b><span>domain pack</span></div><div class="stat"><b class="gr">EN · VI</b><span>ngôn ngữ</span></div></div></div>
 <div class="term"><div class="term-bar"><i></i><i></i><i></i><span>claude</span></div><pre><span class="c"># cài plugin</span>
 <span class="p">›</span> /plugin marketplace add lechithinh/ba-claude-skills
@@ -30,8 +30,8 @@ layout: home
 
 <div class="wrap section" id="demo"><div class="section-head"><h2>Xem quy trình chạy thử</h2><p>Một sơ đồ có thể trông hoàn hảo mà vẫn giấu lỗi. <b>bpmn-modeling</b> cho token chạy qua từng kịch bản và chỉ ra chính xác chỗ quy trình bị kẹt. Sơ đồ demo dùng nhãn tiếng Anh.</p></div>
 <div class="pair">
-<figure class="figure"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Sơ đồ BPMN động, AS-IS: token kẹt ở Receive payment result khi cổng thanh toán không trả lời"><figcaption><b>AS-IS: nhìn thì ổn.</b> Khi cổng thanh toán không bao giờ trả lời, token chờ vĩnh viễn: đơn hàng treo và khách có thể đã bị trừ tiền.</figcaption></figure>
-<figure class="figure"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Sơ đồ BPMN động, TO-BE: timer 5 phút đưa token sang Order awaiting reconciliation"><figcaption><b>TO-BE: cách sửa.</b> Timer 5 phút đưa token đi luồng ngoại lệ sang bước của bộ phận Vận hành thay vì chờ mãi.</figcaption></figure>
+<figure class="figure"><div class="scroll"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Sơ đồ BPMN động, AS-IS: token kẹt ở Receive payment result khi cổng thanh toán không trả lời"></div><p class="swipe">Vuốt ngang để xem toàn bộ sơ đồ</p><figcaption><b>AS-IS: nhìn thì ổn.</b> Khi cổng thanh toán không bao giờ trả lời, token chờ vĩnh viễn: đơn hàng treo và khách có thể đã bị trừ tiền.</figcaption></figure>
+<figure class="figure"><div class="scroll"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Sơ đồ BPMN động, TO-BE: timer 5 phút đưa token sang Order awaiting reconciliation"></div><p class="swipe">Vuốt ngang để xem toàn bộ sơ đồ</p><figcaption><b>TO-BE: cách sửa.</b> Timer 5 phút đưa token đi luồng ngoại lệ sang bước của bộ phận Vận hành thay vì chờ mãi.</figcaption></figure>
 </div>
 <p><a class="btn primary" href="{{ '/demo/bpmn-token-as-is.html' | relative_url }}">Thử AS-IS (tương tác)</a><a class="btn" href="{{ '/demo/bpmn-token-to-be.html' | relative_url }}">Thử TO-BE (tương tác)</a></p></div>
 

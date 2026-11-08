@@ -12,7 +12,7 @@ layout: home
 <div><span class="eyebrow">Open source · MIT · EN &amp; Tiếng Việt</span>
 <h1>Business Analyst <span class="gr">Skills for Claude</span></h1>
 <p class="lead">Claude skills that work like a senior Business Analyst: requirements, user stories, functional decomposition, BPMN, decision tables and API specs, <b>plus the domain questions a senior BA would ask</b>.</p>
-<a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Get it on GitHub</a><a class="btn" href="#quick-start">Quick start</a><a class="btn" href="#demo">Watch the demo</a>
+<div class="hero-cta"><a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Get it on GitHub</a><a class="btn" href="#quick-start">Quick start</a><a class="btn" href="#demo">Watch the demo</a></div>
 <div class="stats"><div class="stat"><b class="gr">10+</b><span>method skills</span></div><div class="stat"><b class="gr">5+</b><span>domain packs</span></div><div class="stat"><b class="gr">EN · VI</b><span>languages</span></div></div></div>
 <div class="term"><div class="term-bar"><i></i><i></i><i></i><span>claude</span></div><pre><span class="c"># install the plugin</span>
 <span class="p">›</span> /plugin marketplace add lechithinh/ba-claude-skills
@@ -30,8 +30,8 @@ layout: home
 
 <div class="wrap section" id="demo"><div class="section-head"><h2>Watch a process run</h2><p>A diagram can look perfect and still hide a bug. <b>bpmn-modeling</b> runs tokens through scenarios and shows exactly where the process gets stuck.</p></div>
 <div class="pair">
-<figure class="figure"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Animated BPMN diagram, AS-IS: the token gets stuck on Receive payment result when the payment gateway never replies"><figcaption><b>AS-IS: it looks fine.</b> When the payment gateway never replies, the token waits forever: a hanging order and a customer who may already be charged.</figcaption></figure>
-<figure class="figure"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Animated BPMN diagram, TO-BE: a 5-minute timer sends the token to Order awaiting reconciliation"><figcaption><b>TO-BE: the fix.</b> A 5-minute timer sends the token down the exception path to an Operations step instead of waiting forever.</figcaption></figure>
+<figure class="figure"><div class="scroll"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Animated BPMN diagram, AS-IS: the token gets stuck on Receive payment result when the payment gateway never replies"></div><p class="swipe">Swipe sideways to see the whole diagram</p><figcaption><b>AS-IS: it looks fine.</b> When the payment gateway never replies, the token waits forever: a hanging order and a customer who may already be charged.</figcaption></figure>
+<figure class="figure"><div class="scroll"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Animated BPMN diagram, TO-BE: a 5-minute timer sends the token to Order awaiting reconciliation"></div><p class="swipe">Swipe sideways to see the whole diagram</p><figcaption><b>TO-BE: the fix.</b> A 5-minute timer sends the token down the exception path to an Operations step instead of waiting forever.</figcaption></figure>
 </div>
 <p><a class="btn primary" href="{{ '/demo/bpmn-token-as-is.html' | relative_url }}">Try AS-IS (interactive)</a><a class="btn" href="{{ '/demo/bpmn-token-to-be.html' | relative_url }}">Try TO-BE (interactive)</a></p></div>
 
