@@ -4,76 +4,59 @@ description: "Free, open-source Claude skills for Business Analysts: requirement
 lang: en
 alt_lang: vi
 alt_url: /vi/
-hide_title: true
+layout: home
 ---
 
-<div class="hero">
-  <img src="{{ '/assets/readme-banner.png' | relative_url }}" alt="Business Analyst Skills for Claude: 10+ method skills and 5+ domain packs">
-  <h1>Business Analyst Skills for Claude</h1>
-  <p class="lead">Open-source Claude skills that work like a senior Business Analyst: requirements analysis, user stories with Gherkin acceptance criteria, functional decomposition and BPMN/UML diagrams, <b>plus domain knowledge for Banking and E-commerce</b>.</p>
-  <a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Get it on GitHub</a>
-  <a class="btn" href="#quick-start">Quick start</a>
-  <a class="btn" href="{{ '/vi/' | relative_url }}">Tiếng Việt</a>
+<div class="hero-wrap"><div class="hero-grid" aria-hidden="true"><div class="plane"></div></div>
+<div class="wrap hero">
+<div><span class="eyebrow">Open source · MIT · EN &amp; Tiếng Việt</span>
+<h1>Business Analyst <span class="gr">Skills for Claude</span></h1>
+<p class="lead">Claude skills that work like a senior Business Analyst: requirements, user stories, functional decomposition, BPMN, decision tables and API specs, <b>plus the domain questions a senior BA would ask</b>.</p>
+<a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Get it on GitHub</a><a class="btn" href="#quick-start">Quick start</a><a class="btn" href="#demo">Watch the demo</a>
+<div class="stats"><div class="stat"><b class="gr">10+</b><span>method skills</span></div><div class="stat"><b class="gr">5+</b><span>domain packs</span></div><div class="stat"><b class="gr">EN · VI</b><span>languages</span></div></div></div>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>claude</span></div><pre><span class="c"># install the plugin</span>
+<span class="p">›</span> /plugin marketplace add lechithinh/ba-claude-skills
+<span class="p">›</span> /plugin install ba-claude-skills@ba-claude-skills
+<span class="c"># then just ask</span>
+<span class="p">›</span> <span class="s">Write user stories for interbank transfer in our mobile banking app.</span></pre></div>
+</div></div>
+
+<div class="wrap section"><div class="section-head"><h2>Why domain knowledge matters</h2><p>AI already knows <i>how to write</i> a requirement. A senior BA knows <b>what to ask</b> in a specific domain.</p></div>
+<div class="compare">
+<div class="panel lose"><h3>AI without context</h3><span class="big bad">2 scenarios</span><ul><li>Successful transfer</li><li>Insufficient balance</li></ul></div>
+<div class="panel win"><h3>With the banking domain pack</h3><span class="big gr">7 scenarios + questions</span><ul><li>Beneficiary <b>name inquiry</b> before confirming</li><li>Per-transaction and <b>daily limits</b></li><li><b>Biometric authentication</b> above a threshold</li><li><b>Timeout, pending, reconciliation</b>, auto-refund</li><li>Duplicate-submission protection</li><li>Fee not covered by the balance</li><li>5 open questions for Compliance and Operations</li></ul></div>
 </div>
+<p><a href="{{ '/examples/domain-showcase/' | relative_url }}">See the full before and after examples →</a></p></div>
 
-## Quick start
+<div class="wrap section" id="demo"><div class="section-head"><h2>Watch a process run</h2><p>A diagram can look perfect and still hide a bug. <b>bpmn-modeling</b> runs tokens through scenarios and shows exactly where the process gets stuck.</p></div>
+<div class="pair">
+<figure class="figure"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Animated BPMN diagram, AS-IS: the token gets stuck on Receive payment result when the payment gateway never replies"><figcaption><b>AS-IS: it looks fine.</b> When the payment gateway never replies, the token waits forever: a hanging order and a customer who may already be charged.</figcaption></figure>
+<figure class="figure"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Animated BPMN diagram, TO-BE: a 5-minute timer sends the token to Order awaiting reconciliation"><figcaption><b>TO-BE: the fix.</b> A 5-minute timer sends the token down the exception path to an Operations step instead of waiting forever.</figcaption></figure>
+</div>
+<p><a class="btn primary" href="{{ '/demo/bpmn-token-as-is.html' | relative_url }}">Try AS-IS (interactive)</a><a class="btn" href="{{ '/demo/bpmn-token-to-be.html' | relative_url }}">Try TO-BE (interactive)</a></p></div>
 
-In Claude Code:
+<div class="wrap section" id="skills"><div class="section-head"><h2>Method skills</h2><p>How a BA works: ten skills that follow BABOK techniques and chain into each other.</p></div><div class="cards five"><div class="card"><span class="num">01</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg></span><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">Meeting to Requirements</a></h3><p>Transcripts become goals, functional and non-functional requirements, business rules and open questions, each traced to a quote.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">02</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Requirements Linter</a></h3><p>Scores each requirement 0 to 10, flags vague, untestable and compound statements and missing domain scenarios, then rewrites them.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">03</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Functional Decomposition</a></h3><p>System, modules, features, functions with stable IDs, lint, CRUD gap check and an interactive explorer.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">04</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">User Story Writer</a></h3><p>INVEST user stories with Gherkin acceptance criteria, error paths and Jira CSV export.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">05</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-flow"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/bpmn-modeling">BPMN Modeling</a></h3><p>BPMN 2.0 from a description: Mermaid, .bpmn, SVG and a token run that finds stuck scenarios.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">06</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-diagram"/></svg></span><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">BA Diagrams</a></h3><p>Use case, sequence, ERD, state and context diagrams in valid Mermaid.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">07</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-layout"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/screen-spec">Screen Spec</a></h3><p>Screen specification from a mockup image: field table, validations, states and open questions.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">08</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-table"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/decision-table">Decision Table</a></h3><p>Business rules to a decision table; a script finds missing, conflicting and overlapping rules.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">09</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/edge-case-finder">Edge-case Finder</a></h3><p>A short, prioritised list of what-if cases with questions per stakeholder and Gherkin AC.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">10</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/api-spec">API Spec</a></h3><p>Draft API contract from requirements, business error codes and OpenAPI 3.0 YAML.</p><span class="tag src">Source on GitHub</span></div></div></div>
 
-```bash
-/plugin marketplace add lechithinh/ba-claude-skills
-/plugin install ba-claude-skills@ba-claude-skills
-```
+<div class="wrap section" id="domains"><div class="section-head"><h2>Domain packs</h2><p>What a BA must know: glossary, processes, business rules, a question checklist, data model, integrations, regulations and KPIs.</p></div><div class="cards five"><div class="card"><span class="num">01</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-bank"/></svg></span><h3><a href="{{ '/domains/banking/' | relative_url }}">Banking</a></h3><p>eKYC, accounts, transfers (NAPAS, CITAD), cards, lending, deposits, disputes.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">02</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span><h3><a href="{{ '/domains/ecommerce/' | relative_url }}">E-commerce</a></h3><p>Catalog, vouchers, checkout, orders, shipping and COD, returns, marketplace settlement.</p><span class="tag">Guide and source</span></div><div class="card"><span class="num">03</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-payments">Payments and e-wallet</a></h3><p>Top-up, withdrawal, QR, refund and chargeback, settlement, three-way reconciliation.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">04</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-percent"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-lending">Lending and BNPL</a></h3><p>Origination, decisioning, flat vs reducing interest, repayment allocation, collections by DPD.</p><span class="tag src">Source on GitHub</span></div><div class="card"><span class="num">05</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-logistics">Logistics</a></h3><p>Last mile, failed delivery, COD remittance, volumetric weight, warehouse basics.</p><span class="tag src">Source on GitHub</span></div></div></div>
 
-Then describe your task and business context, for example: *"Write user stories with acceptance criteria for interbank transfer in our mobile banking app."* For Claude.ai, download the skill zips from [Releases](https://github.com/lechithinh/ba-claude-skills/releases) and upload them in **Settings → Capabilities → Skills**.
+<div class="wrap section" id="quick-start"><div class="section-head"><h2>Quick start</h2><p>Then describe your task and business context, for example: <i>"Write user stories for interbank transfer in our mobile banking app."</i></p></div>
+<div class="steps">
+<div class="step"><h3>Claude Code</h3><p><code>/plugin marketplace add lechithinh/ba-claude-skills</code><br><code>/plugin install ba-claude-skills@ba-claude-skills</code></p></div>
+<div class="step"><h3>Manual (Claude Code)</h3><p><code>git clone https://github.com/lechithinh/ba-claude-skills.git &amp;&amp; cp -r ba-claude-skills/skills/* ~/.claude/skills/</code></p></div>
+<div class="step"><h3>Claude.ai</h3><p>Download skill zips from <a href="https://github.com/lechithinh/ba-claude-skills/releases">Releases</a> and upload them in <b>Settings, Capabilities, Skills</b>. Upload a method skill <i>and</i> the domain pack you need.</p></div>
+<div class="step"><h3>Cursor, Codex, Gemini CLI</h3><p>Point the agent to <a href="https://github.com/lechithinh/ba-claude-skills/blob/main/AGENTS.md"><code>AGENTS.md</code></a>.</p></div>
+</div></div>
 
-## Why domain knowledge matters
-
-AI already knows *how to write* a requirement. A senior BA knows **what to ask** in a specific domain. For the same prompt, *"user story for interbank transfer"*, AI without context returns 2 scenarios: success and insufficient balance. With the banking domain pack you get 7, including beneficiary name inquiry, limits, biometric authentication above a threshold, **timeout → pending → reconciliation**, duplicate-submission protection and fees, plus open questions for Compliance.
-
-[See the full before/after examples →](examples/domain-showcase/)
-
-## Method skills {#skills}
-
+<div class="wrap section" id="learn"><div class="section-head"><h2>Learn the BA techniques</h2><p>Each skill comes with a short guide to the technique behind it: BABOK references, common mistakes and practice exercises.</p></div>
 <div class="cards">
-  <div class="card"><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">Meeting → Requirements</a></h3><p>Transcripts become goals, functional and non-functional requirements, business rules and open questions, each traced to a quote.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Requirements Linter</a></h3><p>Scores each requirement 0–10 and flags vague, untestable and compound statements and missing domain scenarios, then rewrites them.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Functional Decomposition</a></h3><p>System → modules → features → functions, with a Mermaid tree and a CRUD gap check.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">User Story Writer</a></h3><p>INVEST user stories with Gherkin acceptance criteria, error paths and Jira CSV export.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">BA Diagrams</a></h3><p>Swimlane process, use case, sequence, ERD, state and context diagrams in valid Mermaid.</p></div>
-</div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Requirements quality checklist</a></h3><p>The most common defects and how to rewrite them.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Functional decomposition</a></h3><p>MECE, CRUD checks and when to stop decomposing.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg></span><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">From meeting notes to requirements</a></h3><p>Sorting what stakeholders say into goals, rules and questions.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">User stories and Gherkin</a></h3><p>INVEST, acceptance criteria and splitting patterns.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-diagram"/></svg></span><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">Choosing the right BA diagram</a></h3><p>Which diagram answers which stakeholder question.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-bank"/></svg></span><h3><a href="{{ '/domains/banking/checklist' | relative_url }}">Banking BA checklist</a></h3><p>The questions a senior banking BA always asks.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span><h3><a href="{{ '/domains/ecommerce/checklist' | relative_url }}">E-commerce BA checklist</a></h3><p>The questions a senior e-commerce BA always asks.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-flow"/></svg></span><h3><a href="{{ '/examples/clinic-booking/' | relative_url }}">Clinic booking case study</a></h3><p>From a meeting transcript to user stories and diagrams.</p></div>
+</div></div>
 
-## Domain packs {#domains}
-
-<div class="cards">
-  <div class="card"><h3><a href="{{ '/domains/banking/' | relative_url }}">🏦 Banking</a></h3><p>eKYC, accounts, transfers (NAPAS, CITAD), cards, lending, deposits, disputes: rules, checklist, data model, integrations, regulations, KPIs.</p></div>
-  <div class="card"><h3><a href="{{ '/domains/ecommerce/' | relative_url }}">🛒 E-commerce</a></h3><p>Catalog, vouchers, checkout, payment, orders, shipping and COD, returns, marketplace settlement: rules, checklist, data model, integrations, regulations, KPIs.</p></div>
-</div>
-
-## Learn the BA techniques {#learn}
-
-Each skill comes with a short guide to the technique behind it, with BABOK references, common mistakes and practice exercises:
-
-- [Requirements quality checklist](learn/requirements-linter.md)
-- [Functional decomposition](learn/functional-decomposition.md)
-- [From meeting notes to requirements](learn/meeting-to-requirements.md)
-- [User stories & Gherkin acceptance criteria](learn/user-story-writer.md)
-- [Choosing the right BA diagram](learn/ba-diagrams.md)
-- [Banking BA checklist](domains/banking/checklist.md) · [E-commerce BA checklist](domains/ecommerce/checklist.md)
-
-## Examples
-
-- [BPMN token simulation, AS-IS: the process that gets stuck (interactive)](demo/bpmn-token-as-is.html)
-- [BPMN token simulation, TO-BE: the fix with a timer (interactive)](demo/bpmn-token-to-be.html)
-- [Domain showcase: with vs without a domain pack](examples/domain-showcase/)
-- [Clinic booking case study: from meeting transcript to user stories and diagrams](examples/clinic-booking/)
-
-## FAQ
-
-**Is it free?** Yes, MIT-licensed and open source.
-
-**Does it invent business rules?** No. Unknown values are left as `[value — confirm]`, together with a list of open questions.
-
-**Does it work in Vietnamese?** Yes. Skills reply in your language, and the domain packs include English–Vietnamese glossaries.
-
-**Can I add my domain?** Yes. See the [contributing guide](https://github.com/lechithinh/ba-claude-skills/blob/main/CONTRIBUTING.md).
+<div class="wrap section"><div class="section-head"><h2>FAQ</h2></div><details><summary>Is it free?</summary><p>Yes. It is MIT-licensed and open source.</p></details><details><summary>Does it invent business rules?</summary><p>No. Unknown values are left as <code>[to confirm]</code> placeholders, together with a list of open questions.</p></details><details><summary>Does it work in Vietnamese?</summary><p>Yes. Skills reply in your language, and the domain packs include English-Vietnamese glossaries.</p></details><details><summary>Can I add my domain?</summary><p>Yes. See the <a href="https://github.com/lechithinh/ba-claude-skills/blob/main/CONTRIBUTING.md">contributing guide</a>.</p></details></div>

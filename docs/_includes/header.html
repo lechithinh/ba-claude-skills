@@ -1,0 +1,21 @@
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="{{ '/' | relative_url }}"><span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span>BA Skills for Claude</a>
+      <nav aria-label="Main">
+        {% if page.lang == 'vi' %}
+        <a href="{{ '/vi/' | relative_url }}#skill">Skill</a>
+        <a href="{{ '/vi/' | relative_url }}#domain">Domain</a>
+        <a href="{{ '/vi/' | relative_url }}#demo">Demo</a>
+        <a href="{{ '/vi/' | relative_url }}#hoc">Học</a>
+        <a class="lang" href="{{ '/' | relative_url }}">EN</a>
+        {% else %}
+        <a href="{{ '/' | relative_url }}#skills">Skills</a>
+        <a href="{{ '/' | relative_url }}#domains">Domains</a>
+        <a href="{{ '/' | relative_url }}#demo">Demo</a>
+        <a href="{{ '/' | relative_url }}#learn">Learn</a>
+        <a class="lang" href="{{ '/vi/' | relative_url }}">VI</a>
+        {% endif %}
+        <a class="gh" href="{{ site.github_repo }}">★ GitHub</a>
+      </nav>
+    </div>
+  </header>

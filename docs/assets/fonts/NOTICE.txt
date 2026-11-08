@@ -1,0 +1,5 @@
+Roboto font files (latin, latin-ext, vietnamese subsets, weights 400/500/700/900)
+
+Roboto is Copyright 2011 Google Inc. and is licensed under the Apache License, Version 2.0
+(https://www.apache.org/licenses/LICENSE-2.0). The files are redistributed unmodified as
+self-hosted webfonts for this documentation site. Original project: https://github.com/googlefonts/roboto

@@ -1,0 +1,29 @@
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Built by <a href="{{ site.author.url }}">{{ site.author.name }}</a> · <a href="{{ site.github_repo }}">Source on GitHub</a> · MIT License</p>
+      <p class="muted">Regulatory content is a community draft, not legal advice. Verify with your Compliance or Legal team.</p>
+    </div>
+  </footer>
+  <script type="module">
+    const blocks = document.querySelectorAll('div.language-mermaid, pre > code.language-mermaid');
+    if (blocks.length) {
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs');
+      mermaid.initialize({
+        startOnLoad: false, securityLevel: 'strict', theme: 'base',
+        themeVariables: {
+          fontFamily: 'Roboto, system-ui, sans-serif', fontSize: '15px',
+          primaryColor: '#EAF6F0', primaryBorderColor: '#5FBE96', primaryTextColor: '#17303B',
+          secondaryColor: '#EAF3FB', tertiaryColor: '#FFFFFF', lineColor: '#4A97D6', textColor: '#17303B',
+          noteBkgColor: '#EAF3FB', noteBorderColor: '#4A97D6'
+        }
+      });
+      blocks.forEach((el) => {
+        const host = el.tagName === 'CODE' ? el.parentElement : el;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        host.replaceWith(div);
+      });
+      await mermaid.run({ querySelector: '.mermaid' });
+    }
+  </script>

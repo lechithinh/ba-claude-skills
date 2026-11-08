@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+{% include head.html %}
+</head>
+<body>
+{% include sprite.html %}
+{% include header.html %}
+  <main>
+    {{ content }}
+  </main>
+{% include footer.html %}
+</body>
+</html>

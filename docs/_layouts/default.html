@@ -1,62 +1,15 @@
 <!doctype html>
 <html lang="{{ page.lang | default: site.lang }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% seo %}
-  {% if page.alt_url %}
-  <link rel="alternate" hreflang="{{ page.lang }}" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
-  <link rel="alternate" hreflang="{{ page.alt_lang }}" href="{{ site.url }}{{ site.baseurl }}{{ page.alt_url }}">
-  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ site.baseurl }}/">
-  {% endif %}
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+{% include head.html %}
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="{{ '/' | relative_url }}">🧩 BA Skills for Claude</a>
-      <nav>
-        {% if page.lang == 'vi' %}
-        <a href="{{ '/vi/' | relative_url }}#skill">Skill</a>
-        <a href="{{ '/vi/' | relative_url }}#domain">Domain</a>
-        <a href="{{ '/vi/' | relative_url }}#hoc">Học</a>
-        <a href="{{ '/' | relative_url }}">EN</a>
-        {% else %}
-        <a href="{{ '/' | relative_url }}#skills">Skills</a>
-        <a href="{{ '/' | relative_url }}#domains">Domains</a>
-        <a href="{{ '/' | relative_url }}#learn">Learn</a>
-        <a href="{{ '/vi/' | relative_url }}">VI</a>
-        {% endif %}
-        <a class="gh" href="{{ site.github_repo }}">★ GitHub</a>
-      </nav>
-    </div>
-  </header>
+{% include sprite.html %}
+{% include header.html %}
   <main class="wrap content">
     {% unless page.hide_title %}<h1>{{ page.title }}</h1>{% endunless %}
     {{ content }}
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>Built by <a href="{{ site.author.url }}">{{ site.author.name }}</a> · <a href="{{ site.github_repo }}">Source on GitHub</a> · MIT License</p>
-      <p class="muted">Regulatory content is a community draft, not legal advice. Verify with your Compliance/Legal team.</p>
-    </div>
-  </footer>
-  <script type="module">
-    const blocks = document.querySelectorAll('div.language-mermaid, pre > code.language-mermaid');
-    if (blocks.length) {
-      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs');
-      const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default', securityLevel: 'strict' });
-      blocks.forEach((el) => {
-        const host = el.tagName === 'CODE' ? el.parentElement : el;
-        const div = document.createElement('div');
-        div.className = 'mermaid';
-        div.textContent = el.textContent;
-        host.replaceWith(div);
-      });
-      await mermaid.run({ querySelector: '.mermaid' });
-    }
-  </script>
+{% include footer.html %}
 </body>
 </html>

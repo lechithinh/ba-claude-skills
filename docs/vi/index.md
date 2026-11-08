@@ -4,70 +4,59 @@ description: "Bộ skill Claude miễn phí, mã nguồn mở cho BA: phân tíc
 lang: vi
 alt_lang: en
 alt_url: /
-hide_title: true
+layout: home
 ---
 
-<div class="hero">
-  <img src="{{ '/assets/readme-banner.png' | relative_url }}" alt="Bộ skill Claude cho Business Analyst: 10+ skill phương pháp và 5+ domain pack">
-  <h1>Bộ Skill Claude cho Business Analyst</h1>
-  <p class="lead">Skill Claude mã nguồn mở làm việc như một BA lâu năm: phân tích yêu cầu, viết user story kèm acceptance criteria, phân rã chức năng, vẽ sơ đồ BPMN/UML, <b>cùng kiến thức nghiệp vụ Ngân hàng và Thương mại điện tử</b>.</p>
-  <a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Xem trên GitHub</a>
-  <a class="btn" href="#bat-dau-nhanh">Bắt đầu nhanh</a>
-  <a class="btn" href="{{ '/' | relative_url }}">English</a>
+<div class="hero-wrap"><div class="hero-grid" aria-hidden="true"><div class="plane"></div></div>
+<div class="wrap hero">
+<div><span class="eyebrow">Mã nguồn mở · MIT · Tiếng Việt &amp; English</span>
+<h1>Bộ skill Claude cho <span class="gr">Business Analyst</span></h1>
+<p class="lead">Skill Claude mã nguồn mở làm việc như một BA lâu năm: yêu cầu, user story, phân rã chức năng, BPMN, bảng quyết định, API spec, <b>cùng những câu hỏi nghiệp vụ mà BA giàu kinh nghiệm luôn đặt ra</b>.</p>
+<a class="btn primary" href="https://github.com/lechithinh/ba-claude-skills">★ Xem trên GitHub</a><a class="btn" href="#bat-dau-nhanh">Bắt đầu nhanh</a><a class="btn" href="#demo">Xem demo</a>
+<div class="stats"><div class="stat"><b class="gr">10+</b><span>skill phương pháp</span></div><div class="stat"><b class="gr">5+</b><span>domain pack</span></div><div class="stat"><b class="gr">EN · VI</b><span>ngôn ngữ</span></div></div></div>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>claude</span></div><pre><span class="c"># cài plugin</span>
+<span class="p">›</span> /plugin marketplace add lechithinh/ba-claude-skills
+<span class="p">›</span> /plugin install ba-claude-skills@ba-claude-skills
+<span class="c"># rồi chỉ cần nói</span>
+<span class="p">›</span> <span class="s">Viết user story cho chức năng chuyển tiền liên ngân hàng trên mobile banking.</span></pre></div>
+</div></div>
+
+<div class="wrap section"><div class="section-head"><h2>Vì sao kiến thức nghiệp vụ quan trọng</h2><p>AI đã biết <i>cách viết</i> yêu cầu. BA lâu năm biết <b>cần hỏi gì</b> trong từng ngành.</p></div>
+<div class="compare">
+<div class="panel lose"><h3>AI không có bối cảnh</h3><span class="big bad">2 kịch bản</span><ul><li>Chuyển tiền thành công</li><li>Không đủ số dư</li></ul></div>
+<div class="panel win"><h3>Có domain pack ngân hàng</h3><span class="big gr">7 kịch bản + câu hỏi</span><ul><li>Truy vấn <b>tên người thụ hưởng</b> trước khi xác nhận</li><li><b>Hạn mức</b> theo giao dịch và theo ngày</li><li><b>Xác thực sinh trắc học</b> khi vượt ngưỡng</li><li><b>Timeout, đang xử lý, đối soát</b>, tự hoàn tiền</li><li>Chống trùng giao dịch khi bấm 2 lần</li><li>Số dư không đủ trả phí</li><li>5 câu hỏi mở cho Compliance và Vận hành</li></ul></div>
 </div>
+<p><a href="{{ '/examples/domain-showcase/' | relative_url }}">Xem ví dụ so sánh đầy đủ →</a></p></div>
 
-## Bắt đầu nhanh {#bat-dau-nhanh}
+<div class="wrap section" id="demo"><div class="section-head"><h2>Xem quy trình chạy thử</h2><p>Một sơ đồ có thể trông hoàn hảo mà vẫn giấu lỗi. <b>bpmn-modeling</b> cho token chạy qua từng kịch bản và chỉ ra chính xác chỗ quy trình bị kẹt. Sơ đồ demo dùng nhãn tiếng Anh.</p></div>
+<div class="pair">
+<figure class="figure"><img src="{{ '/assets/bpmn-token-as-is.svg' | relative_url }}" alt="Sơ đồ BPMN động, AS-IS: token kẹt ở Receive payment result khi cổng thanh toán không trả lời"><figcaption><b>AS-IS: nhìn thì ổn.</b> Khi cổng thanh toán không bao giờ trả lời, token chờ vĩnh viễn: đơn hàng treo và khách có thể đã bị trừ tiền.</figcaption></figure>
+<figure class="figure"><img src="{{ '/assets/bpmn-token-to-be.svg' | relative_url }}" alt="Sơ đồ BPMN động, TO-BE: timer 5 phút đưa token sang Order awaiting reconciliation"><figcaption><b>TO-BE: cách sửa.</b> Timer 5 phút đưa token đi luồng ngoại lệ sang bước của bộ phận Vận hành thay vì chờ mãi.</figcaption></figure>
+</div>
+<p><a class="btn primary" href="{{ '/demo/bpmn-token-as-is.html' | relative_url }}">Thử AS-IS (tương tác)</a><a class="btn" href="{{ '/demo/bpmn-token-to-be.html' | relative_url }}">Thử TO-BE (tương tác)</a></p></div>
 
-Trong Claude Code:
+<div class="wrap section" id="skill"><div class="section-head"><h2>Skill phương pháp</h2><p>BA làm việc thế nào: mười skill theo kỹ thuật BABOK và nối được với nhau.</p></div><div class="cards five"><div class="card"><span class="num">01</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg></span><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">Trích xuất yêu cầu từ biên bản</a></h3><p>Biên bản thành mục tiêu, yêu cầu chức năng và phi chức năng, business rule, câu hỏi mở, có trích dẫn nguồn.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">02</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Kiểm tra chất lượng yêu cầu</a></h3><p>Chấm điểm 0 đến 10, phát hiện yêu cầu mơ hồ, không kiểm thử được, gộp nhiều ý, thiếu kịch bản nghiệp vụ, rồi viết lại.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">03</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Phân rã chức năng</a></h3><p>Hệ thống, module, tính năng, chức năng với ID ổn định, lint, kiểm tra CRUD và trang khám phá tương tác.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">04</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">Viết user story</a></h3><p>User story chuẩn INVEST, acceptance criteria Gherkin có kịch bản lỗi, xuất CSV cho Jira.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">05</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-flow"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/bpmn-modeling">Mô hình hóa BPMN</a></h3><p>BPMN 2.0 từ mô tả: Mermaid, .bpmn, SVG và chạy token để tìm kịch bản bị kẹt.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">06</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-diagram"/></svg></span><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">Vẽ sơ đồ cho BA</a></h3><p>Use case, sequence, ERD, trạng thái, context bằng Mermaid hợp lệ.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">07</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-layout"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/screen-spec">Đặc tả màn hình</a></h3><p>Đặc tả màn hình từ ảnh mockup: bảng trường, validation, trạng thái và câu hỏi mở.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">08</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-table"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/decision-table">Bảng quyết định</a></h3><p>Rule nghiệp vụ thành bảng quyết định; script tìm tổ hợp thiếu, mâu thuẫn và chồng lấn.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">09</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/edge-case-finder">Tìm trường hợp biên</a></h3><p>Danh sách ngắn, xếp ưu tiên các tình huống nếu… thì sao, kèm câu hỏi theo stakeholder và AC Gherkin.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">10</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/api-spec">Đặc tả API</a></h3><p>Bản nháp API contract từ yêu cầu, mã lỗi nghiệp vụ và OpenAPI 3.0 YAML.</p><span class="tag src">Mã nguồn trên GitHub</span></div></div></div>
 
-```bash
-/plugin marketplace add lechithinh/ba-claude-skills
-/plugin install ba-claude-skills@ba-claude-skills
-```
+<div class="wrap section" id="domain"><div class="section-head"><h2>Domain pack</h2><p>BA cần biết gì: thuật ngữ, quy trình, business rule, checklist câu hỏi, data model, tích hợp, pháp lý và KPI.</p></div><div class="cards five"><div class="card"><span class="num">01</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-bank"/></svg></span><h3><a href="{{ '/domains/banking/' | relative_url }}">Ngân hàng</a></h3><p>eKYC, tài khoản, chuyển tiền (NAPAS, CITAD), thẻ, cho vay, tiền gửi, tra soát.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">02</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span><h3><a href="{{ '/domains/ecommerce/' | relative_url }}">Thương mại điện tử</a></h3><p>Danh mục, voucher, checkout, đơn hàng, vận chuyển và COD, đổi trả, đối soát seller.</p><span class="tag">Hướng dẫn và mã nguồn</span></div><div class="card"><span class="num">03</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-payments">Thanh toán và ví điện tử</a></h3><p>Nạp, rút, QR, hoàn tiền và chargeback, quyết toán, đối soát ba chiều.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">04</span><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-percent"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-lending">Cho vay và BNPL</a></h3><p>Khởi tạo, ra quyết định, lãi flat và giảm dần, phân bổ thanh toán, thu hồi nợ theo DPD.</p><span class="tag src">Mã nguồn trên GitHub</span></div><div class="card"><span class="num">05</span><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><h3><a href="https://github.com/lechithinh/ba-claude-skills/tree/main/skills/domain-logistics">Logistics</a></h3><p>Chặng cuối, giao thất bại, đối soát COD, trọng lượng quy đổi, cơ bản về kho.</p><span class="tag src">Mã nguồn trên GitHub</span></div></div></div>
 
-Sau đó mô tả công việc kèm bối cảnh nghiệp vụ, ví dụ: *"Viết user story kèm acceptance criteria cho chức năng chuyển tiền liên ngân hàng trên mobile banking."* Nếu dùng Claude.ai, hãy tải file zip ở [Releases](https://github.com/lechithinh/ba-claude-skills/releases) rồi upload tại **Settings → Capabilities → Skills**.
+<div class="wrap section" id="bat-dau-nhanh"><div class="section-head"><h2>Bắt đầu nhanh</h2><p>Sau đó mô tả công việc kèm bối cảnh nghiệp vụ, ví dụ: <i>"Viết user story cho chức năng chuyển tiền liên ngân hàng trên mobile banking."</i></p></div>
+<div class="steps">
+<div class="step"><h3>Claude Code</h3><p><code>/plugin marketplace add lechithinh/ba-claude-skills</code><br><code>/plugin install ba-claude-skills@ba-claude-skills</code></p></div>
+<div class="step"><h3>Cài thủ công (Claude Code)</h3><p><code>git clone https://github.com/lechithinh/ba-claude-skills.git &amp;&amp; cp -r ba-claude-skills/skills/* ~/.claude/skills/</code></p></div>
+<div class="step"><h3>Claude.ai</h3><p>Tải file zip của skill ở <a href="https://github.com/lechithinh/ba-claude-skills/releases">Releases</a> rồi upload tại <b>Settings, Capabilities, Skills</b>. Nên upload cả skill phương pháp <i>và</i> domain pack bạn cần.</p></div>
+<div class="step"><h3>Cursor, Codex, Gemini CLI</h3><p>Trỏ agent tới <a href="https://github.com/lechithinh/ba-claude-skills/blob/main/AGENTS.md"><code>AGENTS.md</code></a>.</p></div>
+</div></div>
 
-## Vì sao kiến thức nghiệp vụ quan trọng
-
-AI đã biết *cách viết* yêu cầu. BA lâu năm biết **cần hỏi gì** trong từng ngành. Với cùng prompt *"user story chuyển tiền liên ngân hàng"*, AI không có bối cảnh chỉ ra 2 kịch bản: thành công và không đủ số dư. Có domain pack ngân hàng, bạn nhận 7 kịch bản: truy vấn tên người thụ hưởng, hạn mức, xác thực sinh trắc học khi vượt ngưỡng, **timeout → đang xử lý → đối soát**, chống trùng giao dịch, phí, kèm câu hỏi mở cho Compliance.
-
-[Xem ví dụ so sánh đầy đủ →]({{ '/examples/domain-showcase/' | relative_url }})
-
-## Skill phương pháp {#skill}
-
+<div class="wrap section" id="hoc"><div class="section-head"><h2>Học kỹ thuật BA</h2><p>Mỗi skill có hướng dẫn ngắn về kỹ thuật phía sau: tham chiếu BABOK, lỗi thường gặp và bài tập thực hành.</p></div>
 <div class="cards">
-  <div class="card"><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">Trích xuất yêu cầu từ biên bản họp</a></h3><p>Biên bản thành mục tiêu, yêu cầu chức năng và phi chức năng, business rule, câu hỏi mở, có trích dẫn nguồn.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Kiểm tra chất lượng yêu cầu</a></h3><p>Chấm điểm 0–10, phát hiện yêu cầu mơ hồ, không kiểm thử được, gộp nhiều ý, thiếu kịch bản nghiệp vụ, rồi đề xuất viết lại.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Phân rã chức năng</a></h3><p>Hệ thống → module → tính năng → chức năng, kèm sơ đồ cây và kiểm tra CRUD.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">Viết user story</a></h3><p>User story chuẩn INVEST, acceptance criteria Gherkin có kịch bản lỗi, xuất CSV cho Jira.</p></div>
-  <div class="card"><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">Vẽ sơ đồ cho BA</a></h3><p>Sơ đồ quy trình swimlane, use case, sequence, ERD, trạng thái, context bằng Mermaid.</p></div>
-</div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><h3><a href="{{ '/learn/requirements-linter' | relative_url }}">Checklist chất lượng yêu cầu</a></h3><p>Các lỗi phổ biến nhất và cách viết lại.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><h3><a href="{{ '/learn/functional-decomposition' | relative_url }}">Phân rã chức năng</a></h3><p>MECE, kiểm tra CRUD và khi nào dừng phân rã.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg></span><h3><a href="{{ '/learn/meeting-to-requirements' | relative_url }}">Từ biên bản họp đến yêu cầu</a></h3><p>Phân loại điều stakeholder nói thành mục tiêu, rule và câu hỏi.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><h3><a href="{{ '/learn/user-story-writer' | relative_url }}">User story và Gherkin</a></h3><p>INVEST, acceptance criteria và các cách tách story.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-diagram"/></svg></span><h3><a href="{{ '/learn/ba-diagrams' | relative_url }}">Chọn đúng loại sơ đồ cho BA</a></h3><p>Sơ đồ nào trả lời câu hỏi nào của stakeholder.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-bank"/></svg></span><h3><a href="{{ '/domains/banking/checklist' | relative_url }}">Câu hỏi BA ngân hàng phải hỏi</a></h3><p>Những câu một BA ngân hàng lâu năm luôn hỏi.</p></div>
+<div class="card"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span><h3><a href="{{ '/domains/ecommerce/checklist' | relative_url }}">Câu hỏi BA thương mại điện tử</a></h3><p>Những câu một BA TMĐT lâu năm luôn hỏi.</p></div>
+<div class="card"><span class="tile b"><svg class="ic" aria-hidden="true"><use href="#i-flow"/></svg></span><h3><a href="{{ '/examples/clinic-booking/' | relative_url }}">Case study đặt lịch phòng khám</a></h3><p>Từ biên bản họp đến user story và sơ đồ.</p></div>
+</div></div>
 
-## Domain pack {#domain}
-
-<div class="cards">
-  <div class="card"><h3><a href="{{ '/domains/banking/' | relative_url }}">🏦 Ngân hàng</a></h3><p>eKYC, tài khoản, chuyển tiền (NAPAS, CITAD), thẻ, cho vay, tiền gửi, tra soát: rule, checklist, data model, tích hợp, pháp lý, KPI.</p></div>
-  <div class="card"><h3><a href="{{ '/domains/ecommerce/' | relative_url }}">🛒 Thương mại điện tử</a></h3><p>Danh mục, voucher, checkout, thanh toán, đơn hàng, vận chuyển và COD, đổi trả, đối soát seller: rule, checklist, data model, tích hợp, pháp lý, KPI.</p></div>
-</div>
-
-## Học kỹ thuật BA {#hoc}
-
-- [Thuật ngữ ngân hàng Anh–Việt cho BA]({{ '/domains/banking/glossary' | relative_url }})
-- [Câu hỏi BA ngân hàng phải hỏi stakeholder]({{ '/domains/banking/checklist' | relative_url }})
-- [Thuật ngữ thương mại điện tử Anh–Việt]({{ '/domains/ecommerce/glossary' | relative_url }})
-- [Câu hỏi BA thương mại điện tử phải hỏi]({{ '/domains/ecommerce/checklist' | relative_url }})
-- [Phân rã chức năng là gì, khi nào dùng]({{ '/learn/functional-decomposition' | relative_url }})
-- [Cách viết user story và acceptance criteria Gherkin]({{ '/learn/user-story-writer' | relative_url }})
-- [Checklist chất lượng yêu cầu]({{ '/learn/requirements-linter' | relative_url }})
-- [Chọn đúng loại sơ đồ cho BA]({{ '/learn/ba-diagrams' | relative_url }})
-- [Case study: app đặt lịch phòng khám, từ biên bản họp đến user story]({{ '/examples/clinic-booking/' | relative_url }})
-
-## Câu hỏi thường gặp
-
-**Có miễn phí không?** Có. Repo mã nguồn mở, giấy phép MIT.
-
-**Skill có tự bịa business rule không?** Không. Giá trị chưa biết được để dạng `[giá trị — xác nhận]`, kèm danh sách câu hỏi mở.
-
-**Dùng tiếng Việt được không?** Được. Skill trả lời theo ngôn ngữ bạn dùng.
-
-**Tôi đóng góp domain mới được không?** Được. Xem [hướng dẫn đóng góp](https://github.com/lechithinh/ba-claude-skills/blob/main/CONTRIBUTING.md).
+<div class="wrap section"><div class="section-head"><h2>Câu hỏi thường gặp</h2></div><details><summary>Có miễn phí không?</summary><p>Có. Repo mã nguồn mở, giấy phép MIT.</p></details><details><summary>Skill có tự bịa business rule không?</summary><p>Không. Giá trị chưa biết được để dạng <code>[cần xác nhận]</code>, kèm danh sách câu hỏi mở.</p></details><details><summary>Dùng tiếng Việt được không?</summary><p>Được. Skill trả lời theo ngôn ngữ bạn dùng, và domain pack có thuật ngữ Anh-Việt.</p></details><details><summary>Tôi đóng góp domain mới được không?</summary><p>Được. Xem <a href="https://github.com/lechithinh/ba-claude-skills/blob/main/CONTRIBUTING.md">hướng dẫn đóng góp</a>.</p></details></div>
