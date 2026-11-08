@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://lechithinh.github.io/ba-claude-skills/vi/"><img src="assets/banner.png" alt="Bộ skill Claude cho Business Analyst — phân tích yêu cầu, user story, sơ đồ, nghiệp vụ ngân hàng và thương mại điện tử" width="100%"></a>
+<a href="https://lechithinh.github.io/ba-claude-skills/vi/"><img src="assets/banner.png" alt="Bộ skill Claude cho Business Analyst: phân tích yêu cầu, user story, sơ đồ, nghiệp vụ ngân hàng và thương mại điện tử" width="100%"></a>
 
 # Bộ Skill Claude cho Business Analyst
 
@@ -17,15 +17,20 @@
 
 ## Bắt đầu nhanh
 
-Trong [Claude Code](https://docs.claude.com/en/docs/claude-code):
+Trong Claude Code:
 
 ```bash
 /plugin marketplace add lechithinh/ba-claude-skills
 /plugin install ba-claude-skills@ba-claude-skills
 ```
 
+Các cách cài khác:
+
+- **Cài thủ công (Claude Code):** `git clone https://github.com/lechithinh/ba-claude-skills.git && cp -r ba-claude-skills/skills/* ~/.claude/skills/`
+- **Claude.ai:** tải file zip của skill ở [Releases](https://github.com/lechithinh/ba-claude-skills/releases) rồi upload tại **Settings → Capabilities → Skills**. Nên upload cả skill phương pháp *và* domain pack bạn cần.
+- **Cursor, Codex, Gemini CLI và các agent khác:** trỏ agent tới [`AGENTS.md`](AGENTS.md).
+
 Sau đó chỉ cần nói: *"Viết user story kèm acceptance criteria cho chức năng chuyển tiền liên ngân hàng trên mobile banking."*
-Dùng Claude.ai, Cursor hay Codex? Xem [cách cài khác](#cách-cài-khác).
 
 ## Dành cho ai
 
@@ -33,32 +38,17 @@ Dùng Claude.ai, Cursor hay Codex? Xem [cách cài khác](#cách-cài-khác).
 - **BA chuyển sang domain mới** (ngân hàng, TMĐT) cần biết *phải hỏi gì*.
 - **Team BA và người đào tạo BA** muốn một cách làm việc với AI thống nhất, theo BABOK.
 
-## Xem quy trình chạy thử — và thấy lỗi mà sơ đồ tĩnh giấu đi
+## Xem quy trình chạy thử và thấy lỗi mà sơ đồ tĩnh giấu đi
 
-Một sơ đồ BPMN có thể trông hoàn hảo mà vẫn giấu lỗi. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) không chỉ vẽ: skill **cho token chạy qua từng kịch bản** và chỉ ra chính xác chỗ quy trình bị kẹt.
+Một sơ đồ BPMN có thể trông hoàn hảo mà vẫn giấu lỗi. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) không chỉ vẽ: skill **cho token chạy qua từng kịch bản** và chỉ ra chính xác chỗ quy trình bị kẹt. Sơ đồ demo dùng nhãn tiếng Anh để người đọc quốc tế cũng hiểu; skill vẫn trả lời theo ngôn ngữ của bạn.
 
-<p align="center"><img src="assets/token-demo-asis.svg" alt="Sơ đồ BPMN động, AS-IS: token chạy hết kịch bản thành công, rồi ở kịch bản cổng thanh toán không trả kết quả thì kẹt ở 'Nhận kết quả thanh toán' và hiện nhãn đỏ KẸT" width="100%"></p>
+<p align="center"><img src="assets/token-demo-asis.svg" alt="Sơ đồ BPMN động, AS-IS: token chạy hết kịch bản thành công, rồi ở kịch bản cổng thanh toán không trả kết quả thì kẹt ở 'Receive payment result' và hiện nhãn đỏ STUCK" width="100%"></p>
 
-**AS-IS: nhìn thì ổn.** Kịch bản A (thành công) chạy trọn vẹn. Kịch bản E ("cổng thanh toán không bao giờ trả lời") khiến token **kẹt vĩnh viễn** ở *Nhận kết quả thanh toán*. Ngoài đời, đó là đơn hàng treo và khách có thể đã bị trừ tiền.
+**AS-IS: nhìn thì ổn.** Kịch bản A (thanh toán thành công) chạy trọn vẹn. Kịch bản E ("cổng thanh toán không bao giờ trả lời") khiến token **kẹt vĩnh viễn** ở *Receive payment result*. Ngoài đời, đó là đơn hàng treo và khách có thể đã bị trừ tiền.
 
-<p align="center"><img src="assets/token-demo-tobe.svg" alt="Sơ đồ BPMN động, TO-BE: có timer 5 phút gắn vào task chờ, token thoát ra và kết thúc ở 'Đơn chờ đối soát' thuộc lane Vận hành" width="100%"></p>
+<p align="center"><img src="assets/token-demo-tobe.svg" alt="Sơ đồ BPMN động, TO-BE: có timer 5 phút gắn vào task chờ, token thoát ra và kết thúc ở 'Order awaiting reconciliation' thuộc lane Operations" width="100%"></p>
 
-**TO-BE: cách sửa.** Skill đề xuất **timer 5 phút** gắn vào task đang chờ. Khi hết giờ, token đi luồng ngoại lệ sang *Đơn chờ đối soát* (bước của bộ phận Vận hành) thay vì chờ mãi. Mỗi lựa chọn ký hiệu đều kèm *vì sao dùng, vì sao không dùng cách khác*.
-
-| | Prompt thông thường | `bpmn-modeling` |
-|---|---|---|
-| Đầu ra | Thường là hộp và mũi tên *trông có vẻ* đúng | BPMN 2.0 hợp lệ (`.bpmn`, SVG, Mermaid), lint: **0 lỗi** |
-| Có kiểm tra quy trình không? | Thường là không | **Chạy kịch bản**: 2 kịch bản, **1 bị kẹt**, báo kèm lý do |
-| Giải thích lựa chọn | Ít khi | "Vì sao dùng ký hiệu này, vì sao không dùng ký hiệu kia" cho mọi lựa chọn không hiển nhiên |
-| Đưa cho stakeholder xem | Một bức ảnh tĩnh | Token chạy được, kèm trang thử trực tiếp |
-
-▶ **Tự thử:** [AS-IS (tương tác)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-as-is.html) · [TO-BE (tương tác)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-to-be.html): chọn kịch bản và xem token chạy. Hoặc chạy tại máy (chỉ cần Python 3):
-
-```bash
-python3 skills/bpmn-modeling/scripts/simulate_tokens.py assets/token-demo/payment-asis.json
-# [E] Cổng thanh toán không trả kết quả
-#     KẸT : “Nhận kết quả thanh toán” – chờ message “Kết quả giao dịch” không bao giờ tới
-```
+**TO-BE: cách sửa.** Skill đề xuất **timer 5 phút** gắn vào task đang chờ. Khi hết giờ, token đi luồng ngoại lệ sang *Order awaiting reconciliation* (bước của bộ phận Vận hành) thay vì chờ mãi. Mỗi lựa chọn ký hiệu đều kèm *vì sao dùng, vì sao không dùng cách khác*.
 
 ## Điểm khác biệt
 
@@ -68,7 +58,7 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 |---|---|---|
 | Phương pháp | Văn bản tự do | Kỹ thuật BABOK, ID, truy vết, chấm điểm chất lượng |
 | Nghiệp vụ | Chỉ có happy path chung chung | Domain pack bổ sung rule, ngoại lệ và câu hỏi cho **Ngân hàng** và **TMĐT** |
-| Giá trị nghiệp vụ chưa biết | Thường tự bịa | Để `[giá trị — xác nhận]` kèm danh sách câu hỏi mở |
+| Giá trị nghiệp vụ chưa biết | Thường tự bịa | Để dạng `[cần xác nhận]` kèm danh sách câu hỏi mở |
 | Sơ đồ | Hay lỗi không hiển thị | Mermaid có checklist chống lỗi render |
 | Ngôn ngữ | Ưu tiên tiếng Anh | Việt & Anh, có bối cảnh Việt Nam (NAPAS, eKYC, COD, hóa đơn điện tử) |
 
@@ -96,7 +86,7 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 | Skill | Kết quả |
 |---|---|
 | [`meeting-to-requirements`](skills/meeting-to-requirements/SKILL.md) | Biên bản họp → mục tiêu, yêu cầu chức năng & phi chức năng, business rule, câu hỏi mở, có trích dẫn nguồn |
-| [`requirements-linter`](skills/requirements-linter/SKILL.md) | Chấm điểm 0–10 từng yêu cầu; phát hiện mơ hồ, không kiểm thử được, gộp yêu cầu và **thiếu kịch bản nghiệp vụ**; đề xuất viết lại |
+| [`requirements-linter`](skills/requirements-linter/SKILL.md) | Chấm điểm từ 0 đến 10 cho từng yêu cầu; phát hiện mơ hồ, không kiểm thử được, gộp yêu cầu và **thiếu kịch bản nghiệp vụ**; đề xuất viết lại |
 | [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | Hệ thống → module → tính năng → chức năng, sơ đồ cây Mermaid, kiểm tra CRUD |
 | [`user-story-writer`](skills/user-story-writer/SKILL.md) | User story chuẩn INVEST, AC Gherkin có kịch bản lỗi, CSV cho Jira |
 | [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) | BPMN 2.0 từ mô tả: Mermaid, `.bpmn`, SVG, **mô phỏng token** tìm kịch bản bị kẹt, lint, AS-IS → TO-BE |
@@ -116,7 +106,7 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 | [`domain-lending`](skills/domain-lending/SKILL.md) | Cho vay tiêu dùng và BNPL: khởi tạo, ra quyết định, cách tính lãi, thứ tự phân bổ thanh toán, thu hồi nợ theo DPD |
 | [`domain-logistics`](skills/domain-logistics/SKILL.md) | Giao hàng và kho: chặng cuối, giao thất bại, đối soát COD, trọng lượng quy đổi, cơ bản WMS |
 
-Mỗi pack gồm thuật ngữ Anh–Việt, quy trình, pattern business rule, **checklist câu hỏi cho BA**, data model kèm trạng thái, bản đồ tích hợp, điểm chạm pháp lý và KPI. Mỗi skill phương pháp có thêm file `LEARN.md` giải thích kỹ thuật BA phía sau.
+Mỗi pack gồm thuật ngữ Anh-Việt, quy trình, pattern business rule, **checklist câu hỏi cho BA**, data model kèm trạng thái, bản đồ tích hợp, điểm chạm pháp lý và KPI. Mỗi skill phương pháp có thêm file `LEARN.md` giải thích kỹ thuật BA phía sau.
 
 ## Cách sử dụng
 
@@ -130,14 +120,6 @@ Mô tả công việc **kèm bối cảnh nghiệp vụ**. Claude tự chọn sk
 | Refinement sprint | *"Viết user story kèm Gherkin cho đổi trả & hoàn tiền của website bán hàng."* |
 | Thiết kế trạng thái | *"Vẽ sơ đồ trạng thái đơn hàng, thanh toán, vận chuyển và ảnh hưởng qua lại."* |
 
-**Mẹo:** nêu mô hình kinh doanh trong một câu (*"Shop thời trang B2C, app + web, có COD"*), dán tài liệu thật, và nối các skill: biên bản → yêu cầu → kiểm tra → phân rã → story → sơ đồ. Xem [case study đặt lịch phòng khám](examples/clinic-booking/README.md).
-
-## Cách cài khác
-
-- **Cài thủ công (Claude Code):** `git clone https://github.com/lechithinh/ba-claude-skills.git && cp -r ba-claude-skills/skills/* ~/.claude/skills/`
-- **Claude.ai:** tải file zip của skill ở [Releases](https://github.com/lechithinh/ba-claude-skills/releases) rồi upload tại **Settings → Capabilities → Skills**. Nên upload cả skill phương pháp *và* domain pack bạn cần.
-- **Cursor, Codex, Gemini CLI và các agent khác:** trỏ agent tới [`AGENTS.md`](AGENTS.md).
-
 ## Câu hỏi thường gặp
 
 <details><summary><b>Có cần gọi tên skill không?</b></summary>
@@ -145,11 +127,11 @@ Không. Chỉ cần mô tả công việc và bối cảnh ("mobile banking", "s
 </details>
 
 <details><summary><b>Skill có tự bịa business rule hay quy định pháp luật không?</b></summary>
-Skill được hướng dẫn không làm vậy. Giá trị chưa biết sẽ để dạng <code>[giá trị — xác nhận]</code> kèm câu hỏi mở. File pháp lý là bản nháp cộng đồng có ghi ngày review; hãy dùng để biết cần hỏi Compliance hay Pháp chế điều gì. Đây không phải tư vấn pháp lý.
+Skill được hướng dẫn không làm vậy. Giá trị chưa biết sẽ để dạng <code>[cần xác nhận]</code> kèm câu hỏi mở. File pháp lý là bản nháp cộng đồng có ghi ngày review; hãy dùng để biết cần hỏi Compliance hay Pháp chế điều gì. Đây không phải tư vấn pháp lý.
 </details>
 
 <details><summary><b>Dùng tiếng Việt được không?</b></summary>
-Được. Skill trả lời theo ngôn ngữ bạn dùng, và domain pack có thuật ngữ Anh–Việt cùng bối cảnh Việt Nam.
+Được. Skill trả lời theo ngôn ngữ bạn dùng, và domain pack có thuật ngữ Anh-Việt cùng bối cảnh Việt Nam.
 </details>
 
 <details><summary><b>Domain của tôi chưa có, tôi đóng góp được không?</b></summary>

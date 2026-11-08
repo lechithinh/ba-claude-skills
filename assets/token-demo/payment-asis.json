@@ -1,19 +1,19 @@
 {
-  "name": "Thanh toán đơn hàng",
+  "name": "Order payment",
   "lanes": [
     {
       "id": "kh",
-      "name": "Khách hàng"
+      "name": "Customer"
     },
     {
       "id": "ht",
-      "name": "Hệ thống"
+      "name": "System"
     }
   ],
   "pools": [
     {
       "id": "pay",
-      "name": "Cổng thanh toán",
+      "name": "Payment gateway",
       "position": "top"
     }
   ],
@@ -22,55 +22,55 @@
       "id": "s",
       "type": "start",
       "lane": "kh",
-      "name": "Khách bấm Thanh toán"
+      "name": "Customer taps Pay"
     },
     {
       "id": "t1",
       "type": "user_task",
       "lane": "kh",
-      "name": "Chọn cách thanh toán"
+      "name": "Choose payment method"
     },
     {
       "id": "t2",
       "type": "send_task",
       "lane": "ht",
-      "name": "Gửi yêu cầu thanh toán"
+      "name": "Send payment request"
     },
     {
       "id": "t3",
       "type": "receive_task",
       "lane": "ht",
-      "name": "Nhận kết quả thanh toán"
+      "name": "Receive payment result"
     },
     {
       "id": "g1",
       "type": "xor",
       "lane": "ht",
-      "name": "Thanh toán thành công?"
+      "name": "Payment successful?"
     },
     {
       "id": "t4",
       "type": "service_task",
       "lane": "ht",
-      "name": "Xác nhận đơn hàng"
+      "name": "Confirm order"
     },
     {
       "id": "e1",
       "type": "end",
       "lane": "ht",
-      "name": "Đơn đã xác nhận"
+      "name": "Order confirmed"
     },
     {
       "id": "t5",
       "type": "service_task",
       "lane": "ht",
-      "name": "Nhả hàng đang giữ"
+      "name": "Release held stock"
     },
     {
       "id": "e2",
       "type": "end",
       "lane": "ht",
-      "name": "Đơn bị hủy"
+      "name": "Order cancelled"
     }
   ],
   "flows": [
@@ -93,7 +93,7 @@
     {
       "from": "g1",
       "to": "t4",
-      "name": "Có"
+      "name": "Yes"
     },
     {
       "from": "t4",
@@ -102,7 +102,7 @@
     {
       "from": "g1",
       "to": "t5",
-      "name": "Không",
+      "name": "No",
       "default": true
     },
     {
@@ -115,27 +115,27 @@
       "id": "mreq",
       "from": "t2",
       "to": "pay",
-      "name": "Yêu cầu thanh toán"
+      "name": "Payment request"
     },
     {
       "id": "mres",
       "from": "pay",
       "to": "t3",
-      "name": "Kết quả giao dịch"
+      "name": "Transaction result"
     }
   ],
   "scenarios": [
     {
       "id": "A",
-      "name": "Thanh toán thành công",
+      "name": "Payment succeeds",
       "choices": {
-        "g1": "Có"
+        "g1": "Yes"
       },
       "expect": "e1"
     },
     {
       "id": "E",
-      "name": "Cổng thanh toán không trả kết quả",
+      "name": "Payment gateway never replies",
       "silent": [
         "mres"
       ]
