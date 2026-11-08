@@ -63,6 +63,8 @@ Each skill comes with a short guide to the technique behind it, with BABOK refer
 
 ## Examples
 
+- [BPMN token simulation, AS-IS: the process that gets stuck (interactive)](demo/bpmn-token-as-is.html)
+- [BPMN token simulation, TO-BE: the fix with a timer (interactive)](demo/bpmn-token-to-be.html)
 - [Domain showcase: with vs without a domain pack](examples/domain-showcase/)
 - [Clinic booking case study: from meeting transcript to user stories and diagrams](examples/clinic-booking/)
 

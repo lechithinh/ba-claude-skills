@@ -33,6 +33,33 @@ Dùng Claude.ai, Cursor hay Codex? Xem [cách cài khác](#cách-cài-khác).
 - **BA chuyển sang domain mới** (ngân hàng, TMĐT) cần biết *phải hỏi gì*.
 - **Team BA và người đào tạo BA** muốn một cách làm việc với AI thống nhất, theo BABOK.
 
+## Xem quy trình chạy thử — và thấy lỗi mà sơ đồ tĩnh giấu đi
+
+Một sơ đồ BPMN có thể trông hoàn hảo mà vẫn giấu lỗi. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) không chỉ vẽ: skill **cho token chạy qua từng kịch bản** và chỉ ra chính xác chỗ quy trình bị kẹt.
+
+<p align="center"><img src="assets/token-demo-asis.svg" alt="Sơ đồ BPMN động, AS-IS: token chạy hết kịch bản thành công, rồi ở kịch bản cổng thanh toán không trả kết quả thì kẹt ở 'Nhận kết quả thanh toán' và hiện nhãn đỏ KẸT" width="100%"></p>
+
+**AS-IS: nhìn thì ổn.** Kịch bản A (thành công) chạy trọn vẹn. Kịch bản E ("cổng thanh toán không bao giờ trả lời") khiến token **kẹt vĩnh viễn** ở *Nhận kết quả thanh toán*. Ngoài đời, đó là đơn hàng treo và khách có thể đã bị trừ tiền.
+
+<p align="center"><img src="assets/token-demo-tobe.svg" alt="Sơ đồ BPMN động, TO-BE: có timer 5 phút gắn vào task chờ, token thoát ra và kết thúc ở 'Đơn chờ đối soát' thuộc lane Vận hành" width="100%"></p>
+
+**TO-BE: cách sửa.** Skill đề xuất **timer 5 phút** gắn vào task đang chờ. Khi hết giờ, token đi luồng ngoại lệ sang *Đơn chờ đối soát* (bước của bộ phận Vận hành) thay vì chờ mãi. Mỗi lựa chọn ký hiệu đều kèm *vì sao dùng, vì sao không dùng cách khác*.
+
+| | Prompt thông thường | `bpmn-modeling` |
+|---|---|---|
+| Đầu ra | Thường là hộp và mũi tên *trông có vẻ* đúng | BPMN 2.0 hợp lệ (`.bpmn`, SVG, Mermaid), lint: **0 lỗi** |
+| Có kiểm tra quy trình không? | Thường là không | **Chạy kịch bản**: 2 kịch bản, **1 bị kẹt**, báo kèm lý do |
+| Giải thích lựa chọn | Ít khi | "Vì sao dùng ký hiệu này, vì sao không dùng ký hiệu kia" cho mọi lựa chọn không hiển nhiên |
+| Đưa cho stakeholder xem | Một bức ảnh tĩnh | Token chạy được, kèm trang thử trực tiếp |
+
+▶ **Tự thử:** [AS-IS (tương tác)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-as-is.html) · [TO-BE (tương tác)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-to-be.html): chọn kịch bản và xem token chạy. Hoặc chạy tại máy (chỉ cần Python 3):
+
+```bash
+python3 skills/bpmn-modeling/scripts/simulate_tokens.py assets/token-demo/payment-asis.json
+# [E] Cổng thanh toán không trả kết quả
+#     KẸT : “Nhận kết quả thanh toán” – chờ message “Kết quả giao dịch” không bao giờ tới
+```
+
 ## Điểm khác biệt
 
 AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏi gì** trong từng nghiệp vụ. Repo này đóng gói cả hai:
@@ -72,6 +99,7 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 | [`requirements-linter`](skills/requirements-linter/SKILL.md) | Chấm điểm 0–10 từng yêu cầu; phát hiện mơ hồ, không kiểm thử được, gộp yêu cầu và **thiếu kịch bản nghiệp vụ**; đề xuất viết lại |
 | [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | Hệ thống → module → tính năng → chức năng, sơ đồ cây Mermaid, kiểm tra CRUD |
 | [`user-story-writer`](skills/user-story-writer/SKILL.md) | User story chuẩn INVEST, AC Gherkin có kịch bản lỗi, CSV cho Jira |
+| [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) | BPMN 2.0 từ mô tả: Mermaid, `.bpmn`, SVG, **mô phỏng token** tìm kịch bản bị kẹt, lint, AS-IS → TO-BE |
 | [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Sơ đồ quy trình swimlane, use case, sequence, ERD, trạng thái, context bằng Mermaid |
 | [`screen-spec`](skills/screen-spec/SKILL.md) | Đặc tả màn hình từ ảnh mockup: bảng trường, validation, hành vi nút, các trạng thái, câu hỏi mở (tách điều nhìn thấy với điều giả định) |
 | [`decision-table`](skills/decision-table/SKILL.md) | Rule nghiệp vụ thành bảng quyết định; script tìm tổ hợp **thiếu**, **mâu thuẫn**, **chồng lấn** và sinh test case |

@@ -34,6 +34,33 @@ Using Claude.ai, Cursor or Codex? See [other installs](#other-installs).
 - **BAs moving into a new domain** (banking, e-commerce) who need to know *what to ask*.
 - **BA teams & trainers** who want a shared, BABOK-aligned way of working with AI.
 
+## Watch a process run — and see the bug a diagram hides
+
+A BPMN diagram can look perfect and still hide a bug. [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) doesn't just draw: it **runs tokens through scenarios** and shows exactly where the process gets stuck.
+
+<p align="center"><img src="assets/token-demo-asis.svg" alt="Animated BPMN diagram, AS-IS: a token completes the happy path, then in the scenario where the payment gateway never replies the token gets stuck on 'Receive payment result' and a red KẸT (stuck) badge appears" width="100%"></p>
+
+**AS-IS: it looks fine.** Scenario A (success) runs end to end. Scenario E ("the payment gateway never replies") leaves the token **stuck forever** on *Receive payment result*: in real life, an order hanging and a customer who may already have been charged.
+
+<p align="center"><img src="assets/token-demo-tobe.svg" alt="Animated BPMN diagram, TO-BE: with a 5-minute timer boundary event, the token leaves the waiting task and ends at 'Order awaiting reconciliation' in the Operations lane" width="100%"></p>
+
+**TO-BE: the fix.** The skill proposes a **5-minute timer** on the waiting task. When it fires, the token takes the exception path to *Order awaiting reconciliation* (an Operations lane step) instead of waiting forever. Every symbol choice comes with *why this one, and why not the alternative*.
+
+| | A typical generic prompt | `bpmn-modeling` |
+|---|---|---|
+| Output | Usually boxes and arrows that *look* right | Valid BPMN 2.0 (`.bpmn`, SVG, Mermaid), lint: **0 errors** |
+| Does it check the process? | Usually not | **Runs scenarios**: 2 run, **1 gets stuck**, reported with the reason |
+| Explains choices | Seldom | "Why this symbol / why not that one" for every non-obvious choice |
+| You can show it to stakeholders | A static picture | A token you can watch, plus a try-it page |
+
+▶ **Try it yourself:** [AS-IS (interactive)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-as-is.html) · [TO-BE (interactive)](https://lechithinh.github.io/ba-claude-skills/demo/bpmn-token-to-be.html): pick a scenario and watch the token. Or run it locally (Python 3 only):
+
+```bash
+python3 skills/bpmn-modeling/scripts/simulate_tokens.py assets/token-demo/payment-asis.json
+# [E] Cổng thanh toán không trả kết quả
+#     KẸT : “Nhận kết quả thanh toán” – chờ message “Kết quả giao dịch” không bao giờ tới
+```
+
 ## Why it's different
 
 AI already knows *how to write* a requirement. A senior BA knows **what to ask** in a specific business domain. This repo packages both:
@@ -73,6 +100,7 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 | [`requirements-linter`](skills/requirements-linter/SKILL.md) | 0–10 quality score per requirement; flags vague, untestable, compound and **missing domain scenarios**; rewrites them |
 | [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | System → modules → features → functions, Mermaid tree, CRUD gap check |
 | [`user-story-writer`](skills/user-story-writer/SKILL.md) | INVEST user stories, Gherkin acceptance criteria with error paths, Jira CSV |
+| [`bpmn-modeling`](skills/bpmn-modeling/SKILL.md) | BPMN 2.0 from a description: Mermaid, `.bpmn`, SVG, **token-run simulation** that finds stuck scenarios, lint, AS-IS → TO-BE |
 | [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Swimlane process, use case, sequence, ERD, state and context diagrams in Mermaid |
 | [`screen-spec`](skills/screen-spec/SKILL.md) | Screen specification from a mockup image: field table, validations, button behaviour, states, open questions (what is seen vs assumed) |
 | [`decision-table`](skills/decision-table/SKILL.md) | Business rules to a decision table; a script finds **missing**, **conflicting** and **overlapping** rule combinations and generates tests |

@@ -1,0 +1,144 @@
+{
+  "name": "Thanh toán đơn hàng",
+  "lanes": [
+    {
+      "id": "kh",
+      "name": "Khách hàng"
+    },
+    {
+      "id": "ht",
+      "name": "Hệ thống"
+    }
+  ],
+  "pools": [
+    {
+      "id": "pay",
+      "name": "Cổng thanh toán",
+      "position": "top"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "type": "start",
+      "lane": "kh",
+      "name": "Khách bấm Thanh toán"
+    },
+    {
+      "id": "t1",
+      "type": "user_task",
+      "lane": "kh",
+      "name": "Chọn cách thanh toán"
+    },
+    {
+      "id": "t2",
+      "type": "send_task",
+      "lane": "ht",
+      "name": "Gửi yêu cầu thanh toán"
+    },
+    {
+      "id": "t3",
+      "type": "receive_task",
+      "lane": "ht",
+      "name": "Nhận kết quả thanh toán"
+    },
+    {
+      "id": "g1",
+      "type": "xor",
+      "lane": "ht",
+      "name": "Thanh toán thành công?"
+    },
+    {
+      "id": "t4",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Xác nhận đơn hàng"
+    },
+    {
+      "id": "e1",
+      "type": "end",
+      "lane": "ht",
+      "name": "Đơn đã xác nhận"
+    },
+    {
+      "id": "t5",
+      "type": "service_task",
+      "lane": "ht",
+      "name": "Nhả hàng đang giữ"
+    },
+    {
+      "id": "e2",
+      "type": "end",
+      "lane": "ht",
+      "name": "Đơn bị hủy"
+    }
+  ],
+  "flows": [
+    {
+      "from": "s",
+      "to": "t1"
+    },
+    {
+      "from": "t1",
+      "to": "t2"
+    },
+    {
+      "from": "t2",
+      "to": "t3"
+    },
+    {
+      "from": "t3",
+      "to": "g1"
+    },
+    {
+      "from": "g1",
+      "to": "t4",
+      "name": "Có"
+    },
+    {
+      "from": "t4",
+      "to": "e1"
+    },
+    {
+      "from": "g1",
+      "to": "t5",
+      "name": "Không",
+      "default": true
+    },
+    {
+      "from": "t5",
+      "to": "e2"
+    }
+  ],
+  "messages": [
+    {
+      "id": "mreq",
+      "from": "t2",
+      "to": "pay",
+      "name": "Yêu cầu thanh toán"
+    },
+    {
+      "id": "mres",
+      "from": "pay",
+      "to": "t3",
+      "name": "Kết quả giao dịch"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Thanh toán thành công",
+      "choices": {
+        "g1": "Có"
+      },
+      "expect": "e1"
+    },
+    {
+      "id": "E",
+      "name": "Cổng thanh toán không trả kết quả",
+      "silent": [
+        "mres"
+      ]
+    }
+  ]
+}

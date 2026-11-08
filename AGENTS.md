@@ -11,7 +11,8 @@ When the user asks for one of the tasks below, read the matching `SKILL.md` and 
 | Review, lint, score or validate requirements / user stories | `skills/requirements-linter/SKILL.md` |
 | Functional decomposition, feature breakdown, module list | `skills/functional-decomposition/SKILL.md` |
 | Write user stories, acceptance criteria, Gherkin, Jira backlog | `skills/user-story-writer/SKILL.md` |
-| Draw process, use case, sequence, ERD, state or context diagrams | `skills/ba-diagrams/SKILL.md` |
+| Model a business process in BPMN 2.0 (pools, lanes, gateways, events), run token scenarios, AS-IS / TO-BE | `skills/bpmn-modeling/SKILL.md` |
+| Draw use case, sequence, ERD, state or context diagrams (or a quick process draft) | `skills/ba-diagrams/SKILL.md` |
 | Write a screen/UI specification from a mockup image or description | `skills/screen-spec/SKILL.md` |
 | Turn business rules into a decision table; find missing or conflicting rule combinations | `skills/decision-table/SKILL.md` |
 | Find edge cases, challenge a requirement or story ("what if…") | `skills/edge-case-finder/SKILL.md` |
