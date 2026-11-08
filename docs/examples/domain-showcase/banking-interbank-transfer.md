@@ -88,6 +88,7 @@ Scenario: Fee not covered by balance
 ```
 
 **Open questions `[domain]`**
+
 1. Limit values per segment/channel and who can change them?
 2. Authentication thresholds — confirmed by Compliance against the current regulation?
 3. Fee schedule and waivers?

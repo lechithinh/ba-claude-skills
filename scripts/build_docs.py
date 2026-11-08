@@ -71,11 +71,64 @@ def esc(s: str) -> str:
     return s.replace('"', '\\"')
 
 
+# Tags that really are HTML; anything else written like <role> in the source is a text placeholder.
+KNOWN_TAGS = {"a", "abbr", "b", "br", "code", "details", "div", "em", "figure", "figcaption", "h1", "h2", "h3", "h4",
+              "h5", "h6", "hr", "i", "img", "kbd", "li", "mark", "ol", "p", "pre", "s", "small", "span", "strong",
+              "sub", "summary", "sup", "table", "tbody", "td", "th", "thead", "tr", "u", "ul", "svg", "path"}
+TAG = re.compile(r"<(/?)([A-Za-z][\w:-]*)((?:\s[^<>]*)?)>")
+
+
+def escape_placeholders(line: str) -> str:
+    """Turn <role>, <short name>, <value> into literal text; keep real HTML tags and anything inside `code`."""
+    parts = re.split(r"(`+[^`]*`+)", line)
+    for i in range(0, len(parts), 2):          # even indexes are outside code spans
+        parts[i] = TAG.sub(lambda m: m.group(0) if m.group(2).lower() in KNOWN_TAGS
+                           else "&lt;" + m.group(0)[1:-1] + "&gt;", parts[i])
+    return "".join(parts)
+
+
+def normalize_markdown(body: str) -> str:
+    """Make GitHub-flavoured Markdown safe for kramdown (GitHub Pages).
+
+    GitHub accepts a table or list written directly under a heading or paragraph; kramdown does not and prints the
+    raw pipes. So: a blank line before every table, list and fenced block that follows text, a blank line after every
+    heading, and angle-bracket placeholders escaped. Fenced code blocks are left untouched."""
+    out, fence = [], None
+    lines = body.split("\n")
+    is_table = lambda s: s.lstrip().startswith("|")
+    is_list = lambda s: bool(re.match(r"\s*([-*+]|\d+[.)])\s+\S", s))
+    for idx, line in enumerate(lines):
+        stripped = line.lstrip()
+        if fence:
+            out.append(line)
+            if stripped.startswith(fence):
+                fence = None
+            continue
+        if stripped.startswith("```") or stripped.startswith("~~~"):
+            if out and out[-1].strip() != "":
+                out.append("")
+            out.append(line)
+            fence = stripped[:3]
+            continue
+        prev = out[-1] if out else ""
+        starts_block = (is_table(line) and not is_table(prev)) or (is_list(line) and not is_list(prev)
+                                                                    and not prev.startswith(" ") and not is_table(prev))
+        if prev.strip() != "" and starts_block:
+            out.append("")                      # blank line before a table / list that follows text
+        if prev.lstrip().startswith("#") and line.strip() != "":
+            out.append("")                      # blank line after a heading
+        if is_table(prev) and line.strip() != "" and not is_table(line):
+            out.append("")                      # blank line after a table
+        out.append(escape_placeholders(line))
+    return "\n".join(out)
+
+
 def page(path: pathlib.Path, title: str, description: str, body: str, lang: str = "en", footer: str = "") -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     front = f'---\ntitle: "{esc(title)}"\ndescription: "{esc(description)}"\nlang: {lang}\n---\n\n'
     # Drop the source H1 (the layout renders the title) and protect content from Liquid.
     body = re.sub(r"\A\s*# .*\n", "", body, count=1)
+    body = normalize_markdown(body)
     path.write_text(front + "{% raw %}\n" + body.strip() + "\n{% endraw %}\n" + footer)
 
 

@@ -12,6 +12,8 @@ lang: en
 **Participants:** Clinic Manager, Head Receptionist, Tech Lead, BA · **Goal of session:** understand booking pain points and scope phase 1
 
 ### 1. Business goals
+
+
 | ID | Goal | Source |
 |----|------|--------|
 | G1 | Giảm tỷ lệ no-show (hiện ~30%) | "No-show đang khoảng 30%…" — Clinic Manager |
@@ -19,6 +21,8 @@ lang: en
 | G3 | Loại bỏ trùng lịch | "hay bị trùng lịch" — Head Receptionist |
 
 ### 2. Functional requirements
+
+
 | ID | Requirement | Actor | Confidence | Source |
 |----|-------------|-------|------------|--------|
 | FR-01 | Bệnh nhân phải tự đặt lịch online, chọn bác sĩ và khung giờ | Patient | Confirmed | "bệnh nhân tự đặt lịch online, chọn bác sĩ, chọn giờ" |
@@ -31,20 +35,28 @@ lang: en
 | FR-08 | Hệ thống phải ngăn hai lịch hẹn trên cùng một slot | System | Implied | "hai bệnh nhân cùng một slot" |
 
 ### 3. Non-functional requirements
+
+
 | ID | Category | Requirement | Confidence | Source |
 |----|----------|-------------|------------|--------|
 | NFR-01 | Performance / Usability | Hệ thống phải nhanh và dễ dùng, người lớn tuổi dùng được | Confirmed | "phải nhanh và dễ dùng" |
 
 ### 4. Business rules
+
+
 | ID | Rule | Source |
 |----|------|--------|
 | BR-01 | Chỉ được hủy lịch trước giờ hẹn ít nhất 2 tiếng | "phải trước 2 tiếng" |
 | BR-02 | Mỗi bệnh nhân giữ tối đa 2 lịch hẹn tương lai | "tối đa 2 lịch hẹn tương lai" |
 
 ### 5. Assumptions & constraints
+
+
 - Phase 1 nhắc lịch qua **SMS**; **Zalo** bắt buộc trước Tết (cần đăng ký Zalo OA).
 
 ### 6. Open questions & conflicts
+
+
 | # | Question | Ask whom | Why it matters |
 |---|----------|----------|----------------|
 | Q1 | Có thu đặt cọc online không? | Ban giám đốc (via Clinic Manager) | Ảnh hưởng tích hợp thanh toán & chính sách hoàn tiền |
@@ -53,6 +65,8 @@ lang: en
 | Q4 | Hủy sau 2 tiếng thì xử lý thế nào — chặn hay cho hủy nhưng tính no-show? | Clinic Manager | Ảnh hưởng báo cáo no-show |
 
 ### 7. Action items
+
+
 | # | Action | Owner | Due |
 |---|--------|-------|-----|
 | 1 | Gửi bản tóm tắt yêu cầu để xác nhận | BA | 2026-10-16 |

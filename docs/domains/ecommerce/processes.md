@@ -6,6 +6,8 @@ lang: en
 
 {% raw %}
 ## Capability map (use for functional decomposition)
+
+
 1. **Catalog** — product/SKU, attributes, categories, media, search & filter, product detail page
 2. **Pricing & Promotions** — price lists, promotions, vouchers, flash sales, bundles, loyalty points
 3. **Customer** — registration/login, profile, addresses, wishlist, consent, loyalty tier
@@ -22,6 +24,8 @@ lang: en
 ---
 
 ## 1. Browse → Cart → Checkout
+
+
 1. Search/browse → product page (price, promotion, stock status, delivery estimate)
 2. Add to cart (validate stock & purchase limits)
 3. Cart: recalculate price & promotions on every view; show changes since added
@@ -32,6 +36,8 @@ lang: en
 **BA watch-outs:** guest checkout? price changed between cart and order; voucher no longer valid; address outside delivery zone; max quantity per customer in flash sale; minimum order value; mixed cart from multiple sellers/warehouses.
 
 ## 2. Payment
+
+
 1. Create payment request with order reference & amount
 2. Customer pays at gateway/e-wallet/QR
 3. Receive callback (IPN) **and** redirect — treat callback as source of truth
@@ -41,18 +47,22 @@ lang: en
 **BA watch-outs:** payment success but callback lost; customer pays twice; payment expiry window; partial refunds; payment fees; COD has no upfront payment → higher cancellation/refusal risk.
 
 ## 3. Order lifecycle (typical)
+
 `Pending payment → Confirmed → Processing (pick/pack) → Ready to ship → Shipping → Delivered → Completed`
 Branches: `Cancelled` (by customer/seller/system), `Delivery failed → Returning → Returned`, `Return requested → Refunded`.
 
 **BA watch-outs:** which statuses allow customer cancellation; who can cancel at each stage; auto-complete after N days delivered (affects return window & seller payout); status sync from carrier webhooks.
 
 ## 4. Fulfillment & shipping
+
 Allocate warehouse → pick → pack → create shipment with carrier → print label → handover → tracking updates → delivered / failed → re-delivery attempts → RTS.
 
 ## 5. Returns & refunds
+
 Request (reason, photos, within window) → approve/reject (auto or manual) → pickup or drop-off → inspection → refund (to original method / wallet / store credit) or exchange → restock or write-off.
 
 ## 6. Marketplace seller flow
+
 Seller registration & verification → shop setup → product listing & approval → order handling with SLA → shipping → settlement after hold period (net of commission, fees, refunds) → performance scoring & penalties.
 {% endraw %}
 

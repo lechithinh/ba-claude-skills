@@ -12,6 +12,8 @@ lang: en
 **Scope:** đặt/hủy lịch khám, nhắc lịch, quản lý lịch bác sĩ, báo cáo no-show · **Actors:** Patient, Receptionist, Doctor, Clinic Manager · **Out of scope (phase 1):** thanh toán đặt cọc (chờ Q1), Zalo
 
 ### Hierarchy
+
+
 | ID | Function | Actor(s) | Trace |
 |----|----------|----------|-------|
 | 1 | **Appointment Management** | | |
@@ -42,6 +44,7 @@ lang: en
 | 5.3 | Manage doctor list | Clinic Manager | gap → confirm |
 
 ### Diagram
+
 ```mermaid
 flowchart TD
   S["Clinic Booking System"] --> M1["1. Appointment Management"]
@@ -64,6 +67,8 @@ flowchart TD
 ```
 
 ### Coverage check — CRUD
+
+
 | Object | Create | Read | Update | Delete / Cancel |
 |--------|--------|------|--------|-----------------|
 | Appointment | 1.1.2, 1.1.3 | 1.3.1, 1.3.2 | 1.3.3 (status) · ❌ reschedule | 1.2.1, 1.2.2 |
@@ -72,6 +77,8 @@ flowchart TD
 | Patient | 5.1 | ❌ profile | ❌ profile | ❌ |
 
 ### Gaps & open questions
+
+
 1. **Reschedule** (đổi lịch) không được nhắc tới — có cần không, hay hủy + đặt lại?
 2. **Mark attendance** chưa ai nhắc nhưng bắt buộc để tính no-show (FR-07).
 3. Hồ sơ bệnh nhân: lưu những thông tin gì?

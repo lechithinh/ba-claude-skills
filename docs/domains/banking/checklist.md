@@ -8,6 +8,8 @@ lang: en
 Use this when eliciting, linting requirements or writing acceptance criteria. Pick the sections relevant to the feature.
 
 ## Any financial transaction
+
+
 - [ ] Which accounts/products are eligible as source? Which statuses block it?
 - [ ] Limits: per transaction, per day, per channel, per segment? Minimum amount? Who configures them?
 - [ ] Authentication: which method at which amount? Step-up rules for new device/new beneficiary?
@@ -23,6 +25,8 @@ Use this when eliciting, linting requirements or writing acceptance criteria. Pi
 - [ ] Accounting: which GL entries? (confirm with Finance/Operations)
 
 ## Onboarding / eKYC
+
+
 - [ ] Eligible customers (age, nationality, ID type)?
 - [ ] Liveness/face match retry limits; manual review flow and SLA?
 - [ ] Existing customer detection (same ID → existing CIF)?
@@ -31,12 +35,16 @@ Use this when eliciting, linting requirements or writing acceptance criteria. Pi
 - [ ] Where does onboarding resume if the app is closed mid-way?
 
 ## Cards
+
+
 - [ ] Virtual vs physical; delivery; activation channel?
 - [ ] Lock (temporary) vs block (permanent); who can unlock?
 - [ ] Online/overseas/contactless toggles default ON or OFF?
 - [ ] Dispute window and required evidence?
 
 ## Lending
+
+
 - [ ] Products, tenors, rate type (fixed/floating), reset rules?
 - [ ] Required documents per customer type?
 - [ ] Approval authority matrix?
@@ -45,6 +53,8 @@ Use this when eliciting, linting requirements or writing acceptance criteria. Pi
 - [ ] Early repayment fee; grace period; overdue penalty?
 
 ## Non-functional (banking-specific)
+
+
 - [ ] Availability target & maintenance windows; behaviour during EOD?
 - [ ] Peak load (salary day, Tết, month-end)?
 - [ ] Session timeout, device binding, rooted/jailbroken device policy?
@@ -53,6 +63,7 @@ Use this when eliciting, linting requirements or writing acceptance criteria. Pi
 - [ ] Regulatory reports affected?
 
 ## Stakeholders to involve (often forgotten)
+
 Product · Operations/back office · Compliance & AML · Risk · Finance/Accounting · IT Security · Customer service/Call center · Legal · Core banking team · Card center.
 {% endraw %}
 

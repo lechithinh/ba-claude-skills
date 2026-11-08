@@ -32,6 +32,8 @@ flowchart LR
 | Search | Elasticsearch/OpenSearch, SaaS search | Synonyms (Vietnamese with/without diacritics), ranking rules? |
 
 ## Error-handling questions for every integration
+
+
 1. Which system is the **source of truth** (stock, price, order status)?
 2. Sync mode: real-time API, webhook, or batch? Acceptable delay?
 3. What happens when the partner is down (carrier API, payment gateway)?

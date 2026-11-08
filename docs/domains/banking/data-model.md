@@ -85,6 +85,8 @@ erDiagram
 ```
 
 ## Status code sets to agree early
+
+
 - **Account:** ACTIVE · DORMANT · DEBIT_BLOCKED · CREDIT_BLOCKED · BLOCKED · CLOSED
 - **Transaction:** INITIATED · PENDING · SUCCESS · FAILED · REVERSED
 - **Card:** INACTIVE · ACTIVE · LOCKED · BLOCKED · EXPIRED · CLOSED
@@ -92,6 +94,8 @@ erDiagram
 - **KYC:** PENDING · VERIFIED · MANUAL_REVIEW · REJECTED · EXPIRED
 
 ## Data sensitivity
+
+
 | Data | Treatment |
 |---|---|
 | ID number, biometric images | Personal data (sensitive) — encryption, access control, retention policy |

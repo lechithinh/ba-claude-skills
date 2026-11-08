@@ -38,6 +38,8 @@ flowchart LR
 | Data warehouse | Reporting, regulatory reports | Which new fields must flow to reports? |
 
 ## Error-handling questions for every integration
+
+
 1. What is the timeout and what does the user see?
 2. Is the call idempotent? How do we retry safely?
 3. How are external error codes mapped to customer-friendly messages?

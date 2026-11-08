@@ -17,6 +17,8 @@ A diagram is an answer to a question. Pick the question first, then the notation
 | "Phạm vi hệ thống đến đâu?" | Context diagram | 10.41 Scope Modelling |
 
 ## Why Mermaid?
+
+
 - Text-based → versioned in Git, diffable, reviewable in pull requests.
 - Renders natively on GitHub, GitLab, Notion, Obsidian and many wikis.
 - AI can generate and edit it reliably.
@@ -24,6 +26,8 @@ A diagram is an answer to a question. Pick the question first, then the notation
 For formal BPMN 2.0 with pools, message flows and events, export to a dedicated tool (Camunda Modeler, draw.io, Visual Paradigm) — Mermaid gives a fast, readable approximation.
 
 ## Mẹo
+
+
 - Vẽ **As-Is** trước, hỏi stakeholder "đau ở đâu?", rồi mới vẽ **To-Be**.
 - Mỗi sơ đồ chỉ trả lời **một** câu hỏi. Sơ đồ ôm đồm sẽ không ai đọc.
 - Paste code vào https://mermaid.live để xem và xuất PNG/SVG.

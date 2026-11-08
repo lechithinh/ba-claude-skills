@@ -12,6 +12,8 @@ lang: en
 **Overall score:** 7.6 / 10 · **Requirements reviewed:** 9 · **Need rework (< 8):** 2
 
 ### Summary
+
+
 | ID | Score | Issues |
 |----|-------|--------|
 | FR-01 | 8/10 | CMP |
@@ -27,6 +29,7 @@ lang: en
 ### Details
 
 #### NFR-01 — 1/10
+
 > Original: "Hệ thống phải nhanh và dễ dùng, người lớn tuổi dùng được"
 
 - **AMB** "nhanh" — không có ngưỡng đo được.
@@ -40,6 +43,7 @@ lang: en
 > **NFR-01b (Usability):** Bệnh nhân trên 60 tuổi phải hoàn thành đặt một lịch hẹn trong vòng [3 phút — xác nhận] mà không cần trợ giúp, đo bằng usability test với [5 — xác nhận] người.
 
 #### FR-02 — 6/10
+
 > Original: "Hệ thống phải gửi nhắc lịch trước 1 ngày"
 
 - **TST** "trước 1 ngày" — giờ gửi cụ thể? 24 tiếng trước hay một giờ cố định ngày hôm trước?
@@ -49,6 +53,7 @@ lang: en
 > Hệ thống phải gửi tin nhắc lịch qua SMS (phase 1) cho bệnh nhân lúc [18:00 — xác nhận] ngày trước ngày hẹn, gồm tên bác sĩ, giờ hẹn và link hủy lịch.
 
 #### FR-06 — 8/10 (optional polish)
+
 > Original: "Bác sĩ phải tự khóa lịch khi nghỉ phép"
 
 - **AMB** điều gì xảy ra với các lịch hẹn đã có trong khoảng thời gian bị khóa?
@@ -57,12 +62,16 @@ lang: en
 > Bác sĩ phải khóa được một khoảng thời gian trên lịch của mình; các khung giờ bị khóa không hiển thị cho bệnh nhân. Nếu đã có lịch hẹn trong khoảng đó, hệ thống phải [cảnh báo bác sĩ / thông báo lễ tân — xác nhận].
 
 ### Clarifying questions
+
 **For Clinic Manager**
+
 1. Thời gian phản hồi bao nhiêu giây được coi là "nhanh"?
 2. Tin nhắc gửi lúc mấy giờ?
 3. Khi bác sĩ khóa lịch trùng lịch hẹn đã có, ai liên hệ bệnh nhân?
 
 ### Top 3 patterns to fix across the document
+
+
 1. Từ mơ hồ ("nhanh", "dễ dùng") → thay bằng con số đo được.
 2. Thiếu kênh/điều kiện cụ thể → bổ sung chi tiết kiểm thử được.
 3. Thiếu xử lý ngoại lệ → thêm hành vi khi có xung đột.

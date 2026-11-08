@@ -44,6 +44,7 @@ Correct grammar — but every hard business question is still open.
 > **FR-CAN-04:** The customer shall select a cancellation reason from a configurable list (needed for cancellation-rate analytics).
 
 **Clarifying questions**
+
 - *Merchandising/Marketing:* voucher restoration policy? Flash-sale items cancellable?
 - *Finance:* refund timing per payment method; e-invoice already issued → adjustment process?
 - *Operations:* cutoff between "Confirmed" and "Processing" — what event triggers it?

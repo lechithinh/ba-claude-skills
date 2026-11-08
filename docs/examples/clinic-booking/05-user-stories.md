@@ -8,6 +8,7 @@ lang: en
 > Prompt used: *"Viết user story kèm Gherkin AC cho chức năng 1.1.2 và 1.2.1"*
 
 ### US-01 · Book an appointment online
+
 **Trace:** FD 1.1.2, FR-01, BR-02 · **Priority:** Must · **Depends on:** US-00 (Patient login)
 
 **As a** Patient
@@ -40,6 +41,7 @@ Scenario: Future booking limit reached (BR-02)
 ---
 
 ### US-02 · Cancel an appointment online
+
 **Trace:** FD 1.2.1, FR-03, BR-01 · **Priority:** Must · **Depends on:** US-01
 
 **As a** Patient
@@ -68,6 +70,8 @@ Scenario: Cancel less than 2 hours before (BR-01)
 ---
 
 ### Story map summary
+
+
 | Module | Stories |
 |--------|---------|
 | 1. Appointment Management | US-01 Book online · US-02 Cancel online · US-03 Book on behalf (Receptionist) · US-04 Daily schedule · US-05 Mark attendance |

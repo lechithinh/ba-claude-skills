@@ -9,6 +9,8 @@ lang: en
 > ⚠️ Regulations are amended frequently. Use this list to **know what to ask Compliance**, not as legal advice. Always verify the current version, effective date and the bank's internal policy.
 
 ## Vietnam (State Bank of Vietnam — NHNN and others)
+
+
 | Topic | Reference (verify current version) | What a BA should check |
 |---|---|---|
 | Online banking safety & security | Thông tư 50/2024/TT-NHNN on safety and security for online banking services | Authentication methods by transaction type/amount, device binding, security measures for apps |
@@ -21,6 +23,8 @@ lang: en
 | Electronic transactions | Luật Giao dịch điện tử 2023 | Validity of e-contracts, e-signatures, records |
 
 ## International standards
+
+
 | Standard | When it matters |
 |---|---|
 | PCI DSS | Anything that stores/processes/transmits card numbers |
@@ -31,6 +35,8 @@ lang: en
 | OWASP MASVS | Mobile banking app security requirements |
 
 ## How to turn this into requirements
+
+
 - Create explicit **compliance requirements** (e.g. *"The system shall require biometric authentication when [threshold rule] — ref: [regulation], verified by Compliance on [date]"*).
 - Keep thresholds **configurable** so a regulatory change is a parameter change, not a release.
 - Add Compliance as an approver in the requirements sign-off.

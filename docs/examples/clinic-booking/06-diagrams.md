@@ -8,6 +8,7 @@ lang: en
 > Prompts used: *"Vẽ quy trình đặt lịch To-Be dạng swimlane"*, *"Vẽ sơ đồ trạng thái của lịch hẹn"*, *"Vẽ ERD"*
 
 ## To-Be booking process (swimlane)
+
 **Purpose:** show stakeholders who does what after go-live. **Audience:** Clinic Manager, receptionists.
 
 ```mermaid

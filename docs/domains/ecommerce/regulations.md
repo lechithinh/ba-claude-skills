@@ -9,6 +9,8 @@ lang: en
 > ⚠️ Use this list to **know what to ask Legal/Finance**, not as legal advice. Verify the current version, effective date and any newer law (e-commerce legislation in Vietnam is being updated).
 
 ## Vietnam
+
+
 | Topic | Reference (verify current version) | What a BA should check |
 |---|---|---|
 | E-commerce operations | Nghị định 52/2013/NĐ-CP, amended by Nghị định 85/2021/NĐ-CP; check whether a newer E-commerce Law/decree applies | Website/app notification or registration with the Ministry of Industry and Trade; information to display (seller, product, price, terms); marketplace obligations |
@@ -20,6 +22,8 @@ lang: en
 | Electronic transactions | Luật Giao dịch điện tử 2023 | Validity of online contracts & confirmations |
 
 ## International / standards
+
+
 | Standard | When it matters |
 |---|---|
 | PCI DSS | If you store/process card data (prefer hosted payment pages/tokenization to reduce scope) |
@@ -27,6 +31,8 @@ lang: en
 | WCAG 2.x | Accessibility requirements for storefronts |
 
 ## How to turn this into requirements
+
+
 - Add a **"Legal & compliance"** section in the BRD with each touchpoint, owner and sign-off date.
 - Keep legal parameters (return windows, displayed info, consent text) configurable.
 {% endraw %}
