@@ -1,0 +1,44 @@
+﻿Issue Id,Issue Type,Summary,Parent,Description,Priority,Labels
+1,Epic,Đặt và quản lý lịch hẹn,,,,FD
+1.1,Story,Đặt lịch khám,1,,,FD
+1.1.1,Story,Tìm khung giờ trống theo bác sĩ và ngày,1.1,"Yêu cầu: FR-01, FR-04",High,FD
+1.1.2,Story,Tạo lịch hẹn tự phục vụ,1.1,Yêu cầu: FR-01,High,FD
+1.1.3,Story,Tạo lịch hẹn hộ bệnh nhân,1.1,Yêu cầu: FR-04,High,FD
+1.1.4,Story,Chặn đặt trùng khung giờ,1.1,Yêu cầu: FR-08,High,FD
+1.2,Story,Hủy lịch hẹn,1,,,FD
+1.2.1,Story,Hủy lịch hẹn online trước giờ hẹn 2 giờ,1.2,Yêu cầu: FR-03,High,FD
+1.2.2,Story,Hủy lịch hẹn hộ bệnh nhân,1.2,,Medium,FD
+1.3,Story,Theo dõi lịch hẹn,1,,,FD
+1.3.1,Story,Xem lịch hẹn sắp tới của tôi,1.3,,Medium,FD
+1.3.2,Story,Xem lịch trong ngày theo bác sĩ,1.3,Yêu cầu: FR-05,High,FD
+1.3.3,Story,Ghi nhận bệnh nhân đến hoặc vắng mặt,1.3,Yêu cầu: FR-07,High,FD
+2,Epic,Lịch làm việc bác sĩ,,,,FD
+2.1,Story,Khung giờ khám,2,,,FD
+2.1.1,Story,Tạo khung giờ theo ca làm việc,2.1,,High,FD
+2.1.2,Story,Điều chỉnh khung giờ,2.1,,Medium,FD
+2.1.3,Story,Đóng khung giờ không nhận lịch,2.1,Yêu cầu: FR-06,High,FD
+2.2,Story,Nghỉ phép của bác sĩ,2,,,FD
+2.2.1,Story,Khai báo thời gian nghỉ,2.2,Yêu cầu: FR-06,High,FD
+2.2.2,Story,Xem lịch nghỉ,2.2,Yêu cầu: FR-06,Medium,FD
+2.2.3,Story,Hủy khai báo nghỉ,2.2,Yêu cầu: FR-06,Medium,FD
+2.2.4,Story,Cảnh báo lịch hẹn trùng thời gian nghỉ,2.2,Câu hỏi mở: ai liên hệ bệnh nhân [Q],High,FD
+3,Epic,Thông báo,,,,FD
+3.1,Story,Gửi xác nhận đặt lịch,3,,High,FD notify
+3.2,Story,Gửi SMS nhắc lịch trước một ngày,3,Yêu cầu: FR-02,High,FD notify
+3.3,Story,Gửi thông báo hủy lịch,3,,Medium,FD notify
+4,Epic,Báo cáo,,,,FD
+4.1,Story,Xem tỷ lệ no-show theo bác sĩ theo tháng,4,Yêu cầu: FR-07,High,FD report
+4.2,Story,Xuất báo cáo no-show ra Excel,4,,Low,FD report
+5,Epic,Truy cập và quản trị,,,,FD
+5.1,Story,Hồ sơ bệnh nhân,5,,,FD
+5.1.1,Story,Đăng ký tài khoản bệnh nhân bằng OTP,5.1,,High,FD auth
+5.1.2,Story,Cập nhật hồ sơ của tôi,5.1,,Medium,FD
+5.1.3,Story,Xem hồ sơ của tôi,5.1,,Medium,FD
+5.2,Story,Nhân viên và bác sĩ,5,,,FD
+5.2.1,Story,Đăng nhập nhân viên theo vai trò,5.2,,High,FD auth
+5.2.2,Story,Thêm bác sĩ,5.2,,High,FD
+5.2.3,Story,Cập nhật thông tin bác sĩ,5.2,,Medium,FD
+5.2.4,Story,Xem danh sách bác sĩ,5.2,,High,FD
+5.2.5,Story,Ngừng hoạt động bác sĩ,5.2,,Low,FD
+5.3,Story,Ghi nhật ký thao tác trên lịch hẹn,5,,Medium,FD audit
+5.4,Story,Khai báo danh mục chuyên khoa và tham số hệ thống,5,,Low,FD config

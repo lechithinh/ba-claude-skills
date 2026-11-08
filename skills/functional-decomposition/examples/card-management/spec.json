@@ -1,0 +1,471 @@
+{
+  "name": "Tự phục vụ khóa/mở khóa thẻ và hạn mức online (mobile banking)",
+  "domain": "banking",
+  "scope": {
+    "in": [
+      "Khóa tạm, báo mất, mở khóa thẻ trên app",
+      "Hạn mức chi tiêu online",
+      "Thông báo cho chủ thẻ",
+      "Đối soát trạng thái với CMS"
+    ],
+    "out": [
+      "Phát hành và kích hoạt thẻ",
+      "Khiếu nại giao dịch (tra soát)",
+      "Thẻ phụ (chờ xác nhận)"
+    ]
+  },
+  "assumptions": [
+    "Chức năng sinh từ biên bản họp 2026-11-05 và capability 'Cards' của domain-banking",
+    "Khóa/mở khóa thực hiện qua Card Management System (CMS), CMS đôi lúc phản hồi chậm",
+    "Hạn mức mặc định 20 triệu/ngày chưa chốt [xác nhận]",
+    "Các chức năng đánh dấu 'derived' do domain pack gợi ý, không có trong biên bản; cần stakeholder xác nhận"
+  ],
+  "actors": [
+    {
+      "id": "holder",
+      "name": "Chủ thẻ"
+    },
+    {
+      "id": "csr",
+      "name": "Nhân viên hotline"
+    },
+    {
+      "id": "fraud",
+      "name": "Chuyên viên Fraud"
+    },
+    {
+      "id": "ops",
+      "name": "Vận hành thẻ"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "objects": [
+    {
+      "id": "card",
+      "name": "Thẻ",
+      "source": "external",
+      "note": "Thẻ do quy trình phát hành (ngoài phạm vi) tạo; ở đây chỉ đổi trạng thái"
+    },
+    {
+      "id": "limit",
+      "name": "Hạn mức online"
+    },
+    {
+      "id": "notif",
+      "name": "Thông báo",
+      "immutable": true,
+      "no_delete": true,
+      "note": "Bản ghi gửi thông báo không sửa/xóa, phục vụ tra cứu"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR-01",
+      "text": "Khách khóa được thẻ ngay trên app"
+    },
+    {
+      "id": "FR-02",
+      "text": "Hai loại: Khóa tạm (mở lại được) và Báo mất (đóng vĩnh viễn)"
+    },
+    {
+      "id": "FR-03",
+      "text": "Khách mở khóa được thẻ ở trạng thái khóa tạm"
+    },
+    {
+      "id": "FR-04",
+      "text": "Thẻ bị flag gian lận thì khách không tự mở khóa được"
+    },
+    {
+      "id": "FR-05",
+      "text": "Khách tự đặt hạn mức chi tiêu online theo ngày"
+    },
+    {
+      "id": "FR-06",
+      "text": "Khách nhận thông báo khi khóa xong"
+    },
+    {
+      "id": "FR-07",
+      "text": "Hệ thống gọi CMS để khóa/mở khóa"
+    }
+  ],
+  "waive": {
+    "D4:limit": "Hạn mức không xóa; 'đặt lại mặc định' (2.1.3) thay cho xóa"
+  },
+  "modules": [
+    {
+      "id": "1",
+      "name": "Khóa và mở khóa thẻ",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Khóa thẻ",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "Khóa tạm thẻ trên app",
+              "actors": [
+                "holder"
+              ],
+              "ops": {
+                "card": "R"
+              },
+              "reqs": [
+                "FR-01",
+                "FR-02",
+                "FR-07"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.1.2",
+              "name": "Báo mất thẻ",
+              "actors": [
+                "holder"
+              ],
+              "reqs": [
+                "FR-02"
+              ],
+              "priority": "M",
+              "note": "Đóng thẻ vĩnh viễn, phải phát hành thẻ mới"
+            },
+            {
+              "id": "1.1.3",
+              "name": "Khóa thẻ qua hotline",
+              "actors": [
+                "csr"
+              ],
+              "reqs": [
+                "FR-01"
+              ],
+              "priority": "S",
+              "note": "Đồng bộ trạng thái với app"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Mở khóa thẻ",
+          "children": [
+            {
+              "id": "1.2.1",
+              "name": "Mở khóa thẻ khóa tạm bằng xác thực",
+              "actors": [
+                "holder"
+              ],
+              "reqs": [
+                "FR-03",
+                "FR-07"
+              ],
+              "priority": "M",
+              "note": "Xung đột chờ quyết định: mở ngay hay chờ 24h [xác nhận Q1]"
+            },
+            {
+              "id": "1.2.2",
+              "name": "Chặn mở khóa thẻ bị gắn cờ gian lận",
+              "actors": [
+                "system"
+              ],
+              "reqs": [
+                "FR-04"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.2.3",
+              "name": "Mở khóa thẻ bị gắn cờ sau khi xác minh",
+              "actors": [
+                "fraud"
+              ],
+              "reqs": [
+                "FR-04"
+              ],
+              "priority": "S"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "name": "Đồng bộ với CMS",
+          "children": [
+            {
+              "id": "1.3.1",
+              "name": "Gọi CMS đổi trạng thái thẻ",
+              "actors": [
+                "system"
+              ],
+              "reqs": [
+                "FR-07"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.3.2",
+              "name": "Thử lại khi CMS phản hồi chậm",
+              "actors": [
+                "system"
+              ],
+              "priority": "M",
+              "derived": true,
+              "note": "[domain] Tránh khách tưởng đã khóa nhưng thẻ vẫn quẹt được"
+            },
+            {
+              "id": "1.3.3",
+              "name": "Đối soát trạng thái thẻ giữa app và CMS",
+              "actors": [
+                "ops"
+              ],
+              "ops": {
+                "card": "R"
+              },
+              "priority": "M",
+              "derived": true,
+              "note": "[domain] Giải quyết giao dịch pending/timeout"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Hạn mức chi tiêu online",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Hạn mức của chủ thẻ",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "Đặt hạn mức online theo ngày",
+              "actors": [
+                "holder"
+              ],
+              "ops": {
+                "limit": "CU"
+              },
+              "reqs": [
+                "FR-05"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "2.1.2",
+              "name": "Xem hạn mức hiện tại",
+              "actors": [
+                "holder"
+              ],
+              "ops": {
+                "limit": "R"
+              },
+              "reqs": [
+                "FR-05"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "2.1.3",
+              "name": "Đặt lại hạn mức về mặc định",
+              "actors": [
+                "holder"
+              ],
+              "ops": {
+                "limit": "U"
+              },
+              "reqs": [
+                "FR-05"
+              ],
+              "priority": "C"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "name": "Kiểm soát rủi ro khi đổi hạn mức",
+          "children": [
+            {
+              "id": "2.2.1",
+              "name": "Yêu cầu xác thực mạnh khi tăng hạn mức",
+              "actors": [
+                "system"
+              ],
+              "priority": "S",
+              "derived": true,
+              "note": "[domain] Chống kẻ gian nâng hạn mức sau khi chiếm app"
+            },
+            {
+              "id": "2.2.2",
+              "name": "Áp dụng hạn mức tối đa của ngân hàng",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "limit": "R"
+              },
+              "priority": "M",
+              "derived": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Thông báo cho chủ thẻ",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Gửi thông báo khi trạng thái khóa thẻ đổi",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "notif": "C"
+          },
+          "reqs": [
+            "FR-06"
+          ],
+          "priority": "M",
+          "tags": [
+            "notify"
+          ]
+        },
+        {
+          "id": "3.2",
+          "name": "Gửi lại thông báo khi chưa nhận được",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "notif": "C"
+          },
+          "priority": "S",
+          "derived": true,
+          "tags": [
+            "notify"
+          ],
+          "note": "Khiếu nại 'không thấy thông báo' từ biên bản"
+        },
+        {
+          "id": "3.3",
+          "name": "Xem lịch sử thông báo về thẻ",
+          "actors": [
+            "holder"
+          ],
+          "ops": {
+            "notif": "R"
+          },
+          "priority": "C",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Fraud và vận hành",
+      "children": [
+        {
+          "id": "4.1",
+          "name": "Xem danh sách thẻ bị gắn cờ",
+          "actors": [
+            "fraud"
+          ],
+          "ops": {
+            "card": "R"
+          },
+          "priority": "S",
+          "derived": true
+        },
+        {
+          "id": "4.2",
+          "name": "Gắn cờ gian lận cho thẻ",
+          "actors": [
+            "fraud"
+          ],
+          "priority": "M",
+          "derived": true
+        },
+        {
+          "id": "4.3",
+          "name": "Gỡ cờ gian lận cho thẻ",
+          "actors": [
+            "fraud"
+          ],
+          "priority": "S",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Truy cập và kiểm soát",
+      "children": [
+        {
+          "id": "5.1",
+          "name": "Xác thực chủ thẻ theo mức rủi ro",
+          "actors": [
+            "holder"
+          ],
+          "priority": "M",
+          "tags": [
+            "auth"
+          ],
+          "derived": true,
+          "note": "OTP/sinh trắc theo ngưỡng; chờ Compliance [xác nhận Q7]"
+        },
+        {
+          "id": "5.2",
+          "name": "Phân quyền nhân viên theo vai trò",
+          "actors": [
+            "ops"
+          ],
+          "priority": "M",
+          "tags": [
+            "auth"
+          ],
+          "derived": true
+        },
+        {
+          "id": "5.3",
+          "name": "Ghi nhật ký thay đổi thẻ và hạn mức",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "tags": [
+            "audit"
+          ],
+          "derived": true
+        },
+        {
+          "id": "5.4",
+          "name": "Xem báo cáo thẻ bị khóa theo ngày",
+          "actors": [
+            "ops"
+          ],
+          "priority": "C",
+          "tags": [
+            "report"
+          ],
+          "derived": true
+        },
+        {
+          "id": "5.5",
+          "name": "Cấu hình hạn mức mặc định và thời gian chờ CMS",
+          "actors": [
+            "ops"
+          ],
+          "ops": {
+            "limit": "U"
+          },
+          "priority": "M",
+          "tags": [
+            "config"
+          ],
+          "derived": true
+        }
+      ]
+    }
+  ]
+}

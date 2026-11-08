@@ -1,0 +1,366 @@
+{
+  "name": "Phần mềm bán hàng quán cà phê",
+  "scope": {
+    "in": [
+      "Gọi món và thu tiền tại quầy",
+      "Pha chế",
+      "Thực đơn và giá",
+      "Chốt ca và báo cáo ngày"
+    ],
+    "out": [
+      "Giao hàng",
+      "Kho nguyên liệu",
+      "Tích điểm khách hàng"
+    ]
+  },
+  "actors": [
+    {
+      "id": "cashier",
+      "name": "Thu ngân"
+    },
+    {
+      "id": "barista",
+      "name": "Pha chế"
+    },
+    {
+      "id": "manager",
+      "name": "Quản lý quán"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "objects": [
+    {
+      "id": "order",
+      "name": "Đơn gọi món"
+    },
+    {
+      "id": "item",
+      "name": "Món trong thực đơn"
+    },
+    {
+      "id": "payment",
+      "name": "Giao dịch thanh toán",
+      "no_delete": true,
+      "note": "Giao dịch tài chính không xóa; sai sót xử lý bằng hoàn tiền"
+    }
+  ],
+  "waive": {
+    "E1:notify": "Bản đầu không gửi thông báo cho khách; khách nghe gọi số tại quầy"
+  },
+  "modules": [
+    {
+      "id": "1",
+      "name": "Gọi món và tạo đơn",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Tạo đơn tại quầy",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "Chọn món vào đơn",
+              "actors": [
+                "cashier"
+              ],
+              "ops": {
+                "item": "R",
+                "order": "C"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.2",
+              "name": "Ghi chú tuỳ chọn cho món",
+              "actors": [
+                "cashier"
+              ],
+              "ops": {
+                "order": "U"
+              },
+              "priority": "S"
+            },
+            {
+              "id": "1.1.3",
+              "name": "Áp dụng giảm giá cho đơn",
+              "actors": [
+                "cashier",
+                "manager"
+              ],
+              "ops": {
+                "order": "U"
+              },
+              "priority": "C",
+              "note": "Giảm trên ngưỡng cần quản lý xác nhận"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Sửa và hủy đơn",
+          "children": [
+            {
+              "id": "1.2.1",
+              "name": "Sửa món trong đơn chưa thanh toán",
+              "actors": [
+                "cashier"
+              ],
+              "ops": {
+                "order": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.2.2",
+              "name": "Hủy đơn",
+              "actors": [
+                "cashier",
+                "manager"
+              ],
+              "ops": {
+                "order": "D"
+              },
+              "priority": "M",
+              "note": "Hủy đơn đã thanh toán cần quản lý"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "name": "Xem đơn",
+          "children": [
+            {
+              "id": "1.3.1",
+              "name": "Xem hàng chờ pha chế",
+              "actors": [
+                "barista"
+              ],
+              "ops": {
+                "order": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.3.2",
+              "name": "Tra cứu đơn theo mã",
+              "actors": [
+                "cashier",
+                "manager"
+              ],
+              "ops": {
+                "order": "R"
+              },
+              "priority": "S"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Pha chế",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Nhận đơn vào hàng chờ",
+          "actors": [
+            "barista"
+          ],
+          "ops": {
+            "order": "U"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "2.2",
+          "name": "Đánh dấu đơn đã xong",
+          "actors": [
+            "barista"
+          ],
+          "ops": {
+            "order": "U"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "2.3",
+          "name": "Gọi khách nhận món",
+          "actors": [
+            "cashier"
+          ],
+          "priority": "S",
+          "derived": true
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Thanh toán",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Thu tiền mặt",
+          "actors": [
+            "cashier"
+          ],
+          "ops": {
+            "payment": "C"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "3.2",
+          "name": "Thu tiền qua mã QR",
+          "actors": [
+            "cashier"
+          ],
+          "ops": {
+            "payment": "C"
+          },
+          "priority": "S"
+        },
+        {
+          "id": "3.3",
+          "name": "In hoá đơn",
+          "actors": [
+            "cashier"
+          ],
+          "ops": {
+            "payment": "R"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "3.4",
+          "name": "Hoàn tiền đơn đã hủy",
+          "actors": [
+            "manager"
+          ],
+          "ops": {
+            "payment": "U"
+          },
+          "priority": "S"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Thực đơn và giá",
+      "children": [
+        {
+          "id": "4.1",
+          "name": "Thêm món mới",
+          "actors": [
+            "manager"
+          ],
+          "ops": {
+            "item": "C"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "4.2",
+          "name": "Sửa giá món",
+          "actors": [
+            "manager"
+          ],
+          "ops": {
+            "item": "U"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "4.3",
+          "name": "Ngừng bán món",
+          "actors": [
+            "manager"
+          ],
+          "ops": {
+            "item": "D"
+          },
+          "priority": "S",
+          "note": "Lưu trữ, không xoá để giữ lịch sử đơn"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Chốt ca và báo cáo",
+      "children": [
+        {
+          "id": "5.1",
+          "name": "Chốt ca",
+          "actors": [
+            "cashier"
+          ],
+          "priority": "M"
+        },
+        {
+          "id": "5.2",
+          "name": "Đối chiếu tiền cuối ca",
+          "actors": [
+            "cashier",
+            "manager"
+          ],
+          "priority": "M"
+        },
+        {
+          "id": "5.3",
+          "name": "Xem doanh thu theo ngày",
+          "actors": [
+            "manager"
+          ],
+          "priority": "S",
+          "tags": [
+            "report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Hệ thống",
+      "children": [
+        {
+          "id": "6.1",
+          "name": "Đăng nhập theo vai trò",
+          "actors": [
+            "cashier",
+            "barista",
+            "manager"
+          ],
+          "priority": "M",
+          "tags": [
+            "auth"
+          ]
+        },
+        {
+          "id": "6.2",
+          "name": "Ghi nhật ký thao tác nhạy cảm",
+          "actors": [
+            "system"
+          ],
+          "priority": "S",
+          "tags": [
+            "audit"
+          ],
+          "derived": true
+        },
+        {
+          "id": "6.3",
+          "name": "Khai báo thông số quán",
+          "actors": [
+            "manager"
+          ],
+          "priority": "C",
+          "tags": [
+            "config"
+          ],
+          "note": "Giờ mở cửa, thuế, mẫu hoá đơn"
+        }
+      ]
+    }
+  ]
+}

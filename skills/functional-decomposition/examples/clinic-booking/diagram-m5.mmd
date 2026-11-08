@@ -1,0 +1,29 @@
+flowchart LR
+    n_5["5 Truy cập và quản trị"]:::mod
+    n_5_1["5.1 Hồ sơ bệnh nhân"]:::feat
+    n_5_1_1["5.1.1 Đăng ký tài khoản bệnh nhân bằng OTP"]:::fn
+    n_5_1_2["5.1.2 Cập nhật hồ sơ của tôi"]:::fn
+    n_5_1_3["5.1.3 Xem hồ sơ của tôi"]:::fn
+    n_5_2["5.2 Nhân viên và bác sĩ"]:::feat
+    n_5_2_1["5.2.1 Đăng nhập nhân viên theo vai trò"]:::fn
+    n_5_2_2["5.2.2 Thêm bác sĩ"]:::fn
+    n_5_2_3["5.2.3 Cập nhật thông tin bác sĩ"]:::fn
+    n_5_2_4["5.2.4 Xem danh sách bác sĩ"]:::fn
+    n_5_2_5["5.2.5 Ngừng hoạt động bác sĩ"]:::fn
+    n_5_3["5.3 Ghi nhật ký thao tác trên lịch hẹn"]:::fn
+    n_5_4["5.4 Khai báo danh mục chuyên khoa và tham số hệ thống"]:::fn
+    n_5 --> n_5_1
+    n_5_1 --> n_5_1_1
+    n_5_1 --> n_5_1_2
+    n_5_1 --> n_5_1_3
+    n_5 --> n_5_2
+    n_5_2 --> n_5_2_1
+    n_5_2 --> n_5_2_2
+    n_5_2 --> n_5_2_3
+    n_5_2 --> n_5_2_4
+    n_5_2 --> n_5_2_5
+    n_5 --> n_5_3
+    n_5 --> n_5_4
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

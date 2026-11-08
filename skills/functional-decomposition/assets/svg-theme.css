@@ -1,0 +1,37 @@
+/* Màu, font cho SVG và trang explorer. Đổi giá trị ở đây để theo thương hiệu của bạn. */
+.fd-svg, .fd-page {
+  --fd-font: "Be Vietnam Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fd-bg: #ffffff; --fd-ink: #0f172a; --fd-muted: #64748b; --fd-line: #94a3b8; --fd-surface: #f8fafc;
+  --fd-border: #e2e8f0; --fd-accent: #1d4ed8; --fd-bad: #b91c1c; --fd-bad-bg: #fee2e2; --fd-warn: #92400e; --fd-warn-bg: #fef3c7; --fd-ok: #166534;
+  /* 9 màu cho 9 module: [nền, viền] */
+  --fd-m0-f: #dbeafe; --fd-m0-s: #3b82f6; --fd-m1-f: #dcfce7; --fd-m1-s: #22c55e; --fd-m2-f: #fef3c7; --fd-m2-s: #f59e0b;
+  --fd-m3-f: #fce7f3; --fd-m3-s: #ec4899; --fd-m4-f: #ede9fe; --fd-m4-s: #8b5cf6; --fd-m5-f: #cffafe; --fd-m5-s: #06b6d4;
+  --fd-m6-f: #ffedd5; --fd-m6-s: #f97316; --fd-m7-f: #e0e7ff; --fd-m7-s: #6366f1; --fd-m8-f: #f1f5f9; --fd-m8-s: #64748b;
+}
+@media (prefers-color-scheme: dark) {
+  .fd-svg, .fd-page {
+    --fd-bg: #0b1220; --fd-ink: #e5e7eb; --fd-muted: #94a3b8; --fd-line: #475569; --fd-surface: #111a2e;
+    --fd-border: #1f2a44; --fd-accent: #93c5fd; --fd-bad: #fca5a5; --fd-bad-bg: #450a0a; --fd-warn: #fcd34d; --fd-warn-bg: #422006; --fd-ok: #86efac;
+    --fd-m0-f: #172554; --fd-m1-f: #052e16; --fd-m2-f: #422006; --fd-m3-f: #500724; --fd-m4-f: #2e1065;
+    --fd-m5-f: #083344; --fd-m6-f: #431407; --fd-m7-f: #1e1b4b; --fd-m8-f: #1e293b;
+  }
+}
+.fd-svg text { font-family: var(--fd-font); fill: var(--fd-ink); }
+.fd-svg .bg { fill: var(--fd-bg); }
+.fd-svg .title { font-size: 16px; font-weight: 700; }
+.fd-svg .link { fill: none; stroke: var(--fd-line); stroke-width: 1.4; }
+.fd-svg .id { font-size: 10px; font-weight: 700; fill: var(--fd-muted); }
+.fd-svg .name { font-size: 12.5px; }
+.fd-svg .root rect { fill: var(--fd-ink); stroke: none; }
+.fd-svg .root text { fill: var(--fd-bg); font-weight: 700; font-size: 13px; }
+.fd-svg .p-M { fill: #dc2626; } .fd-svg .p-S { fill: #f59e0b; } .fd-svg .p-C { fill: #22c55e; } .fd-svg .p-W { fill: #94a3b8; }
+.fd-svg .legend { font-size: 11px; fill: var(--fd-muted); }
+.fd-svg .m0 rect { fill: var(--fd-m0-f); stroke: var(--fd-m0-s); stroke-width: 1.4; }
+.fd-svg .m1 rect { fill: var(--fd-m1-f); stroke: var(--fd-m1-s); stroke-width: 1.4; }
+.fd-svg .m2 rect { fill: var(--fd-m2-f); stroke: var(--fd-m2-s); stroke-width: 1.4; }
+.fd-svg .m3 rect { fill: var(--fd-m3-f); stroke: var(--fd-m3-s); stroke-width: 1.4; }
+.fd-svg .m4 rect { fill: var(--fd-m4-f); stroke: var(--fd-m4-s); stroke-width: 1.4; }
+.fd-svg .m5 rect { fill: var(--fd-m5-f); stroke: var(--fd-m5-s); stroke-width: 1.4; }
+.fd-svg .m6 rect { fill: var(--fd-m6-f); stroke: var(--fd-m6-s); stroke-width: 1.4; }
+.fd-svg .m7 rect { fill: var(--fd-m7-f); stroke: var(--fd-m7-s); stroke-width: 1.4; }
+.fd-svg .m8 rect { fill: var(--fd-m8-f); stroke: var(--fd-m8-s); stroke-width: 1.4; }

@@ -1,0 +1,75 @@
+flowchart LR
+    n_root(["Tự phục vụ khóa/mở khóa thẻ và hạn mức online (mobile banking)"])
+    n_1["1 Khóa và mở khóa thẻ"]:::mod
+    n_1_1["1.1 Khóa thẻ"]:::feat
+    n_1_1_1["1.1.1 Khóa tạm thẻ trên app"]:::fn
+    n_1_1_2["1.1.2 Báo mất thẻ"]:::fn
+    n_1_1_3["1.1.3 Khóa thẻ qua hotline"]:::fn
+    n_1_2["1.2 Mở khóa thẻ"]:::feat
+    n_1_2_1["1.2.1 Mở khóa thẻ khóa tạm bằng xác thực"]:::fn
+    n_1_2_2["1.2.2 Chặn mở khóa thẻ bị gắn cờ gian lận"]:::fn
+    n_1_2_3["1.2.3 Mở khóa thẻ bị gắn cờ sau khi xác minh"]:::fn
+    n_1_3["1.3 Đồng bộ với CMS"]:::feat
+    n_1_3_1["1.3.1 Gọi CMS đổi trạng thái thẻ"]:::fn
+    n_1_3_2["1.3.2 Thử lại khi CMS phản hồi chậm"]:::fn
+    n_1_3_3["1.3.3 Đối soát trạng thái thẻ giữa app và CMS"]:::fn
+    n_2["2 Hạn mức chi tiêu online"]:::mod
+    n_2_1["2.1 Hạn mức của chủ thẻ"]:::feat
+    n_2_1_1["2.1.1 Đặt hạn mức online theo ngày"]:::fn
+    n_2_1_2["2.1.2 Xem hạn mức hiện tại"]:::fn
+    n_2_1_3["2.1.3 Đặt lại hạn mức về mặc định"]:::fn
+    n_2_2["2.2 Kiểm soát rủi ro khi đổi hạn mức"]:::feat
+    n_2_2_1["2.2.1 Yêu cầu xác thực mạnh khi tăng hạn mức"]:::fn
+    n_2_2_2["2.2.2 Áp dụng hạn mức tối đa của ngân hàng"]:::fn
+    n_3["3 Thông báo cho chủ thẻ"]:::mod
+    n_3_1["3.1 Gửi thông báo khi trạng thái khóa thẻ đổi"]:::fn
+    n_3_2["3.2 Gửi lại thông báo khi chưa nhận được"]:::fn
+    n_3_3["3.3 Xem lịch sử thông báo về thẻ"]:::fn
+    n_4["4 Fraud và vận hành"]:::mod
+    n_4_1["4.1 Xem danh sách thẻ bị gắn cờ"]:::fn
+    n_4_2["4.2 Gắn cờ gian lận cho thẻ"]:::fn
+    n_4_3["4.3 Gỡ cờ gian lận cho thẻ"]:::fn
+    n_5["5 Truy cập và kiểm soát"]:::mod
+    n_5_1["5.1 Xác thực chủ thẻ theo mức rủi ro"]:::fn
+    n_5_2["5.2 Phân quyền nhân viên theo vai trò"]:::fn
+    n_5_3["5.3 Ghi nhật ký thay đổi thẻ và hạn mức"]:::fn
+    n_5_4["5.4 Xem báo cáo thẻ bị khóa theo ngày"]:::fn
+    n_5_5["5.5 Cấu hình hạn mức mặc định và thời gian chờ CMS"]:::fn
+    n_root --> n_1
+    n_1 --> n_1_1
+    n_1_1 --> n_1_1_1
+    n_1_1 --> n_1_1_2
+    n_1_1 --> n_1_1_3
+    n_1 --> n_1_2
+    n_1_2 --> n_1_2_1
+    n_1_2 --> n_1_2_2
+    n_1_2 --> n_1_2_3
+    n_1 --> n_1_3
+    n_1_3 --> n_1_3_1
+    n_1_3 --> n_1_3_2
+    n_1_3 --> n_1_3_3
+    n_root --> n_2
+    n_2 --> n_2_1
+    n_2_1 --> n_2_1_1
+    n_2_1 --> n_2_1_2
+    n_2_1 --> n_2_1_3
+    n_2 --> n_2_2
+    n_2_2 --> n_2_2_1
+    n_2_2 --> n_2_2_2
+    n_root --> n_3
+    n_3 --> n_3_1
+    n_3 --> n_3_2
+    n_3 --> n_3_3
+    n_root --> n_4
+    n_4 --> n_4_1
+    n_4 --> n_4_2
+    n_4 --> n_4_3
+    n_root --> n_5
+    n_5 --> n_5_1
+    n_5 --> n_5_2
+    n_5 --> n_5_3
+    n_5 --> n_5_4
+    n_5 --> n_5_5
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

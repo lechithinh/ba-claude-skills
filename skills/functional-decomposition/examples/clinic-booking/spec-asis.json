@@ -1,0 +1,222 @@
+{
+  "name": "Đặt lịch khám phòng khám — BẢN NHÁP CÓ LỖI (AS-IS để soát)",
+  "scope": {
+    "in": [
+      "Đặt và hủy lịch khám",
+      "Nhắc lịch",
+      "Lịch làm việc bác sĩ",
+      "Báo cáo no-show"
+    ],
+    "out": [
+      "Thanh toán đặt cọc (chờ Q1)",
+      "Zalo (phase 2)",
+      "Hồ sơ bệnh án"
+    ]
+  },
+  "actors": [
+    {
+      "id": "patient",
+      "name": "Bệnh nhân"
+    },
+    {
+      "id": "recep",
+      "name": "Lễ tân"
+    },
+    {
+      "id": "doctor",
+      "name": "Bác sĩ"
+    },
+    {
+      "id": "manager",
+      "name": "Quản lý phòng khám"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR-01",
+      "text": "Bệnh nhân tự đặt lịch online, chọn bác sĩ và khung giờ"
+    },
+    {
+      "id": "FR-02",
+      "text": "Hệ thống nhắc lịch trước 1 ngày"
+    },
+    {
+      "id": "FR-03",
+      "text": "Bệnh nhân hủy lịch online (trước giờ hẹn ít nhất 2 giờ)"
+    },
+    {
+      "id": "FR-04",
+      "text": "Lễ tân đặt lịch hộ bệnh nhân"
+    },
+    {
+      "id": "FR-05",
+      "text": "Lễ tân xem lịch trong ngày theo từng bác sĩ"
+    },
+    {
+      "id": "FR-06",
+      "text": "Bác sĩ tự khóa lịch khi nghỉ phép"
+    },
+    {
+      "id": "FR-07",
+      "text": "Báo cáo tỷ lệ no-show theo bác sĩ hàng tháng"
+    },
+    {
+      "id": "FR-08",
+      "text": "Ngăn hai lịch hẹn trên cùng một khung giờ"
+    }
+  ],
+  "objects": [
+    {
+      "id": "appt",
+      "name": "Lịch hẹn"
+    },
+    {
+      "id": "slot",
+      "name": "Khung giờ"
+    },
+    {
+      "id": "timeoff",
+      "name": "Lịch nghỉ bác sĩ"
+    }
+  ],
+  "modules": [
+    {
+      "id": "1",
+      "name": "Quản lý lịch hẹn",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Quản lý lịch hẹn",
+          "actors": [
+            "patient"
+          ],
+          "ops": {
+            "appt": "CRUD"
+          },
+          "reqs": [
+            "FR-01",
+            "FR-03"
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Đặt lịch",
+          "actors": [
+            "patient",
+            "recep"
+          ],
+          "ops": {
+            "appt": "C",
+            "slot": "R"
+          },
+          "reqs": [
+            "FR-01",
+            "FR-04"
+          ]
+        },
+        {
+          "id": "1.3",
+          "name": "Màn hình lịch trong ngày của lễ tân",
+          "ops": {
+            "appt": "R"
+          },
+          "reqs": [
+            "FR-05"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Thông báo",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Nhắc lịch",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "Gửi và nhắc lịch qua SMS",
+              "actors": [
+                "system"
+              ],
+              "reqs": [
+                "FR-02"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Lịch bác sĩ",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Khóa lịch nghỉ phép",
+          "actors": [
+            "doctor"
+          ],
+          "ops": {
+            "timeoff": "C",
+            "slot": "U"
+          },
+          "reqs": [
+            "FR-06"
+          ]
+        },
+        {
+          "id": "3.2",
+          "name": "Đặt lịch hẹn",
+          "actors": [
+            "patient"
+          ],
+          "ops": {
+            "appt": "C"
+          },
+          "reqs": [
+            "FR-01"
+          ]
+        },
+        {
+          "id": "3.3",
+          "name": "Hệ thống",
+          "children": [
+            {
+              "id": "3.3.1",
+              "name": "Cấu hình",
+              "children": [
+                {
+                  "id": "3.3.1.1",
+                  "name": "Khai báo giờ làm việc",
+                  "actors": [
+                    "manager"
+                  ],
+                  "ops": {
+                    "slot": "C"
+                  },
+                  "derived": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.1.1",
+          "name": "Báo cáo no-show",
+          "actors": [
+            "manager"
+          ],
+          "reqs": [
+            "FR-07"
+          ]
+        }
+      ]
+    }
+  ]
+}

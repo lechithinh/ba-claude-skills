@@ -1,0 +1,29 @@
+flowchart LR
+    n_1["1 Đặt và quản lý lịch hẹn"]:::mod
+    n_1_1["1.1 Đặt lịch khám"]:::feat
+    n_1_1_1["1.1.1 Tìm khung giờ trống theo bác sĩ và ngày"]:::fn
+    n_1_1_2["1.1.2 Tạo lịch hẹn tự phục vụ"]:::fn
+    n_1_1_3["1.1.3 Tạo lịch hẹn hộ bệnh nhân"]:::fn
+    n_1_1_4["1.1.4 Chặn đặt trùng khung giờ"]:::fn
+    n_1_2["1.2 Hủy lịch hẹn"]:::feat
+    n_1_2_1["1.2.1 Hủy lịch hẹn online trước giờ hẹn 2 giờ"]:::fn
+    n_1_2_2["1.2.2 Hủy lịch hẹn hộ bệnh nhân"]:::fn
+    n_1_3["1.3 Theo dõi lịch hẹn"]:::feat
+    n_1_3_1["1.3.1 Xem lịch hẹn sắp tới của tôi"]:::fn
+    n_1_3_2["1.3.2 Xem lịch trong ngày theo bác sĩ"]:::fn
+    n_1_3_3["1.3.3 Ghi nhận bệnh nhân đến hoặc vắng mặt"]:::fn
+    n_1 --> n_1_1
+    n_1_1 --> n_1_1_1
+    n_1_1 --> n_1_1_2
+    n_1_1 --> n_1_1_3
+    n_1_1 --> n_1_1_4
+    n_1 --> n_1_2
+    n_1_2 --> n_1_2_1
+    n_1_2 --> n_1_2_2
+    n_1 --> n_1_3
+    n_1_3 --> n_1_3_1
+    n_1_3 --> n_1_3_2
+    n_1_3 --> n_1_3_3
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

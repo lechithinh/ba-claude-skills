@@ -1,0 +1,15 @@
+flowchart LR
+    n_5["5 Giao vận và COD"]:::mod
+    n_5_1["5.1 Tạo vận đơn với hãng vận chuyển"]:::fn
+    n_5_2["5.2 Nhận trạng thái giao hàng từ hãng"]:::fn
+    n_5_3["5.3 Theo dõi vận đơn"]:::fn
+    n_5_4["5.4 Hoàn hàng về người bán sau giao thất bại"]:::fn
+    n_5_5["5.5 Đối soát tiền COD với hãng vận chuyển"]:::fn
+    n_5 --> n_5_1
+    n_5 --> n_5_2
+    n_5 --> n_5_3
+    n_5 --> n_5_4
+    n_5 --> n_5_5
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

@@ -1,0 +1,448 @@
+{
+  "name": "Hệ thống quản lý nghỉ phép nhân viên",
+  "domain": "none",
+  "scope": {
+    "in": [
+      "Đăng ký nghỉ",
+      "Duyệt",
+      "Số dư phép và chính sách",
+      "Lịch nghỉ nhóm",
+      "Báo cáo"
+    ],
+    "out": [
+      "Tính lương",
+      "Chấm công chi tiết"
+    ]
+  },
+  "assumptions": [
+    "Công ty 300 người, duyệt một cấp bởi quản lý trực tiếp",
+    "Có nhiều loại nghỉ: phép năm, ốm, không lương, khác [xác nhận với HR]",
+    "Số ngày phép theo chính sách công ty và quy định hiện hành [xác nhận với HR/Pháp chế]",
+    "Chưa có domain pack cho nhân sự: danh mục chức năng dựa trên thông lệ chung"
+  ],
+  "actors": [
+    {
+      "id": "employee",
+      "name": "Nhân viên"
+    },
+    {
+      "id": "manager",
+      "name": "Quản lý trực tiếp"
+    },
+    {
+      "id": "hr",
+      "name": "HR"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "objects": [
+    {
+      "id": "request",
+      "name": "Đơn nghỉ"
+    },
+    {
+      "id": "balance",
+      "name": "Số dư phép",
+      "no_delete": true,
+      "note": "Số dư theo năm, không xoá; điều chỉnh bằng bút toán"
+    },
+    {
+      "id": "ltype",
+      "name": "Loại nghỉ"
+    },
+    {
+      "id": "holiday",
+      "name": "Ngày lễ"
+    },
+    {
+      "id": "org",
+      "name": "Cây tổ chức và người duyệt",
+      "source": "external",
+      "note": "Đồng bộ từ hệ thống HR"
+    }
+  ],
+  "waive": {
+    "D6:3.2.3": "Danh mục nhỏ, HR sửa trực tiếp trên một màn hình; tách thành 4 chức năng không thêm giá trị",
+    "D3:balance": "Số dư chỉ đổi qua cấp phép/điều chỉnh có lý do (3.1, 3.3), không có thao tác sửa tự do"
+  },
+  "modules": [
+    {
+      "id": "1",
+      "name": "Đăng ký nghỉ",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Tạo và gửi đơn",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "Tạo đơn nghỉ",
+              "actors": [
+                "employee"
+              ],
+              "ops": {
+                "request": "C",
+                "ltype": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.2",
+              "name": "Kiểm tra số dư phép khi gửi đơn",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "balance": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.3",
+              "name": "Tạo đơn nghỉ hộ nhân viên",
+              "actors": [
+                "hr",
+                "manager"
+              ],
+              "ops": {
+                "request": "C"
+              },
+              "priority": "C"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Sửa và hủy đơn",
+          "children": [
+            {
+              "id": "1.2.1",
+              "name": "Sửa đơn chưa duyệt",
+              "actors": [
+                "employee"
+              ],
+              "ops": {
+                "request": "U"
+              },
+              "priority": "S"
+            },
+            {
+              "id": "1.2.2",
+              "name": "Hủy đơn chưa duyệt",
+              "actors": [
+                "employee"
+              ],
+              "ops": {
+                "request": "D"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.2.3",
+              "name": "Xin hủy đơn đã duyệt",
+              "actors": [
+                "employee"
+              ],
+              "ops": {
+                "request": "U"
+              },
+              "priority": "S",
+              "note": "Cần quản lý duyệt lại"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "name": "Xem lịch sử đơn của tôi",
+          "actors": [
+            "employee"
+          ],
+          "ops": {
+            "request": "R"
+          },
+          "priority": "M"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Duyệt đơn",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Xử lý đơn chờ duyệt",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "Xem danh sách đơn chờ duyệt",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "request": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "2.1.2",
+              "name": "Duyệt đơn nghỉ",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "request": "U",
+                "balance": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "2.1.3",
+              "name": "Từ chối đơn nghỉ kèm lý do",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "request": "U"
+              },
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "name": "Duyệt khi vắng mặt",
+          "children": [
+            {
+              "id": "2.2.1",
+              "name": "Ủy quyền duyệt đơn",
+              "actors": [
+                "manager"
+              ],
+              "priority": "S",
+              "note": "Hay bị bỏ sót"
+            },
+            {
+              "id": "2.2.2",
+              "name": "Nhắc người duyệt khi đơn quá hạn",
+              "actors": [
+                "system"
+              ],
+              "priority": "S",
+              "tags": [
+                "notify"
+              ]
+            },
+            {
+              "id": "2.2.3",
+              "name": "Chuyển cấp duyệt khi quá hạn kéo dài",
+              "actors": [
+                "system"
+              ],
+              "priority": "C"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Số dư phép và chính sách",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Cấp phép",
+          "children": [
+            {
+              "id": "3.1.1",
+              "name": "Cấp phép năm theo thâm niên",
+              "actors": [
+                "system",
+                "hr"
+              ],
+              "ops": {
+                "balance": "C"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "3.1.2",
+              "name": "Chuyển phép tồn sang năm sau",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "balance": "U"
+              },
+              "priority": "S"
+            },
+            {
+              "id": "3.1.3",
+              "name": "Điều chỉnh số dư thủ công kèm lý do",
+              "actors": [
+                "hr"
+              ],
+              "ops": {
+                "balance": "U"
+              },
+              "priority": "S"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "name": "Chính sách",
+          "children": [
+            {
+              "id": "3.2.1",
+              "name": "Khai báo loại nghỉ và quy tắc",
+              "actors": [
+                "hr"
+              ],
+              "ops": {
+                "ltype": "CU"
+              },
+              "priority": "M",
+              "tags": [
+                "config"
+              ]
+            },
+            {
+              "id": "3.2.2",
+              "name": "Ngừng sử dụng loại nghỉ",
+              "actors": [
+                "hr"
+              ],
+              "ops": {
+                "ltype": "D"
+              },
+              "priority": "C"
+            },
+            {
+              "id": "3.2.3",
+              "name": "Khai báo ngày lễ",
+              "actors": [
+                "hr"
+              ],
+              "ops": {
+                "holiday": "CRUD"
+              },
+              "priority": "M",
+              "tags": [
+                "config"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Lịch và khả năng bao phủ",
+      "children": [
+        {
+          "id": "4.1",
+          "name": "Xem lịch nghỉ nhóm",
+          "actors": [
+            "manager",
+            "employee"
+          ],
+          "ops": {
+            "request": "R"
+          },
+          "priority": "S"
+        },
+        {
+          "id": "4.2",
+          "name": "Cảnh báo trùng lịch nghỉ hay thiếu người",
+          "actors": [
+            "system"
+          ],
+          "priority": "C",
+          "tags": [
+            "notify"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Báo cáo",
+      "children": [
+        {
+          "id": "5.1",
+          "name": "Xem báo cáo số dư theo phòng ban",
+          "actors": [
+            "hr"
+          ],
+          "ops": {
+            "balance": "R"
+          },
+          "priority": "M",
+          "tags": [
+            "report"
+          ]
+        },
+        {
+          "id": "5.2",
+          "name": "Xuất dữ liệu nghỉ cho bảng lương",
+          "actors": [
+            "hr"
+          ],
+          "ops": {
+            "request": "R"
+          },
+          "priority": "S",
+          "tags": [
+            "report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Truy cập và quản trị",
+      "children": [
+        {
+          "id": "6.1",
+          "name": "Đăng nhập bằng tài khoản công ty (SSO)",
+          "actors": [
+            "employee",
+            "manager",
+            "hr"
+          ],
+          "priority": "M",
+          "tags": [
+            "auth"
+          ]
+        },
+        {
+          "id": "6.2",
+          "name": "Đồng bộ cây tổ chức và người duyệt",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "org": "R"
+          },
+          "priority": "M",
+          "note": "Nghỉ việc/chuyển phòng giữa kỳ: xử lý đơn đang chờ? [xác nhận]"
+        },
+        {
+          "id": "6.3",
+          "name": "Ghi nhật ký thay đổi dữ liệu nghỉ phép",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "tags": [
+            "audit"
+          ],
+          "derived": true
+        }
+      ]
+    }
+  ]
+}

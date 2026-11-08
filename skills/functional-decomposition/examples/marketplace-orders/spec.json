@@ -1,0 +1,646 @@
+{
+  "name": "Sàn thương mại điện tử: từ giỏ hàng đến đổi trả",
+  "domain": "ecommerce",
+  "scope": {
+    "in": [
+      "Giỏ hàng và checkout",
+      "Voucher",
+      "Thanh toán",
+      "Đơn hàng nhiều người bán",
+      "Giao vận và COD",
+      "Đổi trả và hoàn tiền"
+    ],
+    "out": [
+      "Danh mục sản phẩm",
+      "Đánh giá",
+      "Quảng cáo",
+      "Đối soát chi trả người bán (làm ở phase 2)"
+    ]
+  },
+  "assumptions": [
+    "Mô hình sàn nhiều người bán, có COD",
+    "Capability map lấy từ domain-ecommerce; giá trị cụ thể (thời hạn đổi trả, ma trận voucher) cần xác nhận"
+  ],
+  "actors": [
+    {
+      "id": "buyer",
+      "name": "Người mua"
+    },
+    {
+      "id": "seller",
+      "name": "Người bán"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing"
+    },
+    {
+      "id": "finance",
+      "name": "Kế toán"
+    },
+    {
+      "id": "cs",
+      "name": "CSKH"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "objects": [
+    {
+      "id": "cart",
+      "name": "Giỏ hàng"
+    },
+    {
+      "id": "order",
+      "name": "Đơn hàng"
+    },
+    {
+      "id": "voucher",
+      "name": "Voucher"
+    },
+    {
+      "id": "payment",
+      "name": "Thanh toán",
+      "no_delete": true,
+      "note": "Giao dịch tài chính không xóa"
+    },
+    {
+      "id": "shipment",
+      "name": "Vận đơn",
+      "no_delete": true,
+      "note": "Giữ lịch sử giao hàng"
+    },
+    {
+      "id": "return",
+      "name": "Yêu cầu trả hàng"
+    },
+    {
+      "id": "refund",
+      "name": "Hoàn tiền",
+      "no_delete": true,
+      "note": "Giao dịch tài chính không xóa"
+    }
+  ],
+  "modules": [
+    {
+      "id": "1",
+      "name": "Giỏ hàng và checkout",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Giỏ hàng",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "Thêm sản phẩm vào giỏ",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "cart": "CU"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.2",
+              "name": "Cập nhật số lượng trong giỏ",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "cart": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.3",
+              "name": "Xóa sản phẩm khỏi giỏ",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "cart": "D"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "1.1.4",
+              "name": "Xem giỏ hàng",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "cart": "R"
+              },
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Đặt hàng",
+          "children": [
+            {
+              "id": "1.2.1",
+              "name": "Chọn địa chỉ giao hàng",
+              "actors": [
+                "buyer"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.2.2",
+              "name": "Tính phí vận chuyển theo địa chỉ và trọng lượng",
+              "actors": [
+                "system"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.2.3",
+              "name": "Kiểm tra lại tồn kho, giá, voucher khi đặt hàng",
+              "actors": [
+                "system"
+              ],
+              "priority": "M",
+              "note": "[domain] Giá/tồn kho có thể đổi giữa giỏ và đặt hàng"
+            },
+            {
+              "id": "1.2.4",
+              "name": "Tạo đơn hàng",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "order": "C"
+              },
+              "priority": "M"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Khuyến mãi và voucher",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Chương trình voucher",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "Tạo chương trình voucher",
+              "actors": [
+                "marketing"
+              ],
+              "ops": {
+                "voucher": "C"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "2.1.2",
+              "name": "Cấu hình điều kiện và ma trận cộng dồn",
+              "actors": [
+                "marketing"
+              ],
+              "ops": {
+                "voucher": "U"
+              },
+              "priority": "M",
+              "note": "[domain] Voucher sàn + shop + vận chuyển cộng dồn thế nào"
+            },
+            {
+              "id": "2.1.3",
+              "name": "Dừng chương trình voucher",
+              "actors": [
+                "marketing"
+              ],
+              "ops": {
+                "voucher": "D"
+              },
+              "priority": "S"
+            },
+            {
+              "id": "2.1.4",
+              "name": "Xem hiệu quả chương trình voucher",
+              "actors": [
+                "marketing"
+              ],
+              "ops": {
+                "voucher": "R"
+              },
+              "priority": "C",
+              "tags": [
+                "report"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "name": "Áp dụng voucher",
+          "children": [
+            {
+              "id": "2.2.1",
+              "name": "Áp dụng voucher vào đơn",
+              "actors": [
+                "buyer"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "2.2.2",
+              "name": "Phân bổ giảm giá về từng sản phẩm",
+              "actors": [
+                "system"
+              ],
+              "priority": "M",
+              "note": "[domain] Cần cho hoàn tiền một phần"
+            },
+            {
+              "id": "2.2.3",
+              "name": "Hoàn lại voucher khi hủy đơn",
+              "actors": [
+                "system"
+              ],
+              "priority": "S",
+              "note": "Có hoàn hay không: chờ quyết định [xác nhận]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Thanh toán",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Tạo yêu cầu thanh toán",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "payment": "C"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "3.2",
+          "name": "Nhận kết quả thanh toán từ cổng",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "payment": "U"
+          },
+          "priority": "M",
+          "note": "[domain] Callback là nguồn sự thật; xử lý callback mất"
+        },
+        {
+          "id": "3.3",
+          "name": "Hủy đơn hết hạn thanh toán",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "note": "[domain] Giải phóng tồn kho"
+        },
+        {
+          "id": "3.4",
+          "name": "Đối soát thanh toán với cổng",
+          "actors": [
+            "finance"
+          ],
+          "ops": {
+            "payment": "R"
+          },
+          "priority": "M"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Quản lý đơn hàng",
+      "children": [
+        {
+          "id": "4.1",
+          "name": "Đơn của người mua",
+          "children": [
+            {
+              "id": "4.1.1",
+              "name": "Xem đơn hàng của tôi",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "order": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "4.1.2",
+              "name": "Hủy đơn khi chưa xử lý",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "order": "D"
+              },
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "name": "Đơn của người bán",
+          "children": [
+            {
+              "id": "4.2.1",
+              "name": "Xác nhận đơn",
+              "actors": [
+                "seller"
+              ],
+              "ops": {
+                "order": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "4.2.2",
+              "name": "Tách đơn theo người bán",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "order": "C"
+              },
+              "priority": "M",
+              "note": "[domain] Đơn cha và đơn con mỗi seller"
+            },
+            {
+              "id": "4.2.3",
+              "name": "Cập nhật trạng thái đơn theo vận đơn",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "order": "U"
+              },
+              "priority": "M"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Giao vận và COD",
+      "children": [
+        {
+          "id": "5.1",
+          "name": "Tạo vận đơn với hãng vận chuyển",
+          "actors": [
+            "seller"
+          ],
+          "ops": {
+            "shipment": "C"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "5.2",
+          "name": "Nhận trạng thái giao hàng từ hãng",
+          "actors": [
+            "system"
+          ],
+          "ops": {
+            "shipment": "U"
+          },
+          "priority": "M"
+        },
+        {
+          "id": "5.3",
+          "name": "Theo dõi vận đơn",
+          "actors": [
+            "buyer"
+          ],
+          "ops": {
+            "shipment": "R"
+          },
+          "priority": "S"
+        },
+        {
+          "id": "5.4",
+          "name": "Hoàn hàng về người bán sau giao thất bại",
+          "actors": [
+            "system"
+          ],
+          "priority": "M"
+        },
+        {
+          "id": "5.5",
+          "name": "Đối soát tiền COD với hãng vận chuyển",
+          "actors": [
+            "finance"
+          ],
+          "priority": "M"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Đổi trả và hoàn tiền",
+      "children": [
+        {
+          "id": "6.1",
+          "name": "Yêu cầu trả hàng",
+          "children": [
+            {
+              "id": "6.1.1",
+              "name": "Tạo yêu cầu trả hàng",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "return": "C"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "6.1.2",
+              "name": "Xem trạng thái yêu cầu trả hàng",
+              "actors": [
+                "buyer",
+                "seller"
+              ],
+              "ops": {
+                "return": "R"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "6.1.3",
+              "name": "Hủy yêu cầu trả hàng",
+              "actors": [
+                "buyer"
+              ],
+              "ops": {
+                "return": "D"
+              },
+              "priority": "C"
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "name": "Xử lý trả hàng",
+          "children": [
+            {
+              "id": "6.2.1",
+              "name": "Duyệt yêu cầu trả hàng",
+              "actors": [
+                "seller",
+                "cs"
+              ],
+              "ops": {
+                "return": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "6.2.2",
+              "name": "Kiểm hàng trả về",
+              "actors": [
+                "seller"
+              ],
+              "ops": {
+                "return": "U"
+              },
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "name": "Hoàn tiền",
+          "children": [
+            {
+              "id": "6.3.1",
+              "name": "Tính số tiền hoàn theo phân bổ voucher",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "refund": "C"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "6.3.2",
+              "name": "Hoàn tiền về phương thức thanh toán gốc",
+              "actors": [
+                "system"
+              ],
+              "ops": {
+                "refund": "U"
+              },
+              "priority": "M"
+            },
+            {
+              "id": "6.3.3",
+              "name": "Xem trạng thái hoàn tiền",
+              "actors": [
+                "buyer",
+                "finance"
+              ],
+              "ops": {
+                "refund": "R"
+              },
+              "priority": "M"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Xuyên suốt và quản trị",
+      "children": [
+        {
+          "id": "7.1",
+          "name": "Đăng nhập theo vai trò",
+          "actors": [
+            "buyer",
+            "seller",
+            "marketing",
+            "finance",
+            "cs"
+          ],
+          "priority": "M",
+          "tags": [
+            "auth"
+          ]
+        },
+        {
+          "id": "7.2",
+          "name": "Gửi thông báo trạng thái đơn",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "tags": [
+            "notify"
+          ]
+        },
+        {
+          "id": "7.3",
+          "name": "Ghi nhật ký thao tác nhạy cảm",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "tags": [
+            "audit"
+          ]
+        },
+        {
+          "id": "7.4",
+          "name": "Xem báo cáo đơn hủy và đơn trả",
+          "actors": [
+            "finance",
+            "marketing"
+          ],
+          "priority": "S",
+          "tags": [
+            "report"
+          ]
+        },
+        {
+          "id": "7.5",
+          "name": "Cấu hình thời hạn đổi trả và chính sách",
+          "actors": [
+            "marketing"
+          ],
+          "priority": "S",
+          "tags": [
+            "config"
+          ]
+        },
+        {
+          "id": "7.6",
+          "name": "Điều chỉnh hóa đơn điện tử khi hoàn tiền",
+          "actors": [
+            "finance"
+          ],
+          "priority": "S",
+          "note": "[domain] Hóa đơn đã xuất thì xử lý điều chỉnh"
+        }
+      ]
+    }
+  ]
+}

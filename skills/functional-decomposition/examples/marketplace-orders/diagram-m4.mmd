@@ -1,0 +1,19 @@
+flowchart LR
+    n_4["4 Quản lý đơn hàng"]:::mod
+    n_4_1["4.1 Đơn của người mua"]:::feat
+    n_4_1_1["4.1.1 Xem đơn hàng của tôi"]:::fn
+    n_4_1_2["4.1.2 Hủy đơn khi chưa xử lý"]:::fn
+    n_4_2["4.2 Đơn của người bán"]:::feat
+    n_4_2_1["4.2.1 Xác nhận đơn"]:::fn
+    n_4_2_2["4.2.2 Tách đơn theo người bán"]:::fn
+    n_4_2_3["4.2.3 Cập nhật trạng thái đơn theo vận đơn"]:::fn
+    n_4 --> n_4_1
+    n_4_1 --> n_4_1_1
+    n_4_1 --> n_4_1_2
+    n_4 --> n_4_2
+    n_4_2 --> n_4_2_1
+    n_4_2 --> n_4_2_2
+    n_4_2 --> n_4_2_3
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

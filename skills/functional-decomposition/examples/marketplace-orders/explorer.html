@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sàn thương mại điện tử: từ giỏ hàng đến đổi trả — Phân rã chức năng</title>
+<style>
+/* Màu, font cho SVG và trang explorer. Đổi giá trị ở đây để theo thương hiệu của bạn. */
+.fd-svg, .fd-page {
+  --fd-font: "Be Vietnam Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fd-bg: #ffffff; --fd-ink: #0f172a; --fd-muted: #64748b; --fd-line: #94a3b8; --fd-surface: #f8fafc;
+  --fd-border: #e2e8f0; --fd-accent: #1d4ed8; --fd-bad: #b91c1c; --fd-bad-bg: #fee2e2; --fd-warn: #92400e; --fd-warn-bg: #fef3c7; --fd-ok: #166534;
+  /* 9 màu cho 9 module: [nền, viền] */
+  --fd-m0-f: #dbeafe; --fd-m0-s: #3b82f6; --fd-m1-f: #dcfce7; --fd-m1-s: #22c55e; --fd-m2-f: #fef3c7; --fd-m2-s: #f59e0b;
+  --fd-m3-f: #fce7f3; --fd-m3-s: #ec4899; --fd-m4-f: #ede9fe; --fd-m4-s: #8b5cf6; --fd-m5-f: #cffafe; --fd-m5-s: #06b6d4;
+  --fd-m6-f: #ffedd5; --fd-m6-s: #f97316; --fd-m7-f: #e0e7ff; --fd-m7-s: #6366f1; --fd-m8-f: #f1f5f9; --fd-m8-s: #64748b;
+}
+@media (prefers-color-scheme: dark) {
+  .fd-svg, .fd-page {
+    --fd-bg: #0b1220; --fd-ink: #e5e7eb; --fd-muted: #94a3b8; --fd-line: #475569; --fd-surface: #111a2e;
+    --fd-border: #1f2a44; --fd-accent: #93c5fd; --fd-bad: #fca5a5; --fd-bad-bg: #450a0a; --fd-warn: #fcd34d; --fd-warn-bg: #422006; --fd-ok: #86efac;
+    --fd-m0-f: #172554; --fd-m1-f: #052e16; --fd-m2-f: #422006; --fd-m3-f: #500724; --fd-m4-f: #2e1065;
+    --fd-m5-f: #083344; --fd-m6-f: #431407; --fd-m7-f: #1e1b4b; --fd-m8-f: #1e293b;
+  }
+}
+.fd-svg text { font-family: var(--fd-font); fill: var(--fd-ink); }
+.fd-svg .bg { fill: var(--fd-bg); }
+.fd-svg .title { font-size: 16px; font-weight: 700; }
+.fd-svg .link { fill: none; stroke: var(--fd-line); stroke-width: 1.4; }
+.fd-svg .id { font-size: 10px; font-weight: 700; fill: var(--fd-muted); }
+.fd-svg .name { font-size: 12.5px; }
+.fd-svg .root rect { fill: var(--fd-ink); stroke: none; }
+.fd-svg .root text { fill: var(--fd-bg); font-weight: 700; font-size: 13px; }
+.fd-svg .p-M { fill: #dc2626; } .fd-svg .p-S { fill: #f59e0b; } .fd-svg .p-C { fill: #22c55e; } .fd-svg .p-W { fill: #94a3b8; }
+.fd-svg .legend { font-size: 11px; fill: var(--fd-muted); }
+.fd-svg .m0 rect { fill: var(--fd-m0-f); stroke: var(--fd-m0-s); stroke-width: 1.4; }
+.fd-svg .m1 rect { fill: var(--fd-m1-f); stroke: var(--fd-m1-s); stroke-width: 1.4; }
+.fd-svg .m2 rect { fill: var(--fd-m2-f); stroke: var(--fd-m2-s); stroke-width: 1.4; }
+.fd-svg .m3 rect { fill: var(--fd-m3-f); stroke: var(--fd-m3-s); stroke-width: 1.4; }
+.fd-svg .m4 rect { fill: var(--fd-m4-f); stroke: var(--fd-m4-s); stroke-width: 1.4; }
+.fd-svg .m5 rect { fill: var(--fd-m5-f); stroke: var(--fd-m5-s); stroke-width: 1.4; }
+.fd-svg .m6 rect { fill: var(--fd-m6-f); stroke: var(--fd-m6-s); stroke-width: 1.4; }
+.fd-svg .m7 rect { fill: var(--fd-m7-f); stroke: var(--fd-m7-s); stroke-width: 1.4; }
+.fd-svg .m8 rect { fill: var(--fd-m8-f); stroke: var(--fd-m8-s); stroke-width: 1.4; }
+
+body { margin: 0; background: var(--fd-bg); color: var(--fd-ink); font: 15px/1.55 var(--fd-font); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.4rem; margin: 0 0 2px; } .muted { color: var(--fd-muted); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--fd-border); margin: 14px 0; }
+.tabs button { background: none; border: 0; padding: 9px 12px; color: var(--fd-muted); font: inherit; cursor: pointer; border-bottom: 2px solid transparent; }
+.tabs button[aria-selected=true] { color: var(--fd-accent); border-color: var(--fd-accent); font-weight: 600; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.filters input { min-width: 240px; flex: 1; }
+.filters input, .filters select, .filters button { padding: 7px 9px; border: 1px solid var(--fd-border); border-radius: 7px; background: var(--fd-surface); color: var(--fd-ink); font: inherit; }
+ul.tree, ul.tree ul { list-style: none; padding-left: 18px; margin: 2px 0; border-left: 1px dashed var(--fd-border); } ul.tree { padding-left: 0; border: 0; }
+summary { cursor: pointer; padding: 3px 0; } li.leaf { padding: 3px 0 3px 4px; }
+.nid { font-weight: 700; color: var(--fd-muted); font-variant-numeric: tabular-nums; } li.depth1 > details > summary .nname { font-weight: 700; font-size: 1.05em; }
+.chip { display: inline-block; font-size: 11.5px; padding: 0 7px; border-radius: 10px; background: var(--fd-surface); border: 1px solid var(--fd-border); }
+.chip.ops { color: var(--fd-accent); } .chip.req { color: var(--fd-muted); }
+.chip.p-M { background: #fee2e2; color: #991b1b; border-color: #fca5a5; } .chip.p-S { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+.chip.p-C { background: #dcfce7; color: #166534; border-color: #86efac; } .chip.p-W { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+.note { color: var(--fd-muted); font-size: 13px; }
+table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--fd-border); padding: 6px 9px; text-align: left; vertical-align: top; } th { background: var(--fd-surface); }
+td.bad, p.bad { color: var(--fd-bad); font-weight: 600; } td.warn, p.warn { color: var(--fd-warn); } td.muted { color: var(--fd-muted); } p.ok { color: var(--fd-ok); font-weight: 600; }
+</style></head>
+<body class="fd-page"><div class="wrap">
+<h1 id="title"></h1><div class="muted" id="stats"></div>
+<div class="tabs" role="tablist">
+ <button role="tab" aria-selected="true" data-panel="p-tree">Cây chức năng</button>
+ <button role="tab" aria-selected="false" data-panel="p-crud">Ma trận CRUD</button>
+ <button role="tab" aria-selected="false" data-panel="p-reqs">Truy vết yêu cầu</button>
+ <button role="tab" aria-selected="false" data-panel="p-matrix">Actor × Module</button>
+ <button role="tab" aria-selected="false" data-panel="p-lint" id="tab-lint">Kiểm tra</button>
+</div>
+<section class="panel" id="p-tree"><div class="filters">
+ <input id="f-q" type="search" placeholder="Tìm theo tên, ID, yêu cầu…" aria-label="Tìm">
+ <select id="f-actor" aria-label="Lọc theo actor"></select>
+ <select id="f-prio" aria-label="Lọc theo ưu tiên"><option value="">Mọi ưu tiên</option><option value="M">Must</option><option value="S">Should</option><option value="C">Could</option><option value="W">Won't</option></select>
+ <button id="expand">Mở hết</button><button id="collapse">Thu gọn</button></div><div id="tree"></div></section>
+<section class="panel" id="p-crud" hidden><div id="crud"></div></section>
+<section class="panel" id="p-reqs" hidden><div id="reqs"></div></section>
+<section class="panel" id="p-matrix" hidden><div id="matrix"></div></section>
+<section class="panel" id="p-lint" hidden><div id="lint"></div></section>
+</div>
+<script>window.FD_DATA = {"name": "Sàn thương mại điện tử: từ giỏ hàng đến đổi trả", "depth": 3, "actors": [{"id": "buyer", "name": "Người mua"}, {"id": "seller", "name": "Người bán"}, {"id": "marketing", "name": "Marketing"}, {"id": "finance", "name": "Kế toán"}, {"id": "cs", "name": "CSKH"}, {"id": "system", "name": "Hệ thống"}], "objects": [{"id": "cart", "name": "Giỏ hàng"}, {"id": "order", "name": "Đơn hàng"}, {"id": "voucher", "name": "Voucher"}, {"id": "payment", "name": "Thanh toán", "no_delete": true, "note": "Giao dịch tài chính không xóa"}, {"id": "shipment", "name": "Vận đơn", "no_delete": true, "note": "Giữ lịch sử giao hàng"}, {"id": "return", "name": "Yêu cầu trả hàng"}, {"id": "refund", "name": "Hoàn tiền", "no_delete": true, "note": "Giao dịch tài chính không xóa"}], "requirements": [], "modules": [{"id": "1", "name": "Giỏ hàng và checkout", "depth": 1, "leaf": false, "children": [{"id": "1.1", "name": "Giỏ hàng", "depth": 2, "leaf": false, "children": [{"id": "1.1.1", "name": "Thêm sản phẩm vào giỏ", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"cart": "CU"}, "children": []}, {"id": "1.1.2", "name": "Cập nhật số lượng trong giỏ", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"cart": "U"}, "children": []}, {"id": "1.1.3", "name": "Xóa sản phẩm khỏi giỏ", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"cart": "D"}, "children": []}, {"id": "1.1.4", "name": "Xem giỏ hàng", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"cart": "R"}, "children": []}]}, {"id": "1.2", "name": "Đặt hàng", "depth": 2, "leaf": false, "children": [{"id": "1.2.1", "name": "Chọn địa chỉ giao hàng", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "children": []}, {"id": "1.2.2", "name": "Tính phí vận chuyển theo địa chỉ và trọng lượng", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "children": []}, {"id": "1.2.3", "name": "Kiểm tra lại tồn kho, giá, voucher khi đặt hàng", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Giá/tồn kho có thể đổi giữa giỏ và đặt hàng", "children": []}, {"id": "1.2.4", "name": "Tạo đơn hàng", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"order": "C"}, "children": []}]}]}, {"id": "2", "name": "Khuyến mãi và voucher", "depth": 1, "leaf": false, "children": [{"id": "2.1", "name": "Chương trình voucher", "depth": 2, "leaf": false, "children": [{"id": "2.1.1", "name": "Tạo chương trình voucher", "depth": 3, "leaf": true, "actors": ["marketing"], "priority": "M", "ops": {"voucher": "C"}, "children": []}, {"id": "2.1.2", "name": "Cấu hình điều kiện và ma trận cộng dồn", "depth": 3, "leaf": true, "actors": ["marketing"], "priority": "M", "note": "[domain] Voucher sàn + shop + vận chuyển cộng dồn thế nào", "ops": {"voucher": "U"}, "children": []}, {"id": "2.1.3", "name": "Dừng chương trình voucher", "depth": 3, "leaf": true, "actors": ["marketing"], "priority": "S", "ops": {"voucher": "D"}, "children": []}, {"id": "2.1.4", "name": "Xem hiệu quả chương trình voucher", "depth": 3, "leaf": true, "actors": ["marketing"], "priority": "C", "tags": ["report"], "ops": {"voucher": "R"}, "children": []}]}, {"id": "2.2", "name": "Áp dụng voucher", "depth": 2, "leaf": false, "children": [{"id": "2.2.1", "name": "Áp dụng voucher vào đơn", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "children": []}, {"id": "2.2.2", "name": "Phân bổ giảm giá về từng sản phẩm", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Cần cho hoàn tiền một phần", "children": []}, {"id": "2.2.3", "name": "Hoàn lại voucher khi hủy đơn", "depth": 3, "leaf": true, "actors": ["system"], "priority": "S", "note": "Có hoàn hay không: chờ quyết định [xác nhận]", "children": []}]}]}, {"id": "3", "name": "Thanh toán", "depth": 1, "leaf": false, "children": [{"id": "3.1", "name": "Tạo yêu cầu thanh toán", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "ops": {"payment": "C"}, "children": []}, {"id": "3.2", "name": "Nhận kết quả thanh toán từ cổng", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Callback là nguồn sự thật; xử lý callback mất", "ops": {"payment": "U"}, "children": []}, {"id": "3.3", "name": "Hủy đơn hết hạn thanh toán", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Giải phóng tồn kho", "children": []}, {"id": "3.4", "name": "Đối soát thanh toán với cổng", "depth": 2, "leaf": true, "actors": ["finance"], "priority": "M", "ops": {"payment": "R"}, "children": []}]}, {"id": "4", "name": "Quản lý đơn hàng", "depth": 1, "leaf": false, "children": [{"id": "4.1", "name": "Đơn của người mua", "depth": 2, "leaf": false, "children": [{"id": "4.1.1", "name": "Xem đơn hàng của tôi", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"order": "R"}, "children": []}, {"id": "4.1.2", "name": "Hủy đơn khi chưa xử lý", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"order": "D"}, "children": []}]}, {"id": "4.2", "name": "Đơn của người bán", "depth": 2, "leaf": false, "children": [{"id": "4.2.1", "name": "Xác nhận đơn", "depth": 3, "leaf": true, "actors": ["seller"], "priority": "M", "ops": {"order": "U"}, "children": []}, {"id": "4.2.2", "name": "Tách đơn theo người bán", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Đơn cha và đơn con mỗi seller", "ops": {"order": "C"}, "children": []}, {"id": "4.2.3", "name": "Cập nhật trạng thái đơn theo vận đơn", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "ops": {"order": "U"}, "children": []}]}]}, {"id": "5", "name": "Giao vận và COD", "depth": 1, "leaf": false, "children": [{"id": "5.1", "name": "Tạo vận đơn với hãng vận chuyển", "depth": 2, "leaf": true, "actors": ["seller"], "priority": "M", "ops": {"shipment": "C"}, "children": []}, {"id": "5.2", "name": "Nhận trạng thái giao hàng từ hãng", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "ops": {"shipment": "U"}, "children": []}, {"id": "5.3", "name": "Theo dõi vận đơn", "depth": 2, "leaf": true, "actors": ["buyer"], "priority": "S", "ops": {"shipment": "R"}, "children": []}, {"id": "5.4", "name": "Hoàn hàng về người bán sau giao thất bại", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "children": []}, {"id": "5.5", "name": "Đối soát tiền COD với hãng vận chuyển", "depth": 2, "leaf": true, "actors": ["finance"], "priority": "M", "children": []}]}, {"id": "6", "name": "Đổi trả và hoàn tiền", "depth": 1, "leaf": false, "children": [{"id": "6.1", "name": "Yêu cầu trả hàng", "depth": 2, "leaf": false, "children": [{"id": "6.1.1", "name": "Tạo yêu cầu trả hàng", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "M", "ops": {"return": "C"}, "children": []}, {"id": "6.1.2", "name": "Xem trạng thái yêu cầu trả hàng", "depth": 3, "leaf": true, "actors": ["buyer", "seller"], "priority": "M", "ops": {"return": "R"}, "children": []}, {"id": "6.1.3", "name": "Hủy yêu cầu trả hàng", "depth": 3, "leaf": true, "actors": ["buyer"], "priority": "C", "ops": {"return": "D"}, "children": []}]}, {"id": "6.2", "name": "Xử lý trả hàng", "depth": 2, "leaf": false, "children": [{"id": "6.2.1", "name": "Duyệt yêu cầu trả hàng", "depth": 3, "leaf": true, "actors": ["seller", "cs"], "priority": "M", "ops": {"return": "U"}, "children": []}, {"id": "6.2.2", "name": "Kiểm hàng trả về", "depth": 3, "leaf": true, "actors": ["seller"], "priority": "M", "ops": {"return": "U"}, "children": []}]}, {"id": "6.3", "name": "Hoàn tiền", "depth": 2, "leaf": false, "children": [{"id": "6.3.1", "name": "Tính số tiền hoàn theo phân bổ voucher", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "ops": {"refund": "C"}, "children": []}, {"id": "6.3.2", "name": "Hoàn tiền về phương thức thanh toán gốc", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "ops": {"refund": "U"}, "children": []}, {"id": "6.3.3", "name": "Xem trạng thái hoàn tiền", "depth": 3, "leaf": true, "actors": ["buyer", "finance"], "priority": "M", "ops": {"refund": "R"}, "children": []}]}]}, {"id": "7", "name": "Xuyên suốt và quản trị", "depth": 1, "leaf": false, "children": [{"id": "7.1", "name": "Đăng nhập theo vai trò", "depth": 2, "leaf": true, "actors": ["buyer", "seller", "marketing", "finance", "cs"], "priority": "M", "tags": ["auth"], "children": []}, {"id": "7.2", "name": "Gửi thông báo trạng thái đơn", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "tags": ["notify"], "children": []}, {"id": "7.3", "name": "Ghi nhật ký thao tác nhạy cảm", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "tags": ["audit"], "children": []}, {"id": "7.4", "name": "Xem báo cáo đơn hủy và đơn trả", "depth": 2, "leaf": true, "actors": ["finance", "marketing"], "priority": "S", "tags": ["report"], "children": []}, {"id": "7.5", "name": "Cấu hình thời hạn đổi trả và chính sách", "depth": 2, "leaf": true, "actors": ["marketing"], "priority": "S", "tags": ["config"], "children": []}, {"id": "7.6", "name": "Điều chỉnh hóa đơn điện tử khi hoàn tiền", "depth": 2, "leaf": true, "actors": ["finance"], "priority": "S", "note": "[domain] Hóa đơn đã xuất thì xử lý điều chỉnh", "children": []}]}], "functions": [{"id": "1.1.1", "reqs": null, "derived": null}, {"id": "1.1.2", "reqs": null, "derived": null}, {"id": "1.1.3", "reqs": null, "derived": null}, {"id": "1.1.4", "reqs": null, "derived": null}, {"id": "1.2.1", "reqs": null, "derived": null}, {"id": "1.2.2", "reqs": null, "derived": null}, {"id": "1.2.3", "reqs": null, "derived": null}, {"id": "1.2.4", "reqs": null, "derived": null}, {"id": "2.1.1", "reqs": null, "derived": null}, {"id": "2.1.2", "reqs": null, "derived": null}, {"id": "2.1.3", "reqs": null, "derived": null}, {"id": "2.1.4", "reqs": null, "derived": null}, {"id": "2.2.1", "reqs": null, "derived": null}, {"id": "2.2.2", "reqs": null, "derived": null}, {"id": "2.2.3", "reqs": null, "derived": null}, {"id": "3.1", "reqs": null, "derived": null}, {"id": "3.2", "reqs": null, "derived": null}, {"id": "3.3", "reqs": null, "derived": null}, {"id": "3.4", "reqs": null, "derived": null}, {"id": "4.1.1", "reqs": null, "derived": null}, {"id": "4.1.2", "reqs": null, "derived": null}, {"id": "4.2.1", "reqs": null, "derived": null}, {"id": "4.2.2", "reqs": null, "derived": null}, {"id": "4.2.3", "reqs": null, "derived": null}, {"id": "5.1", "reqs": null, "derived": null}, {"id": "5.2", "reqs": null, "derived": null}, {"id": "5.3", "reqs": null, "derived": null}, {"id": "5.4", "reqs": null, "derived": null}, {"id": "5.5", "reqs": null, "derived": null}, {"id": "6.1.1", "reqs": null, "derived": null}, {"id": "6.1.2", "reqs": null, "derived": null}, {"id": "6.1.3", "reqs": null, "derived": null}, {"id": "6.2.1", "reqs": null, "derived": null}, {"id": "6.2.2", "reqs": null, "derived": null}, {"id": "6.3.1", "reqs": null, "derived": null}, {"id": "6.3.2", "reqs": null, "derived": null}, {"id": "6.3.3", "reqs": null, "derived": null}, {"id": "7.1", "reqs": null, "derived": null}, {"id": "7.2", "reqs": null, "derived": null}, {"id": "7.3", "reqs": null, "derived": null}, {"id": "7.4", "reqs": null, "derived": null}, {"id": "7.5", "reqs": null, "derived": null}, {"id": "7.6", "reqs": null, "derived": null}], "crud": {"cart": {"C": ["1.1.1"], "U": ["1.1.1", "1.1.2"], "D": ["1.1.3"], "R": ["1.1.4"]}, "order": {"C": ["1.2.4", "4.2.2"], "R": ["4.1.1"], "D": ["4.1.2"], "U": ["4.2.1", "4.2.3"]}, "voucher": {"C": ["2.1.1"], "U": ["2.1.2"], "D": ["2.1.3"], "R": ["2.1.4"]}, "payment": {"C": ["3.1"], "U": ["3.2"], "R": ["3.4"]}, "shipment": {"C": ["5.1"], "U": ["5.2"], "R": ["5.3"]}, "return": {"C": ["6.1.1"], "R": ["6.1.2"], "D": ["6.1.3"], "U": ["6.2.1", "6.2.2"]}, "refund": {"C": ["6.3.1"], "U": ["6.3.2"], "R": ["6.3.3"]}}, "waived": {"cart": {"C": null, "R": null, "U": null, "D": null}, "order": {"C": null, "R": null, "U": null, "D": null}, "voucher": {"C": null, "R": null, "U": null, "D": null}, "payment": {"C": null, "R": null, "U": null, "D": "Giao dịch tài chính không xóa"}, "shipment": {"C": null, "R": null, "U": null, "D": "Giữ lịch sử giao hàng"}, "return": {"C": null, "R": null, "U": null, "D": null}, "refund": {"C": null, "R": null, "U": null, "D": "Giao dịch tài chính không xóa"}}, "cover": {}, "matrix": {"buyer": {"1": 6, "2": 1, "4": 2, "5": 1, "6": 4, "7": 1}, "system": {"1": 2, "2": 2, "3": 3, "4": 2, "5": 2, "6": 2, "7": 2}, "marketing": {"2": 4, "7": 3}, "finance": {"3": 1, "5": 1, "6": 1, "7": 3}, "seller": {"4": 1, "5": 1, "6": 3, "7": 1}, "cs": {"6": 1, "7": 1}}, "lint": []};</script>
+<script>
+/* Trang khám phá phân rã chức năng: cây có lọc, ma trận CRUD, truy vết yêu cầu, actor × module, kết quả lint.
+   Dữ liệu nằm ở window.FD_DATA (do scripts/build_explorer_page.py nhúng). Không cần mạng. */
+(function () {
+  const D = window.FD_DATA;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const el = (t, a, ...kids) => {
+    const e = document.createElement(t);
+    Object.entries(a || {}).forEach(([k, v]) => (k === 'class' ? (e.className = v) : k === 'text' ? (e.textContent = v) : e.setAttribute(k, v)));
+    kids.flat().forEach((k) => k != null && e.append(k.nodeType ? k : document.createTextNode(k)));
+    return e;
+  };
+  const actorName = (id) => (D.actors.find((a) => a.id === id) || {}).name || id;
+  const objName = (id) => (D.objects.find((o) => o.id === id) || {}).name || id;
+  const state = { q: '', actor: '', prio: '' };
+
+  function matches(n) {
+    if (!n.leaf) return true;
+    if (state.actor && !(n.actors || []).includes(state.actor)) return false;
+    if (state.prio && n.priority !== state.prio) return false;
+    if (state.q) {
+      const hay = (n.id + ' ' + n.name + ' ' + (n.note || '') + ' ' + (n.reqs || []).join(' ')).toLowerCase();
+      if (!hay.includes(state.q.toLowerCase())) return false;
+    }
+    return true;
+  }
+  function anyMatch(n) { return n.leaf ? matches(n) : n.children.some(anyMatch); }
+
+  function renderNode(n) {
+    if (!anyMatch(n)) return null;
+    const head = el('span', { class: 'row' },
+      el('span', { class: 'nid', text: n.id }), ' ', el('span', { class: 'nname', text: n.name }));
+    if (n.leaf) {
+      (n.actors || []).forEach((a) => head.append(' ', el('span', { class: 'chip', text: actorName(a) })));
+      if (n.priority) head.append(' ', el('span', { class: 'chip p-' + n.priority, text: n.priority }));
+      Object.entries(n.ops || {}).forEach(([o, l]) => head.append(' ', el('span', { class: 'chip ops', text: objName(o) + ': ' + l })));
+      (n.reqs || []).forEach((r) => head.append(' ', el('span', { class: 'chip req', text: r })));
+      if (n.note) head.append(' ', el('span', { class: 'note', text: '— ' + n.note }));
+      return el('li', { class: 'leaf' }, head);
+    }
+    const d = el('details', { open: state.q || state.actor || state.prio ? 'open' : null }, el('summary', {}, head),
+      el('ul', {}, n.children.map(renderNode)));
+    if (n.depth === 1) d.setAttribute('open', 'open');
+    return el('li', { class: 'depth' + n.depth }, d);
+  }
+
+  function renderTree() {
+    const box = $('#tree'); box.replaceChildren(el('ul', { class: 'tree' }, D.modules.map(renderNode)));
+  }
+
+  function table(head, rows, cls) {
+    return el('table', { class: cls || '' }, el('thead', {}, el('tr', {}, head.map((h) => el('th', { text: h })))),
+      el('tbody', {}, rows.map((r) => el('tr', {}, r.map((c) => (c && c.nodeType ? c : el('td', { text: c })))))));
+  }
+  const td = (text, cls) => el('td', { class: cls || '', text });
+
+  function renderCrud() {
+    const rows = D.objects.map((o) => {
+      const cells = [td(o.name)];
+      ['C', 'R', 'U', 'D'].forEach((ch) => {
+        const ids = D.crud[o.id] && D.crud[o.id][ch];
+        const why = (D.waived[o.id] || {})[ch];
+        cells.push(ids && ids.length ? td(ids.join(', ')) : why ? td('— (miễn: ' + why + ')', 'muted') : td('❌ thiếu', 'bad'));
+      });
+      return cells;
+    });
+    $('#crud').replaceChildren(D.objects.length ? table(['Đối tượng', 'Create', 'Read', 'Update', 'Delete / Hủy'], rows) : el('p', { text: 'Spec chưa khai báo objects.' }));
+  }
+  function renderReqs() {
+    const rows = D.requirements.map((r) => {
+      const ids = D.cover[r.id] || [];
+      return [td(r.id), td(r.text || ''), ids.length ? td(ids.join(', ')) : td('❌ chưa phủ', 'bad')];
+    });
+    const orphan = D.functions.filter((f) => !(f.reqs && f.reqs.length) && !f.derived).map((f) => f.id);
+    $('#reqs').replaceChildren(D.requirements.length ? table(['Yêu cầu', 'Nội dung', 'Chức năng phủ'], rows) : el('p', { text: 'Spec chưa khai báo requirements.' }),
+      orphan.length && D.requirements.length ? el('p', { class: 'warn', text: 'Chức năng chưa truy về yêu cầu: ' + orphan.join(', ') }) : null);
+  }
+  function renderMatrix() {
+    const rows = D.actors.map((a) => [td(a.name)].concat(D.modules.map((m) => td(String((D.matrix[a.id] || {})[m.id] || '')))));
+    $('#matrix').replaceChildren(D.actors.length ? table(['Actor'].concat(D.modules.map((m) => m.id + '. ' + m.name)), rows) : el('p', { text: 'Spec chưa khai báo actors.' }));
+  }
+  function renderLint() {
+    const L = D.lint;
+    const counts = { 'LỖI': 0, 'CẢNH BÁO': 0, 'MIỄN': 0 };
+    L.forEach((x) => counts[x.level]++);
+    $('#lint').replaceChildren(
+      el('p', { class: counts['LỖI'] ? 'bad' : 'ok', text: counts['LỖI'] + ' lỗi · ' + counts['CẢNH BÁO'] + ' cảnh báo · ' + counts['MIỄN'] + ' miễn trừ' }),
+      L.length ? table(['Mức', 'Mã', 'Vị trí', 'Mô tả'], L.map((x) => [td(x.level, x.level === 'LỖI' ? 'bad' : x.level === 'MIỄN' ? 'muted' : 'warn'), td(x.code), td(x.where), td(x.message)])) : el('p', { class: 'ok', text: 'Không có phát hiện.' }));
+  }
+
+  function init() {
+    $('#title').textContent = D.name;
+    $('#stats').textContent = D.modules.length + ' module · ' + D.functions.length + ' chức năng · sâu ' + D.depth + ' cấp';
+    const sa = $('#f-actor'); sa.append(el('option', { value: '', text: 'Mọi actor' }));
+    D.actors.forEach((a) => sa.append(el('option', { value: a.id, text: a.name })));
+    $('#f-q').addEventListener('input', (e) => { state.q = e.target.value; renderTree(); });
+    sa.addEventListener('change', (e) => { state.actor = e.target.value; renderTree(); });
+    $('#f-prio').addEventListener('change', (e) => { state.prio = e.target.value; renderTree(); });
+    $('#expand').addEventListener('click', () => document.querySelectorAll('#tree details').forEach((d) => (d.open = true)));
+    $('#collapse').addEventListener('click', () => document.querySelectorAll('#tree details').forEach((d) => (d.open = false)));
+    document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      document.querySelectorAll('.panel').forEach((p) => (p.hidden = p.id !== b.dataset.panel));
+    }));
+    renderTree(); renderCrud(); renderReqs(); renderMatrix(); renderLint();
+    const bad = D.lint.filter((x) => x.level === 'LỖI').length;
+    $('#tab-lint').textContent = 'Kiểm tra (' + (bad ? bad + ' lỗi' : D.lint.filter((x) => x.level === 'CẢNH BÁO').length + ' cảnh báo') + ')';
+  }
+  init();
+})();
+
+</script></body></html>

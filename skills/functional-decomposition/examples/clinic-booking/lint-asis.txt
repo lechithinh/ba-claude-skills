@@ -1,0 +1,22 @@
+Spec: Đặt lịch khám phòng khám — BẢN NHÁP CÓ LỖI (AS-IS để soát) — 3 module · 8 chức năng · sâu 4 cấp
+LỖI       [A1] 4.1.1    ID có 3 đoạn nhưng nằm ở cấp 2
+LỖI       [A1] 4.1.1    ID không khớp cha 3
+LỖI       [B2] 1.1      "Quản lý lịch hẹn" dùng động từ chung chung - liệt kê từng thao tác cụ thể (tạo/xem/sửa/hủy…)
+LỖI       [C2] FR-08    Yêu cầu chưa được chức năng nào phủ
+CẢNH BÁO  [A2] 2        "Thông báo" chỉ có 1 con - thường là thừa một cấp
+CẢNH BÁO  [A2] 2.1      "Nhắc lịch" chỉ có 1 con - thường là thừa một cấp
+CẢNH BÁO  [A2] 3.3      "Hệ thống" chỉ có 1 con - thường là thừa một cấp
+CẢNH BÁO  [A2] 3.3.1    "Cấu hình" chỉ có 1 con - thường là thừa một cấp
+CẢNH BÁO  [A4] 3        Các nhánh con của "Lịch bác sĩ" sâu không đều (lệch 2 cấp)
+CẢNH BÁO  [B1] 1.3      "Màn hình lịch trong ngày của lễ tân" có vẻ không bắt đầu bằng động từ (cần Động từ + Danh từ)
+CẢNH BÁO  [B4] 2.1.1    "Gửi và nhắc lịch qua SMS" có vẻ gồm nhiều hành vi (sau và/hoặc là một động từ) - cân nhắc tách
+CẢNH BÁO  [B5] 1.3      "Màn hình lịch trong ngày của lễ tân" nhắc tới màn hình/giao diện - chức năng mô tả việc làm hoặc năng lực, không mô tả chỗ làm
+CẢNH BÁO  [C1] 1.3      "Màn hình lịch trong ngày của lễ tân" chưa có actor
+CẢNH BÁO  [D2] timeoff  "Lịch nghỉ bác sĩ" chưa có chức năng Xem/Tìm
+CẢNH BÁO  [D3] timeoff  "Lịch nghỉ bác sĩ" chưa có chức năng Sửa (nếu bất biến, đánh dấu "immutable": true)
+CẢNH BÁO  [D4] slot     "Khung giờ" chưa có chức năng Hủy/Lưu trữ/Xóa (nếu cố ý không xóa, đánh dấu "no_delete": true)
+CẢNH BÁO  [D4] timeoff  "Lịch nghỉ bác sĩ" chưa có chức năng Hủy/Lưu trữ/Xóa (nếu cố ý không xóa, đánh dấu "no_delete": true)
+CẢNH BÁO  [D6] 1.1      "Quản lý lịch hẹn" làm đủ C-R-U-D trên một đối tượng - đây là 'Quản lý X' gộp, nên tách
+CẢNH BÁO  [E1] audit    Chưa thấy nhóm chức năng xuyên suốt: Nhật ký thao tác (audit) (thêm hoặc miễn trừ kèm lý do)
+CẢNH BÁO  [E1] auth     Chưa thấy nhóm chức năng xuyên suốt: Xác thực & phân quyền (thêm hoặc miễn trừ kèm lý do)
+Kết quả: 4 lỗi, 16 cảnh báo, 0 miễn trừ

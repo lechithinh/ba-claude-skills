@@ -1,0 +1,67 @@
+flowchart LR
+    n_root(["Sàn thương mại điện tử: từ giỏ hàng đến đổi trả"])
+    n_1["1 Giỏ hàng và checkout"]:::mod
+    n_1_1["1.1 Giỏ hàng"]:::feat
+    n_1_2["1.2 Đặt hàng"]:::feat
+    n_2["2 Khuyến mãi và voucher"]:::mod
+    n_2_1["2.1 Chương trình voucher"]:::feat
+    n_2_2["2.2 Áp dụng voucher"]:::feat
+    n_3["3 Thanh toán"]:::mod
+    n_3_1["3.1 Tạo yêu cầu thanh toán"]:::fn
+    n_3_2["3.2 Nhận kết quả thanh toán từ cổng"]:::fn
+    n_3_3["3.3 Hủy đơn hết hạn thanh toán"]:::fn
+    n_3_4["3.4 Đối soát thanh toán với cổng"]:::fn
+    n_4["4 Quản lý đơn hàng"]:::mod
+    n_4_1["4.1 Đơn của người mua"]:::feat
+    n_4_2["4.2 Đơn của người bán"]:::feat
+    n_5["5 Giao vận và COD"]:::mod
+    n_5_1["5.1 Tạo vận đơn với hãng vận chuyển"]:::fn
+    n_5_2["5.2 Nhận trạng thái giao hàng từ hãng"]:::fn
+    n_5_3["5.3 Theo dõi vận đơn"]:::fn
+    n_5_4["5.4 Hoàn hàng về người bán sau giao thất bại"]:::fn
+    n_5_5["5.5 Đối soát tiền COD với hãng vận chuyển"]:::fn
+    n_6["6 Đổi trả và hoàn tiền"]:::mod
+    n_6_1["6.1 Yêu cầu trả hàng"]:::feat
+    n_6_2["6.2 Xử lý trả hàng"]:::feat
+    n_6_3["6.3 Hoàn tiền"]:::feat
+    n_7["7 Xuyên suốt và quản trị"]:::mod
+    n_7_1["7.1 Đăng nhập theo vai trò"]:::fn
+    n_7_2["7.2 Gửi thông báo trạng thái đơn"]:::fn
+    n_7_3["7.3 Ghi nhật ký thao tác nhạy cảm"]:::fn
+    n_7_4["7.4 Xem báo cáo đơn hủy và đơn trả"]:::fn
+    n_7_5["7.5 Cấu hình thời hạn đổi trả và chính sách"]:::fn
+    n_7_6["7.6 Điều chỉnh hóa đơn điện tử khi hoàn tiền"]:::fn
+    n_root --> n_1
+    n_1 --> n_1_1
+    n_1 --> n_1_2
+    n_root --> n_2
+    n_2 --> n_2_1
+    n_2 --> n_2_2
+    n_root --> n_3
+    n_3 --> n_3_1
+    n_3 --> n_3_2
+    n_3 --> n_3_3
+    n_3 --> n_3_4
+    n_root --> n_4
+    n_4 --> n_4_1
+    n_4 --> n_4_2
+    n_root --> n_5
+    n_5 --> n_5_1
+    n_5 --> n_5_2
+    n_5 --> n_5_3
+    n_5 --> n_5_4
+    n_5 --> n_5_5
+    n_root --> n_6
+    n_6 --> n_6_1
+    n_6 --> n_6_2
+    n_6 --> n_6_3
+    n_root --> n_7
+    n_7 --> n_7_1
+    n_7 --> n_7_2
+    n_7 --> n_7_3
+    n_7 --> n_7_4
+    n_7 --> n_7_5
+    n_7 --> n_7_6
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

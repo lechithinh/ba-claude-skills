@@ -1,0 +1,13 @@
+flowchart LR
+    n_3["3 Thanh toán"]:::mod
+    n_3_1["3.1 Tạo yêu cầu thanh toán"]:::fn
+    n_3_2["3.2 Nhận kết quả thanh toán từ cổng"]:::fn
+    n_3_3["3.3 Hủy đơn hết hạn thanh toán"]:::fn
+    n_3_4["3.4 Đối soát thanh toán với cổng"]:::fn
+    n_3 --> n_3_1
+    n_3 --> n_3_2
+    n_3 --> n_3_3
+    n_3 --> n_3_4
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

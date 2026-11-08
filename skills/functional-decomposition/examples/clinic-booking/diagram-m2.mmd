@@ -1,0 +1,23 @@
+flowchart LR
+    n_2["2 Lịch làm việc bác sĩ"]:::mod
+    n_2_1["2.1 Khung giờ khám"]:::feat
+    n_2_1_1["2.1.1 Tạo khung giờ theo ca làm việc"]:::fn
+    n_2_1_2["2.1.2 Điều chỉnh khung giờ"]:::fn
+    n_2_1_3["2.1.3 Đóng khung giờ không nhận lịch"]:::fn
+    n_2_2["2.2 Nghỉ phép của bác sĩ"]:::feat
+    n_2_2_1["2.2.1 Khai báo thời gian nghỉ"]:::fn
+    n_2_2_2["2.2.2 Xem lịch nghỉ"]:::fn
+    n_2_2_3["2.2.3 Hủy khai báo nghỉ"]:::fn
+    n_2_2_4["2.2.4 Cảnh báo lịch hẹn trùng thời gian nghỉ"]:::fn
+    n_2 --> n_2_1
+    n_2_1 --> n_2_1_1
+    n_2_1 --> n_2_1_2
+    n_2_1 --> n_2_1_3
+    n_2 --> n_2_2
+    n_2_2 --> n_2_2_1
+    n_2_2 --> n_2_2_2
+    n_2_2 --> n_2_2_3
+    n_2_2 --> n_2_2_4
+    classDef mod fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    classDef feat fill:#dbeafe,stroke:#60a5fa,color:#0f172a
+    classDef fn fill:#fff,stroke:#94a3b8,color:#0f172a

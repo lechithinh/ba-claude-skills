@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tự phục vụ khóa/mở khóa thẻ và hạn mức online (mobile banking) — Phân rã chức năng</title>
+<style>
+/* Màu, font cho SVG và trang explorer. Đổi giá trị ở đây để theo thương hiệu của bạn. */
+.fd-svg, .fd-page {
+  --fd-font: "Be Vietnam Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fd-bg: #ffffff; --fd-ink: #0f172a; --fd-muted: #64748b; --fd-line: #94a3b8; --fd-surface: #f8fafc;
+  --fd-border: #e2e8f0; --fd-accent: #1d4ed8; --fd-bad: #b91c1c; --fd-bad-bg: #fee2e2; --fd-warn: #92400e; --fd-warn-bg: #fef3c7; --fd-ok: #166534;
+  /* 9 màu cho 9 module: [nền, viền] */
+  --fd-m0-f: #dbeafe; --fd-m0-s: #3b82f6; --fd-m1-f: #dcfce7; --fd-m1-s: #22c55e; --fd-m2-f: #fef3c7; --fd-m2-s: #f59e0b;
+  --fd-m3-f: #fce7f3; --fd-m3-s: #ec4899; --fd-m4-f: #ede9fe; --fd-m4-s: #8b5cf6; --fd-m5-f: #cffafe; --fd-m5-s: #06b6d4;
+  --fd-m6-f: #ffedd5; --fd-m6-s: #f97316; --fd-m7-f: #e0e7ff; --fd-m7-s: #6366f1; --fd-m8-f: #f1f5f9; --fd-m8-s: #64748b;
+}
+@media (prefers-color-scheme: dark) {
+  .fd-svg, .fd-page {
+    --fd-bg: #0b1220; --fd-ink: #e5e7eb; --fd-muted: #94a3b8; --fd-line: #475569; --fd-surface: #111a2e;
+    --fd-border: #1f2a44; --fd-accent: #93c5fd; --fd-bad: #fca5a5; --fd-bad-bg: #450a0a; --fd-warn: #fcd34d; --fd-warn-bg: #422006; --fd-ok: #86efac;
+    --fd-m0-f: #172554; --fd-m1-f: #052e16; --fd-m2-f: #422006; --fd-m3-f: #500724; --fd-m4-f: #2e1065;
+    --fd-m5-f: #083344; --fd-m6-f: #431407; --fd-m7-f: #1e1b4b; --fd-m8-f: #1e293b;
+  }
+}
+.fd-svg text { font-family: var(--fd-font); fill: var(--fd-ink); }
+.fd-svg .bg { fill: var(--fd-bg); }
+.fd-svg .title { font-size: 16px; font-weight: 700; }
+.fd-svg .link { fill: none; stroke: var(--fd-line); stroke-width: 1.4; }
+.fd-svg .id { font-size: 10px; font-weight: 700; fill: var(--fd-muted); }
+.fd-svg .name { font-size: 12.5px; }
+.fd-svg .root rect { fill: var(--fd-ink); stroke: none; }
+.fd-svg .root text { fill: var(--fd-bg); font-weight: 700; font-size: 13px; }
+.fd-svg .p-M { fill: #dc2626; } .fd-svg .p-S { fill: #f59e0b; } .fd-svg .p-C { fill: #22c55e; } .fd-svg .p-W { fill: #94a3b8; }
+.fd-svg .legend { font-size: 11px; fill: var(--fd-muted); }
+.fd-svg .m0 rect { fill: var(--fd-m0-f); stroke: var(--fd-m0-s); stroke-width: 1.4; }
+.fd-svg .m1 rect { fill: var(--fd-m1-f); stroke: var(--fd-m1-s); stroke-width: 1.4; }
+.fd-svg .m2 rect { fill: var(--fd-m2-f); stroke: var(--fd-m2-s); stroke-width: 1.4; }
+.fd-svg .m3 rect { fill: var(--fd-m3-f); stroke: var(--fd-m3-s); stroke-width: 1.4; }
+.fd-svg .m4 rect { fill: var(--fd-m4-f); stroke: var(--fd-m4-s); stroke-width: 1.4; }
+.fd-svg .m5 rect { fill: var(--fd-m5-f); stroke: var(--fd-m5-s); stroke-width: 1.4; }
+.fd-svg .m6 rect { fill: var(--fd-m6-f); stroke: var(--fd-m6-s); stroke-width: 1.4; }
+.fd-svg .m7 rect { fill: var(--fd-m7-f); stroke: var(--fd-m7-s); stroke-width: 1.4; }
+.fd-svg .m8 rect { fill: var(--fd-m8-f); stroke: var(--fd-m8-s); stroke-width: 1.4; }
+
+body { margin: 0; background: var(--fd-bg); color: var(--fd-ink); font: 15px/1.55 var(--fd-font); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.4rem; margin: 0 0 2px; } .muted { color: var(--fd-muted); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--fd-border); margin: 14px 0; }
+.tabs button { background: none; border: 0; padding: 9px 12px; color: var(--fd-muted); font: inherit; cursor: pointer; border-bottom: 2px solid transparent; }
+.tabs button[aria-selected=true] { color: var(--fd-accent); border-color: var(--fd-accent); font-weight: 600; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.filters input { min-width: 240px; flex: 1; }
+.filters input, .filters select, .filters button { padding: 7px 9px; border: 1px solid var(--fd-border); border-radius: 7px; background: var(--fd-surface); color: var(--fd-ink); font: inherit; }
+ul.tree, ul.tree ul { list-style: none; padding-left: 18px; margin: 2px 0; border-left: 1px dashed var(--fd-border); } ul.tree { padding-left: 0; border: 0; }
+summary { cursor: pointer; padding: 3px 0; } li.leaf { padding: 3px 0 3px 4px; }
+.nid { font-weight: 700; color: var(--fd-muted); font-variant-numeric: tabular-nums; } li.depth1 > details > summary .nname { font-weight: 700; font-size: 1.05em; }
+.chip { display: inline-block; font-size: 11.5px; padding: 0 7px; border-radius: 10px; background: var(--fd-surface); border: 1px solid var(--fd-border); }
+.chip.ops { color: var(--fd-accent); } .chip.req { color: var(--fd-muted); }
+.chip.p-M { background: #fee2e2; color: #991b1b; border-color: #fca5a5; } .chip.p-S { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+.chip.p-C { background: #dcfce7; color: #166534; border-color: #86efac; } .chip.p-W { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+.note { color: var(--fd-muted); font-size: 13px; }
+table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--fd-border); padding: 6px 9px; text-align: left; vertical-align: top; } th { background: var(--fd-surface); }
+td.bad, p.bad { color: var(--fd-bad); font-weight: 600; } td.warn, p.warn { color: var(--fd-warn); } td.muted { color: var(--fd-muted); } p.ok { color: var(--fd-ok); font-weight: 600; }
+</style></head>
+<body class="fd-page"><div class="wrap">
+<h1 id="title"></h1><div class="muted" id="stats"></div>
+<div class="tabs" role="tablist">
+ <button role="tab" aria-selected="true" data-panel="p-tree">Cây chức năng</button>
+ <button role="tab" aria-selected="false" data-panel="p-crud">Ma trận CRUD</button>
+ <button role="tab" aria-selected="false" data-panel="p-reqs">Truy vết yêu cầu</button>
+ <button role="tab" aria-selected="false" data-panel="p-matrix">Actor × Module</button>
+ <button role="tab" aria-selected="false" data-panel="p-lint" id="tab-lint">Kiểm tra</button>
+</div>
+<section class="panel" id="p-tree"><div class="filters">
+ <input id="f-q" type="search" placeholder="Tìm theo tên, ID, yêu cầu…" aria-label="Tìm">
+ <select id="f-actor" aria-label="Lọc theo actor"></select>
+ <select id="f-prio" aria-label="Lọc theo ưu tiên"><option value="">Mọi ưu tiên</option><option value="M">Must</option><option value="S">Should</option><option value="C">Could</option><option value="W">Won't</option></select>
+ <button id="expand">Mở hết</button><button id="collapse">Thu gọn</button></div><div id="tree"></div></section>
+<section class="panel" id="p-crud" hidden><div id="crud"></div></section>
+<section class="panel" id="p-reqs" hidden><div id="reqs"></div></section>
+<section class="panel" id="p-matrix" hidden><div id="matrix"></div></section>
+<section class="panel" id="p-lint" hidden><div id="lint"></div></section>
+</div>
+<script>window.FD_DATA = {"name": "Tự phục vụ khóa/mở khóa thẻ và hạn mức online (mobile banking)", "depth": 3, "actors": [{"id": "holder", "name": "Chủ thẻ"}, {"id": "csr", "name": "Nhân viên hotline"}, {"id": "fraud", "name": "Chuyên viên Fraud"}, {"id": "ops", "name": "Vận hành thẻ"}, {"id": "system", "name": "Hệ thống"}], "objects": [{"id": "card", "name": "Thẻ", "source": "external", "note": "Thẻ do quy trình phát hành (ngoài phạm vi) tạo; ở đây chỉ đổi trạng thái"}, {"id": "limit", "name": "Hạn mức online"}, {"id": "notif", "name": "Thông báo", "immutable": true, "no_delete": true, "note": "Bản ghi gửi thông báo không sửa/xóa, phục vụ tra cứu"}], "requirements": [{"id": "FR-01", "text": "Khách khóa được thẻ ngay trên app"}, {"id": "FR-02", "text": "Hai loại: Khóa tạm (mở lại được) và Báo mất (đóng vĩnh viễn)"}, {"id": "FR-03", "text": "Khách mở khóa được thẻ ở trạng thái khóa tạm"}, {"id": "FR-04", "text": "Thẻ bị flag gian lận thì khách không tự mở khóa được"}, {"id": "FR-05", "text": "Khách tự đặt hạn mức chi tiêu online theo ngày"}, {"id": "FR-06", "text": "Khách nhận thông báo khi khóa xong"}, {"id": "FR-07", "text": "Hệ thống gọi CMS để khóa/mở khóa"}], "modules": [{"id": "1", "name": "Khóa và mở khóa thẻ", "depth": 1, "leaf": false, "children": [{"id": "1.1", "name": "Khóa thẻ", "depth": 2, "leaf": false, "children": [{"id": "1.1.1", "name": "Khóa tạm thẻ trên app", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "M", "reqs": ["FR-01", "FR-02", "FR-07"], "ops": {"card": "R"}, "children": []}, {"id": "1.1.2", "name": "Báo mất thẻ", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "M", "reqs": ["FR-02"], "note": "Đóng thẻ vĩnh viễn, phải phát hành thẻ mới", "children": []}, {"id": "1.1.3", "name": "Khóa thẻ qua hotline", "depth": 3, "leaf": true, "actors": ["csr"], "priority": "S", "reqs": ["FR-01"], "note": "Đồng bộ trạng thái với app", "children": []}]}, {"id": "1.2", "name": "Mở khóa thẻ", "depth": 2, "leaf": false, "children": [{"id": "1.2.1", "name": "Mở khóa thẻ khóa tạm bằng xác thực", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "M", "reqs": ["FR-03", "FR-07"], "note": "Xung đột chờ quyết định: mở ngay hay chờ 24h [xác nhận Q1]", "children": []}, {"id": "1.2.2", "name": "Chặn mở khóa thẻ bị gắn cờ gian lận", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "reqs": ["FR-04"], "children": []}, {"id": "1.2.3", "name": "Mở khóa thẻ bị gắn cờ sau khi xác minh", "depth": 3, "leaf": true, "actors": ["fraud"], "priority": "S", "reqs": ["FR-04"], "children": []}]}, {"id": "1.3", "name": "Đồng bộ với CMS", "depth": 2, "leaf": false, "children": [{"id": "1.3.1", "name": "Gọi CMS đổi trạng thái thẻ", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "reqs": ["FR-07"], "children": []}, {"id": "1.3.2", "name": "Thử lại khi CMS phản hồi chậm", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "note": "[domain] Tránh khách tưởng đã khóa nhưng thẻ vẫn quẹt được", "derived": true, "children": []}, {"id": "1.3.3", "name": "Đối soát trạng thái thẻ giữa app và CMS", "depth": 3, "leaf": true, "actors": ["ops"], "priority": "M", "note": "[domain] Giải quyết giao dịch pending/timeout", "derived": true, "ops": {"card": "R"}, "children": []}]}]}, {"id": "2", "name": "Hạn mức chi tiêu online", "depth": 1, "leaf": false, "children": [{"id": "2.1", "name": "Hạn mức của chủ thẻ", "depth": 2, "leaf": false, "children": [{"id": "2.1.1", "name": "Đặt hạn mức online theo ngày", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "M", "reqs": ["FR-05"], "ops": {"limit": "CU"}, "children": []}, {"id": "2.1.2", "name": "Xem hạn mức hiện tại", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "M", "reqs": ["FR-05"], "ops": {"limit": "R"}, "children": []}, {"id": "2.1.3", "name": "Đặt lại hạn mức về mặc định", "depth": 3, "leaf": true, "actors": ["holder"], "priority": "C", "reqs": ["FR-05"], "ops": {"limit": "U"}, "children": []}]}, {"id": "2.2", "name": "Kiểm soát rủi ro khi đổi hạn mức", "depth": 2, "leaf": false, "children": [{"id": "2.2.1", "name": "Yêu cầu xác thực mạnh khi tăng hạn mức", "depth": 3, "leaf": true, "actors": ["system"], "priority": "S", "note": "[domain] Chống kẻ gian nâng hạn mức sau khi chiếm app", "derived": true, "children": []}, {"id": "2.2.2", "name": "Áp dụng hạn mức tối đa của ngân hàng", "depth": 3, "leaf": true, "actors": ["system"], "priority": "M", "derived": true, "ops": {"limit": "R"}, "children": []}]}]}, {"id": "3", "name": "Thông báo cho chủ thẻ", "depth": 1, "leaf": false, "children": [{"id": "3.1", "name": "Gửi thông báo khi trạng thái khóa thẻ đổi", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "reqs": ["FR-06"], "tags": ["notify"], "ops": {"notif": "C"}, "children": []}, {"id": "3.2", "name": "Gửi lại thông báo khi chưa nhận được", "depth": 2, "leaf": true, "actors": ["system"], "priority": "S", "note": "Khiếu nại 'không thấy thông báo' từ biên bản", "derived": true, "tags": ["notify"], "ops": {"notif": "C"}, "children": []}, {"id": "3.3", "name": "Xem lịch sử thông báo về thẻ", "depth": 2, "leaf": true, "actors": ["holder"], "priority": "C", "derived": true, "ops": {"notif": "R"}, "children": []}]}, {"id": "4", "name": "Fraud và vận hành", "depth": 1, "leaf": false, "children": [{"id": "4.1", "name": "Xem danh sách thẻ bị gắn cờ", "depth": 2, "leaf": true, "actors": ["fraud"], "priority": "S", "derived": true, "ops": {"card": "R"}, "children": []}, {"id": "4.2", "name": "Gắn cờ gian lận cho thẻ", "depth": 2, "leaf": true, "actors": ["fraud"], "priority": "M", "derived": true, "children": []}, {"id": "4.3", "name": "Gỡ cờ gian lận cho thẻ", "depth": 2, "leaf": true, "actors": ["fraud"], "priority": "S", "derived": true, "children": []}]}, {"id": "5", "name": "Truy cập và kiểm soát", "depth": 1, "leaf": false, "children": [{"id": "5.1", "name": "Xác thực chủ thẻ theo mức rủi ro", "depth": 2, "leaf": true, "actors": ["holder"], "priority": "M", "note": "OTP/sinh trắc theo ngưỡng; chờ Compliance [xác nhận Q7]", "derived": true, "tags": ["auth"], "children": []}, {"id": "5.2", "name": "Phân quyền nhân viên theo vai trò", "depth": 2, "leaf": true, "actors": ["ops"], "priority": "M", "derived": true, "tags": ["auth"], "children": []}, {"id": "5.3", "name": "Ghi nhật ký thay đổi thẻ và hạn mức", "depth": 2, "leaf": true, "actors": ["system"], "priority": "M", "derived": true, "tags": ["audit"], "children": []}, {"id": "5.4", "name": "Xem báo cáo thẻ bị khóa theo ngày", "depth": 2, "leaf": true, "actors": ["ops"], "priority": "C", "derived": true, "tags": ["report"], "children": []}, {"id": "5.5", "name": "Cấu hình hạn mức mặc định và thời gian chờ CMS", "depth": 2, "leaf": true, "actors": ["ops"], "priority": "M", "derived": true, "tags": ["config"], "ops": {"limit": "U"}, "children": []}]}], "functions": [{"id": "1.1.1", "reqs": ["FR-01", "FR-02", "FR-07"], "derived": null}, {"id": "1.1.2", "reqs": ["FR-02"], "derived": null}, {"id": "1.1.3", "reqs": ["FR-01"], "derived": null}, {"id": "1.2.1", "reqs": ["FR-03", "FR-07"], "derived": null}, {"id": "1.2.2", "reqs": ["FR-04"], "derived": null}, {"id": "1.2.3", "reqs": ["FR-04"], "derived": null}, {"id": "1.3.1", "reqs": ["FR-07"], "derived": null}, {"id": "1.3.2", "reqs": null, "derived": true}, {"id": "1.3.3", "reqs": null, "derived": true}, {"id": "2.1.1", "reqs": ["FR-05"], "derived": null}, {"id": "2.1.2", "reqs": ["FR-05"], "derived": null}, {"id": "2.1.3", "reqs": ["FR-05"], "derived": null}, {"id": "2.2.1", "reqs": null, "derived": true}, {"id": "2.2.2", "reqs": null, "derived": true}, {"id": "3.1", "reqs": ["FR-06"], "derived": null}, {"id": "3.2", "reqs": null, "derived": true}, {"id": "3.3", "reqs": null, "derived": true}, {"id": "4.1", "reqs": null, "derived": true}, {"id": "4.2", "reqs": null, "derived": true}, {"id": "4.3", "reqs": null, "derived": true}, {"id": "5.1", "reqs": null, "derived": true}, {"id": "5.2", "reqs": null, "derived": true}, {"id": "5.3", "reqs": null, "derived": true}, {"id": "5.4", "reqs": null, "derived": true}, {"id": "5.5", "reqs": null, "derived": true}], "crud": {"card": {"R": ["1.1.1", "1.3.3", "4.1"]}, "limit": {"C": ["2.1.1"], "U": ["2.1.1", "2.1.3", "5.5"], "R": ["2.1.2", "2.2.2"]}, "notif": {"C": ["3.1", "3.2"], "R": ["3.3"]}}, "waived": {"card": {"C": "dữ liệu do hệ thống khác sở hữu", "R": null, "U": "dữ liệu do hệ thống khác sở hữu", "D": "dữ liệu do hệ thống khác sở hữu"}, "limit": {"C": null, "R": null, "U": null, "D": "Hạn mức không xóa; 'đặt lại mặc định' (2.1.3) thay cho xóa"}, "notif": {"C": null, "R": null, "U": "bất biến", "D": "Bản ghi gửi thông báo không sửa/xóa, phục vụ tra cứu"}}, "cover": {"FR-01": ["1.1.1", "1.1.3"], "FR-02": ["1.1.1", "1.1.2"], "FR-07": ["1.1.1", "1.2.1", "1.3.1"], "FR-03": ["1.2.1"], "FR-04": ["1.2.2", "1.2.3"], "FR-05": ["2.1.1", "2.1.2", "2.1.3"], "FR-06": ["3.1"]}, "matrix": {"holder": {"1": 3, "2": 3, "3": 1, "5": 1}, "csr": {"1": 1}, "system": {"1": 3, "2": 2, "3": 2, "5": 1}, "fraud": {"1": 1, "4": 3}, "ops": {"1": 1, "5": 3}}, "lint": [{"level": "MIỄN", "code": "D4", "where": "limit", "message": "\"Hạn mức online\" chưa có chức năng Hủy/Lưu trữ/Xóa (nếu cố ý không xóa, đánh dấu \"no_delete\": true)  → miễn: Hạn mức không xóa; 'đặt lại mặc định' (2.1.3) thay cho xóa"}]};</script>
+<script>
+/* Trang khám phá phân rã chức năng: cây có lọc, ma trận CRUD, truy vết yêu cầu, actor × module, kết quả lint.
+   Dữ liệu nằm ở window.FD_DATA (do scripts/build_explorer_page.py nhúng). Không cần mạng. */
+(function () {
+  const D = window.FD_DATA;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const el = (t, a, ...kids) => {
+    const e = document.createElement(t);
+    Object.entries(a || {}).forEach(([k, v]) => (k === 'class' ? (e.className = v) : k === 'text' ? (e.textContent = v) : e.setAttribute(k, v)));
+    kids.flat().forEach((k) => k != null && e.append(k.nodeType ? k : document.createTextNode(k)));
+    return e;
+  };
+  const actorName = (id) => (D.actors.find((a) => a.id === id) || {}).name || id;
+  const objName = (id) => (D.objects.find((o) => o.id === id) || {}).name || id;
+  const state = { q: '', actor: '', prio: '' };
+
+  function matches(n) {
+    if (!n.leaf) return true;
+    if (state.actor && !(n.actors || []).includes(state.actor)) return false;
+    if (state.prio && n.priority !== state.prio) return false;
+    if (state.q) {
+      const hay = (n.id + ' ' + n.name + ' ' + (n.note || '') + ' ' + (n.reqs || []).join(' ')).toLowerCase();
+      if (!hay.includes(state.q.toLowerCase())) return false;
+    }
+    return true;
+  }
+  function anyMatch(n) { return n.leaf ? matches(n) : n.children.some(anyMatch); }
+
+  function renderNode(n) {
+    if (!anyMatch(n)) return null;
+    const head = el('span', { class: 'row' },
+      el('span', { class: 'nid', text: n.id }), ' ', el('span', { class: 'nname', text: n.name }));
+    if (n.leaf) {
+      (n.actors || []).forEach((a) => head.append(' ', el('span', { class: 'chip', text: actorName(a) })));
+      if (n.priority) head.append(' ', el('span', { class: 'chip p-' + n.priority, text: n.priority }));
+      Object.entries(n.ops || {}).forEach(([o, l]) => head.append(' ', el('span', { class: 'chip ops', text: objName(o) + ': ' + l })));
+      (n.reqs || []).forEach((r) => head.append(' ', el('span', { class: 'chip req', text: r })));
+      if (n.note) head.append(' ', el('span', { class: 'note', text: '— ' + n.note }));
+      return el('li', { class: 'leaf' }, head);
+    }
+    const d = el('details', { open: state.q || state.actor || state.prio ? 'open' : null }, el('summary', {}, head),
+      el('ul', {}, n.children.map(renderNode)));
+    if (n.depth === 1) d.setAttribute('open', 'open');
+    return el('li', { class: 'depth' + n.depth }, d);
+  }
+
+  function renderTree() {
+    const box = $('#tree'); box.replaceChildren(el('ul', { class: 'tree' }, D.modules.map(renderNode)));
+  }
+
+  function table(head, rows, cls) {
+    return el('table', { class: cls || '' }, el('thead', {}, el('tr', {}, head.map((h) => el('th', { text: h })))),
+      el('tbody', {}, rows.map((r) => el('tr', {}, r.map((c) => (c && c.nodeType ? c : el('td', { text: c })))))));
+  }
+  const td = (text, cls) => el('td', { class: cls || '', text });
+
+  function renderCrud() {
+    const rows = D.objects.map((o) => {
+      const cells = [td(o.name)];
+      ['C', 'R', 'U', 'D'].forEach((ch) => {
+        const ids = D.crud[o.id] && D.crud[o.id][ch];
+        const why = (D.waived[o.id] || {})[ch];
+        cells.push(ids && ids.length ? td(ids.join(', ')) : why ? td('— (miễn: ' + why + ')', 'muted') : td('❌ thiếu', 'bad'));
+      });
+      return cells;
+    });
+    $('#crud').replaceChildren(D.objects.length ? table(['Đối tượng', 'Create', 'Read', 'Update', 'Delete / Hủy'], rows) : el('p', { text: 'Spec chưa khai báo objects.' }));
+  }
+  function renderReqs() {
+    const rows = D.requirements.map((r) => {
+      const ids = D.cover[r.id] || [];
+      return [td(r.id), td(r.text || ''), ids.length ? td(ids.join(', ')) : td('❌ chưa phủ', 'bad')];
+    });
+    const orphan = D.functions.filter((f) => !(f.reqs && f.reqs.length) && !f.derived).map((f) => f.id);
+    $('#reqs').replaceChildren(D.requirements.length ? table(['Yêu cầu', 'Nội dung', 'Chức năng phủ'], rows) : el('p', { text: 'Spec chưa khai báo requirements.' }),
+      orphan.length && D.requirements.length ? el('p', { class: 'warn', text: 'Chức năng chưa truy về yêu cầu: ' + orphan.join(', ') }) : null);
+  }
+  function renderMatrix() {
+    const rows = D.actors.map((a) => [td(a.name)].concat(D.modules.map((m) => td(String((D.matrix[a.id] || {})[m.id] || '')))));
+    $('#matrix').replaceChildren(D.actors.length ? table(['Actor'].concat(D.modules.map((m) => m.id + '. ' + m.name)), rows) : el('p', { text: 'Spec chưa khai báo actors.' }));
+  }
+  function renderLint() {
+    const L = D.lint;
+    const counts = { 'LỖI': 0, 'CẢNH BÁO': 0, 'MIỄN': 0 };
+    L.forEach((x) => counts[x.level]++);
+    $('#lint').replaceChildren(
+      el('p', { class: counts['LỖI'] ? 'bad' : 'ok', text: counts['LỖI'] + ' lỗi · ' + counts['CẢNH BÁO'] + ' cảnh báo · ' + counts['MIỄN'] + ' miễn trừ' }),
+      L.length ? table(['Mức', 'Mã', 'Vị trí', 'Mô tả'], L.map((x) => [td(x.level, x.level === 'LỖI' ? 'bad' : x.level === 'MIỄN' ? 'muted' : 'warn'), td(x.code), td(x.where), td(x.message)])) : el('p', { class: 'ok', text: 'Không có phát hiện.' }));
+  }
+
+  function init() {
+    $('#title').textContent = D.name;
+    $('#stats').textContent = D.modules.length + ' module · ' + D.functions.length + ' chức năng · sâu ' + D.depth + ' cấp';
+    const sa = $('#f-actor'); sa.append(el('option', { value: '', text: 'Mọi actor' }));
+    D.actors.forEach((a) => sa.append(el('option', { value: a.id, text: a.name })));
+    $('#f-q').addEventListener('input', (e) => { state.q = e.target.value; renderTree(); });
+    sa.addEventListener('change', (e) => { state.actor = e.target.value; renderTree(); });
+    $('#f-prio').addEventListener('change', (e) => { state.prio = e.target.value; renderTree(); });
+    $('#expand').addEventListener('click', () => document.querySelectorAll('#tree details').forEach((d) => (d.open = true)));
+    $('#collapse').addEventListener('click', () => document.querySelectorAll('#tree details').forEach((d) => (d.open = false)));
+    document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      document.querySelectorAll('.panel').forEach((p) => (p.hidden = p.id !== b.dataset.panel));
+    }));
+    renderTree(); renderCrud(); renderReqs(); renderMatrix(); renderLint();
+    const bad = D.lint.filter((x) => x.level === 'LỖI').length;
+    $('#tab-lint').textContent = 'Kiểm tra (' + (bad ? bad + ' lỗi' : D.lint.filter((x) => x.level === 'CẢNH BÁO').length + ' cảnh báo') + ')';
+  }
+  init();
+})();
+
+</script></body></html>

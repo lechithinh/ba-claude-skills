@@ -1,0 +1,36 @@
+﻿ID,Parent ID,Cấp,Loại,Chức năng,Actor,Đối tượng (ops),Ưu tiên,Phase,Yêu cầu,Tag,Ghi chú
+1,,1,Module,Khóa và mở khóa thẻ,,,,,,,
+1.1,1,2,Feature,Khóa thẻ,,,,,,,
+1.1.1,1.1,3,Function,Khóa tạm thẻ trên app,Chủ thẻ,Thẻ:R,M,,"FR-01, FR-02, FR-07",,
+1.1.2,1.1,3,Function,Báo mất thẻ,Chủ thẻ,,M,,FR-02,,"Đóng thẻ vĩnh viễn, phải phát hành thẻ mới"
+1.1.3,1.1,3,Function,Khóa thẻ qua hotline,Nhân viên hotline,,S,,FR-01,,Đồng bộ trạng thái với app
+1.2,1,2,Feature,Mở khóa thẻ,,,,,,,
+1.2.1,1.2,3,Function,Mở khóa thẻ khóa tạm bằng xác thực,Chủ thẻ,,M,,"FR-03, FR-07",,Xung đột chờ quyết định: mở ngay hay chờ 24h [xác nhận Q1]
+1.2.2,1.2,3,Function,Chặn mở khóa thẻ bị gắn cờ gian lận,Hệ thống,,M,,FR-04,,
+1.2.3,1.2,3,Function,Mở khóa thẻ bị gắn cờ sau khi xác minh,Chuyên viên Fraud,,S,,FR-04,,
+1.3,1,2,Feature,Đồng bộ với CMS,,,,,,,
+1.3.1,1.3,3,Function,Gọi CMS đổi trạng thái thẻ,Hệ thống,,M,,FR-07,,
+1.3.2,1.3,3,Function,Thử lại khi CMS phản hồi chậm,Hệ thống,,M,,,,[domain] Tránh khách tưởng đã khóa nhưng thẻ vẫn quẹt được
+1.3.3,1.3,3,Function,Đối soát trạng thái thẻ giữa app và CMS,Vận hành thẻ,Thẻ:R,M,,,,[domain] Giải quyết giao dịch pending/timeout
+2,,1,Module,Hạn mức chi tiêu online,,,,,,,
+2.1,2,2,Feature,Hạn mức của chủ thẻ,,,,,,,
+2.1.1,2.1,3,Function,Đặt hạn mức online theo ngày,Chủ thẻ,Hạn mức online:CU,M,,FR-05,,
+2.1.2,2.1,3,Function,Xem hạn mức hiện tại,Chủ thẻ,Hạn mức online:R,M,,FR-05,,
+2.1.3,2.1,3,Function,Đặt lại hạn mức về mặc định,Chủ thẻ,Hạn mức online:U,C,,FR-05,,
+2.2,2,2,Feature,Kiểm soát rủi ro khi đổi hạn mức,,,,,,,
+2.2.1,2.2,3,Function,Yêu cầu xác thực mạnh khi tăng hạn mức,Hệ thống,,S,,,,[domain] Chống kẻ gian nâng hạn mức sau khi chiếm app
+2.2.2,2.2,3,Function,Áp dụng hạn mức tối đa của ngân hàng,Hệ thống,Hạn mức online:R,M,,,,
+3,,1,Module,Thông báo cho chủ thẻ,,,,,,,
+3.1,3,2,Function,Gửi thông báo khi trạng thái khóa thẻ đổi,Hệ thống,Thông báo:C,M,,FR-06,notify,
+3.2,3,2,Function,Gửi lại thông báo khi chưa nhận được,Hệ thống,Thông báo:C,S,,,notify,Khiếu nại 'không thấy thông báo' từ biên bản
+3.3,3,2,Function,Xem lịch sử thông báo về thẻ,Chủ thẻ,Thông báo:R,C,,,,
+4,,1,Module,Fraud và vận hành,,,,,,,
+4.1,4,2,Function,Xem danh sách thẻ bị gắn cờ,Chuyên viên Fraud,Thẻ:R,S,,,,
+4.2,4,2,Function,Gắn cờ gian lận cho thẻ,Chuyên viên Fraud,,M,,,,
+4.3,4,2,Function,Gỡ cờ gian lận cho thẻ,Chuyên viên Fraud,,S,,,,
+5,,1,Module,Truy cập và kiểm soát,,,,,,,
+5.1,5,2,Function,Xác thực chủ thẻ theo mức rủi ro,Chủ thẻ,,M,,,auth,OTP/sinh trắc theo ngưỡng; chờ Compliance [xác nhận Q7]
+5.2,5,2,Function,Phân quyền nhân viên theo vai trò,Vận hành thẻ,,M,,,auth,
+5.3,5,2,Function,Ghi nhật ký thay đổi thẻ và hạn mức,Hệ thống,,M,,,audit,
+5.4,5,2,Function,Xem báo cáo thẻ bị khóa theo ngày,Vận hành thẻ,,C,,,report,
+5.5,5,2,Function,Cấu hình hạn mức mặc định và thời gian chờ CMS,Vận hành thẻ,Hạn mức online:U,M,,,config,

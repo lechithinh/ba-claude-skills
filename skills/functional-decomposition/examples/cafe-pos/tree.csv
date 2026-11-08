@@ -1,0 +1,33 @@
+﻿ID,Parent ID,Cấp,Loại,Chức năng,Actor,Đối tượng (ops),Ưu tiên,Phase,Yêu cầu,Tag,Ghi chú
+1,,1,Module,Gọi món và tạo đơn,,,,,,,
+1.1,1,2,Feature,Tạo đơn tại quầy,,,,,,,
+1.1.1,1.1,3,Function,Chọn món vào đơn,Thu ngân,Món trong thực đơn:R; Đơn gọi món:C,M,,,,
+1.1.2,1.1,3,Function,Ghi chú tuỳ chọn cho món,Thu ngân,Đơn gọi món:U,S,,,,
+1.1.3,1.1,3,Function,Áp dụng giảm giá cho đơn,"Thu ngân, Quản lý quán",Đơn gọi món:U,C,,,,Giảm trên ngưỡng cần quản lý xác nhận
+1.2,1,2,Feature,Sửa và hủy đơn,,,,,,,
+1.2.1,1.2,3,Function,Sửa món trong đơn chưa thanh toán,Thu ngân,Đơn gọi món:U,M,,,,
+1.2.2,1.2,3,Function,Hủy đơn,"Thu ngân, Quản lý quán",Đơn gọi món:D,M,,,,Hủy đơn đã thanh toán cần quản lý
+1.3,1,2,Feature,Xem đơn,,,,,,,
+1.3.1,1.3,3,Function,Xem hàng chờ pha chế,Pha chế,Đơn gọi món:R,M,,,,
+1.3.2,1.3,3,Function,Tra cứu đơn theo mã,"Thu ngân, Quản lý quán",Đơn gọi món:R,S,,,,
+2,,1,Module,Pha chế,,,,,,,
+2.1,2,2,Function,Nhận đơn vào hàng chờ,Pha chế,Đơn gọi món:U,M,,,,
+2.2,2,2,Function,Đánh dấu đơn đã xong,Pha chế,Đơn gọi món:U,M,,,,
+2.3,2,2,Function,Gọi khách nhận món,Thu ngân,,S,,,,
+3,,1,Module,Thanh toán,,,,,,,
+3.1,3,2,Function,Thu tiền mặt,Thu ngân,Giao dịch thanh toán:C,M,,,,
+3.2,3,2,Function,Thu tiền qua mã QR,Thu ngân,Giao dịch thanh toán:C,S,,,,
+3.3,3,2,Function,In hoá đơn,Thu ngân,Giao dịch thanh toán:R,M,,,,
+3.4,3,2,Function,Hoàn tiền đơn đã hủy,Quản lý quán,Giao dịch thanh toán:U,S,,,,
+4,,1,Module,Thực đơn và giá,,,,,,,
+4.1,4,2,Function,Thêm món mới,Quản lý quán,Món trong thực đơn:C,M,,,,
+4.2,4,2,Function,Sửa giá món,Quản lý quán,Món trong thực đơn:U,M,,,,
+4.3,4,2,Function,Ngừng bán món,Quản lý quán,Món trong thực đơn:D,S,,,,"Lưu trữ, không xoá để giữ lịch sử đơn"
+5,,1,Module,Chốt ca và báo cáo,,,,,,,
+5.1,5,2,Function,Chốt ca,Thu ngân,,M,,,,
+5.2,5,2,Function,Đối chiếu tiền cuối ca,"Thu ngân, Quản lý quán",,M,,,,
+5.3,5,2,Function,Xem doanh thu theo ngày,Quản lý quán,,S,,,report,
+6,,1,Module,Hệ thống,,,,,,,
+6.1,6,2,Function,Đăng nhập theo vai trò,"Thu ngân, Pha chế, Quản lý quán",,M,,,auth,
+6.2,6,2,Function,Ghi nhật ký thao tác nhạy cảm,Hệ thống,,S,,,audit,
+6.3,6,2,Function,Khai báo thông số quán,Quản lý quán,,C,,,config,"Giờ mở cửa, thuế, mẫu hoá đơn"

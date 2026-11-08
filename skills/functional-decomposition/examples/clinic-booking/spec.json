@@ -1,0 +1,581 @@
+{
+  "name": "Hệ thống đặt lịch khám phòng khám",
+  "scope": {
+    "in": [
+      "Đặt và hủy lịch khám",
+      "Nhắc lịch",
+      "Lịch làm việc bác sĩ",
+      "Báo cáo no-show"
+    ],
+    "out": [
+      "Thanh toán đặt cọc (chờ Q1)",
+      "Zalo (phase 2)",
+      "Hồ sơ bệnh án"
+    ]
+  },
+  "assumptions": [
+    "Một cơ sở, mỗi bác sĩ có khung giờ cố định theo ca",
+    "Nhắc lịch qua SMS ở phase 1; Zalo phase 2",
+    "Đặt cọc online chờ quyết định ban giám đốc (Q1), chưa vào phạm vi"
+  ],
+  "actors": [
+    {
+      "id": "patient",
+      "name": "Bệnh nhân"
+    },
+    {
+      "id": "recep",
+      "name": "Lễ tân"
+    },
+    {
+      "id": "doctor",
+      "name": "Bác sĩ"
+    },
+    {
+      "id": "manager",
+      "name": "Quản lý phòng khám"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR-01",
+      "text": "Bệnh nhân tự đặt lịch online, chọn bác sĩ và khung giờ"
+    },
+    {
+      "id": "FR-02",
+      "text": "Hệ thống nhắc lịch trước 1 ngày"
+    },
+    {
+      "id": "FR-03",
+      "text": "Bệnh nhân hủy lịch online (trước giờ hẹn ít nhất 2 giờ)"
+    },
+    {
+      "id": "FR-04",
+      "text": "Lễ tân đặt lịch hộ bệnh nhân"
+    },
+    {
+      "id": "FR-05",
+      "text": "Lễ tân xem lịch trong ngày theo từng bác sĩ"
+    },
+    {
+      "id": "FR-06",
+      "text": "Bác sĩ tự khóa lịch khi nghỉ phép"
+    },
+    {
+      "id": "FR-07",
+      "text": "Báo cáo tỷ lệ no-show theo bác sĩ hàng tháng"
+    },
+    {
+      "id": "FR-08",
+      "text": "Ngăn hai lịch hẹn trên cùng một khung giờ"
+    }
+  ],
+  "objects": [
+    {
+      "id": "appt",
+      "name": "Lịch hẹn"
+    },
+    {
+      "id": "slot",
+      "name": "Khung giờ"
+    },
+    {
+      "id": "timeoff",
+      "name": "Lịch nghỉ bác sĩ",
+      "immutable": true,
+      "note": "Hủy khai báo và tạo lại, không sửa"
+    },
+    {
+      "id": "patient",
+      "name": "Hồ sơ bệnh nhân",
+      "no_delete": true,
+      "note": "Lưu theo yêu cầu quản lý hồ sơ"
+    },
+    {
+      "id": "doctor",
+      "name": "Bác sĩ"
+    }
+  ],
+  "modules": [
+    {
+      "id": "1",
+      "name": "Đặt và quản lý lịch hẹn",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "Đặt lịch khám",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "Tìm khung giờ trống theo bác sĩ và ngày",
+              "actors": [
+                "patient",
+                "recep"
+              ],
+              "ops": {
+                "slot": "R"
+              },
+              "reqs": [
+                "FR-01",
+                "FR-04"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.1.2",
+              "name": "Tạo lịch hẹn tự phục vụ",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "appt": "C"
+              },
+              "reqs": [
+                "FR-01"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.1.3",
+              "name": "Tạo lịch hẹn hộ bệnh nhân",
+              "actors": [
+                "recep"
+              ],
+              "ops": {
+                "appt": "C"
+              },
+              "reqs": [
+                "FR-04"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.1.4",
+              "name": "Chặn đặt trùng khung giờ",
+              "actors": [
+                "system"
+              ],
+              "reqs": [
+                "FR-08"
+              ],
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "Hủy lịch hẹn",
+          "children": [
+            {
+              "id": "1.2.1",
+              "name": "Hủy lịch hẹn online trước giờ hẹn 2 giờ",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "appt": "D"
+              },
+              "reqs": [
+                "FR-03"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.2.2",
+              "name": "Hủy lịch hẹn hộ bệnh nhân",
+              "actors": [
+                "recep"
+              ],
+              "ops": {
+                "appt": "D"
+              },
+              "priority": "S",
+              "derived": true
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "name": "Theo dõi lịch hẹn",
+          "children": [
+            {
+              "id": "1.3.1",
+              "name": "Xem lịch hẹn sắp tới của tôi",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "appt": "R"
+              },
+              "priority": "S",
+              "derived": true
+            },
+            {
+              "id": "1.3.2",
+              "name": "Xem lịch trong ngày theo bác sĩ",
+              "actors": [
+                "recep"
+              ],
+              "ops": {
+                "appt": "R"
+              },
+              "reqs": [
+                "FR-05"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "1.3.3",
+              "name": "Ghi nhận bệnh nhân đến hoặc vắng mặt",
+              "actors": [
+                "recep"
+              ],
+              "ops": {
+                "appt": "U"
+              },
+              "reqs": [
+                "FR-07"
+              ],
+              "priority": "M"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Lịch làm việc bác sĩ",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "Khung giờ khám",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "Tạo khung giờ theo ca làm việc",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "slot": "C"
+              },
+              "priority": "M",
+              "derived": true
+            },
+            {
+              "id": "2.1.2",
+              "name": "Điều chỉnh khung giờ",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "slot": "U"
+              },
+              "priority": "S",
+              "derived": true
+            },
+            {
+              "id": "2.1.3",
+              "name": "Đóng khung giờ không nhận lịch",
+              "actors": [
+                "manager",
+                "doctor"
+              ],
+              "ops": {
+                "slot": "D"
+              },
+              "reqs": [
+                "FR-06"
+              ],
+              "priority": "M"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "name": "Nghỉ phép của bác sĩ",
+          "children": [
+            {
+              "id": "2.2.1",
+              "name": "Khai báo thời gian nghỉ",
+              "actors": [
+                "doctor"
+              ],
+              "ops": {
+                "timeoff": "C"
+              },
+              "reqs": [
+                "FR-06"
+              ],
+              "priority": "M"
+            },
+            {
+              "id": "2.2.2",
+              "name": "Xem lịch nghỉ",
+              "actors": [
+                "doctor",
+                "recep"
+              ],
+              "ops": {
+                "timeoff": "R"
+              },
+              "reqs": [
+                "FR-06"
+              ],
+              "priority": "S"
+            },
+            {
+              "id": "2.2.3",
+              "name": "Hủy khai báo nghỉ",
+              "actors": [
+                "doctor"
+              ],
+              "ops": {
+                "timeoff": "D"
+              },
+              "reqs": [
+                "FR-06"
+              ],
+              "priority": "S"
+            },
+            {
+              "id": "2.2.4",
+              "name": "Cảnh báo lịch hẹn trùng thời gian nghỉ",
+              "actors": [
+                "system"
+              ],
+              "priority": "M",
+              "derived": true,
+              "note": "Câu hỏi mở: ai liên hệ bệnh nhân [Q]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Thông báo",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "Gửi xác nhận đặt lịch",
+          "actors": [
+            "system"
+          ],
+          "priority": "M",
+          "derived": true,
+          "tags": [
+            "notify"
+          ]
+        },
+        {
+          "id": "3.2",
+          "name": "Gửi SMS nhắc lịch trước một ngày",
+          "actors": [
+            "system"
+          ],
+          "reqs": [
+            "FR-02"
+          ],
+          "priority": "M",
+          "tags": [
+            "notify"
+          ]
+        },
+        {
+          "id": "3.3",
+          "name": "Gửi thông báo hủy lịch",
+          "actors": [
+            "system"
+          ],
+          "priority": "S",
+          "derived": true,
+          "tags": [
+            "notify"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Báo cáo",
+      "children": [
+        {
+          "id": "4.1",
+          "name": "Xem tỷ lệ no-show theo bác sĩ theo tháng",
+          "actors": [
+            "manager"
+          ],
+          "reqs": [
+            "FR-07"
+          ],
+          "priority": "M",
+          "tags": [
+            "report"
+          ]
+        },
+        {
+          "id": "4.2",
+          "name": "Xuất báo cáo no-show ra Excel",
+          "actors": [
+            "manager"
+          ],
+          "priority": "C",
+          "derived": true,
+          "tags": [
+            "report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Truy cập và quản trị",
+      "children": [
+        {
+          "id": "5.1",
+          "name": "Hồ sơ bệnh nhân",
+          "children": [
+            {
+              "id": "5.1.1",
+              "name": "Đăng ký tài khoản bệnh nhân bằng OTP",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "patient": "C"
+              },
+              "priority": "M",
+              "derived": true,
+              "tags": [
+                "auth"
+              ]
+            },
+            {
+              "id": "5.1.2",
+              "name": "Cập nhật hồ sơ của tôi",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "patient": "U"
+              },
+              "priority": "S",
+              "derived": true
+            },
+            {
+              "id": "5.1.3",
+              "name": "Xem hồ sơ của tôi",
+              "actors": [
+                "patient"
+              ],
+              "ops": {
+                "patient": "R"
+              },
+              "priority": "S",
+              "derived": true
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "name": "Nhân viên và bác sĩ",
+          "children": [
+            {
+              "id": "5.2.1",
+              "name": "Đăng nhập nhân viên theo vai trò",
+              "actors": [
+                "recep",
+                "doctor",
+                "manager"
+              ],
+              "priority": "M",
+              "derived": true,
+              "tags": [
+                "auth"
+              ]
+            },
+            {
+              "id": "5.2.2",
+              "name": "Thêm bác sĩ",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "doctor": "C"
+              },
+              "priority": "M",
+              "derived": true
+            },
+            {
+              "id": "5.2.3",
+              "name": "Cập nhật thông tin bác sĩ",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "doctor": "U"
+              },
+              "priority": "S",
+              "derived": true
+            },
+            {
+              "id": "5.2.4",
+              "name": "Xem danh sách bác sĩ",
+              "actors": [
+                "patient",
+                "recep",
+                "manager"
+              ],
+              "ops": {
+                "doctor": "R"
+              },
+              "priority": "M",
+              "derived": true
+            },
+            {
+              "id": "5.2.5",
+              "name": "Ngừng hoạt động bác sĩ",
+              "actors": [
+                "manager"
+              ],
+              "ops": {
+                "doctor": "D"
+              },
+              "priority": "C",
+              "derived": true
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "name": "Ghi nhật ký thao tác trên lịch hẹn",
+          "actors": [
+            "system"
+          ],
+          "priority": "S",
+          "derived": true,
+          "tags": [
+            "audit"
+          ]
+        },
+        {
+          "id": "5.4",
+          "name": "Khai báo danh mục chuyên khoa và tham số hệ thống",
+          "actors": [
+            "manager"
+          ],
+          "priority": "C",
+          "derived": true,
+          "tags": [
+            "config"
+          ]
+        }
+      ]
+    }
+  ]
+}
