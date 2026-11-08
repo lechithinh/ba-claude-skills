@@ -1,6 +1,6 @@
 {
   "name": "ba-claude-skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams, BPMN, screen spec, decision table, edge-case finder, API spec) + domain knowledge packs (Banking, E-commerce, Payments, Lending, Logistics). BABOK-aligned, English & Vietnamese.",
   "author": {
     "name": "Le Chi Thinh",

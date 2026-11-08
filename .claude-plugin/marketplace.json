@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Business Analyst skills for Claude — from meeting notes to requirements, decomposition, user stories and diagrams.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "ba-claude-skills",
       "source": "./",
       "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams, BPMN, screen spec, decision table, edge-case finder, API spec) + domain knowledge packs (Banking, E-commerce, Payments, Lending, Logistics). BABOK-aligned, English & Vietnamese.",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "category": "productivity",
       "tags": [
         "babok",
