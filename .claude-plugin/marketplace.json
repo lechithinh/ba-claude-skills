@@ -12,15 +12,18 @@
     {
       "name": "ba-claude-skills",
       "source": "./",
-      "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams) + domain knowledge packs (Banking, E-commerce). BABOK-aligned, English & Vietnamese.",
+      "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams, BPMN, screen spec, decision table, edge-case finder, API spec) + domain knowledge packs (Banking, E-commerce, Payments, Lending, Logistics). BABOK-aligned, English & Vietnamese.",
       "version": "0.2.0",
       "category": "productivity",
       "tags": [
-        "business-analysis",
-        "requirements",
         "babok",
         "banking",
-        "ecommerce"
+        "business-analysis",
+        "ecommerce",
+        "lending",
+        "logistics",
+        "payments",
+        "requirements"
       ]
     }
   ]

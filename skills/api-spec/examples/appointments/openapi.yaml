@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: API đặt lịch khám
+  version: 1.0.0-draft
+  description: >
+    Bản nháp do BA soạn từ yêu cầu FR-01, FR-03, FR-08 của dự án phòng khám.
+    Các giá trị đánh dấu [xác nhận] cần stakeholder hoặc đội kỹ thuật chốt.
+servers:
+  - url: https://api.example.com/v1
+    description: Máy chủ minh họa
+tags:
+  - name: Slots
+    description: Khung giờ khám của bác sĩ
+  - name: Appointments
+    description: Lịch hẹn của bệnh nhân
+security:
+  - bearerAuth: []
+paths:
+  /doctors/{doctorId}/slots:
+    get:
+      tags: [Slots]
+      operationId: listDoctorSlots
+      summary: Xem khung giờ trống của bác sĩ theo ngày
+      parameters:
+        - name: doctorId
+          in: path
+          required: true
+          schema: { type: string }
+          example: dr_001
+        - name: date
+          in: query
+          required: true
+          description: Ngày khám, định dạng YYYY-MM-DD
+          schema: { type: string, format: date }
+          example: "2026-11-20"
+      responses:
+        "200":
+          description: Danh sách khung giờ (có thể rỗng)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/Slot" }
+              example:
+                items:
+                  - slotId: slt_0830
+                    startTime: "2026-11-20T08:30:00+07:00"
+                    available: true
+                  - slotId: slt_0900
+                    startTime: "2026-11-20T09:00:00+07:00"
+                    available: false
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "429": { $ref: "#/components/responses/TooManyRequests" }
+  /appointments:
+    post:
+      tags: [Appointments]
+      operationId: createAppointment
+      summary: Đặt lịch hẹn
+      description: Bệnh nhân tự đặt lịch (FR-01). Khung giờ phải còn trống (FR-08).
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          description: Cùng khóa và cùng nội dung sẽ trả lại cùng kết quả, không tạo lịch trùng
+          schema: { type: string, maxLength: 64 }
+          example: 7b1f2c9e-3d1a-4e57-9a3b-5c2e1f0a8d11
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateAppointmentRequest" }
+            example:
+              slotId: slt_0830
+              patientName: Nguyễn Văn A
+              phone: "0912345678"
+              note: Đau đầu 3 ngày
+              smsReminderConsent: true
+      responses:
+        "201":
+          description: Đã tạo lịch hẹn
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Appointment" }
+              example:
+                appointmentId: apt_9f3a
+                slotId: slt_0830
+                doctorId: dr_001
+                startTime: "2026-11-20T08:30:00+07:00"
+                status: CONFIRMED
+                patientName: Nguyễn Văn A
+                phone: "0912****78"
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "409":
+          description: "Khung giờ đã có người đặt (SLOT_TAKEN) hoặc trùng yêu cầu đang xử lý"
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { code: SLOT_TAKEN, message: Khung giờ này vừa có người đặt., traceId: tr_1a2b }
+        "422":
+          description: "Vi phạm quy tắc nghiệp vụ (LIMIT_REACHED - đã giữ tối đa [2: xác nhận] lịch hẹn sắp tới)"
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { code: LIMIT_REACHED, message: Bạn chỉ được giữ tối đa 2 lịch hẹn sắp tới., traceId: tr_3c4d }
+        "429": { $ref: "#/components/responses/TooManyRequests" }
+    get:
+      tags: [Appointments]
+      operationId: listMyAppointments
+      summary: Xem lịch hẹn của tôi
+      parameters:
+        - name: status
+          in: query
+          schema: { $ref: "#/components/schemas/AppointmentStatus" }
+        - name: page
+          in: query
+          schema: { type: integer, minimum: 1, default: 1 }
+        - name: pageSize
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 50, default: 20 }
+      responses:
+        "200":
+          description: Danh sách lịch hẹn
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, total]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/Appointment" }
+                  total: { type: integer }
+              example:
+                items:
+                  - appointmentId: apt_9f3a
+                    slotId: slt_0830
+                    doctorId: dr_001
+                    startTime: "2026-11-20T08:30:00+07:00"
+                    status: CONFIRMED
+                    patientName: Nguyễn Văn A
+                    phone: "0912****78"
+                total: 1
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "429": { $ref: "#/components/responses/TooManyRequests" }
+  /appointments/{appointmentId}/cancel:
+    post:
+      tags: [Appointments]
+      operationId: cancelAppointment
+      summary: Hủy lịch hẹn
+      description: Bệnh nhân hủy online trước giờ hẹn ít nhất 2 giờ [xác nhận] (FR-03).
+      parameters:
+        - name: appointmentId
+          in: path
+          required: true
+          schema: { type: string }
+          example: apt_9f3a
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason: { type: string, maxLength: 200 }
+            example: { reason: Bận việc đột xuất }
+      responses:
+        "200":
+          description: Đã hủy (gọi lại với lịch đã hủy vẫn trả 200, không lỗi)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Appointment" }
+              example:
+                appointmentId: apt_9f3a
+                slotId: slt_0830
+                doctorId: dr_001
+                startTime: "2026-11-20T08:30:00+07:00"
+                status: CANCELLED
+                patientName: Nguyễn Văn A
+                phone: "0912****78"
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "422":
+          description: Quá hạn hủy (CANCEL_WINDOW_PASSED)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              example: { code: CANCEL_WINDOW_PASSED, message: Chỉ hủy được trước giờ hẹn ít nhất 2 giờ. Vui lòng gọi phòng khám., traceId: tr_5e6f }
+        "429": { $ref: "#/components/responses/TooManyRequests" }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AppointmentStatus:
+      type: string
+      enum: [CONFIRMED, CANCELLED, ARRIVED, NO_SHOW, COMPLETED]
+    Slot:
+      type: object
+      required: [slotId, startTime, available]
+      properties:
+        slotId: { type: string }
+        startTime: { type: string, format: date-time }
+        available: { type: boolean }
+    CreateAppointmentRequest:
+      type: object
+      required: [slotId, patientName, phone, smsReminderConsent]
+      properties:
+        slotId: { type: string }
+        patientName: { type: string, maxLength: 100, description: "Độ dài tối đa [xác nhận]" }
+        phone: { type: string, pattern: "^0[0-9]{9}$", description: "10 chữ số bắt đầu bằng 0 [xác nhận]; dữ liệu nhạy cảm" }
+        note: { type: string, maxLength: 300 }
+        smsReminderConsent: { type: boolean, description: "Bắt buộc true? [xác nhận với Pháp chế]" }
+    Appointment:
+      type: object
+      required: [appointmentId, slotId, doctorId, startTime, status, patientName]
+      properties:
+        appointmentId: { type: string }
+        slotId: { type: string }
+        doctorId: { type: string }
+        startTime: { type: string, format: date-time }
+        status: { $ref: "#/components/schemas/AppointmentStatus" }
+        patientName: { type: string }
+        phone: { type: string, description: "Che khi trả về, ví dụ 0912****78" }
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string, description: Mã lỗi nghiệp vụ cho máy đọc }
+        message: { type: string, description: Thông điệp cho người dùng }
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field: { type: string }
+              issue: { type: string }
+        traceId: { type: string }
+  responses:
+    BadRequest:
+      description: Request sai cấu trúc hoặc thiếu trường
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { code: VALIDATION_ERROR, message: Dữ liệu không hợp lệ., details: [{ field: phone, issue: invalid_format }], traceId: tr_7a8b }
+    Unauthorized:
+      description: Chưa đăng nhập hoặc phiên hết hạn
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { code: UNAUTHORIZED, message: Vui lòng đăng nhập., traceId: tr_9c0d }
+    Forbidden:
+      description: Không có quyền với tài nguyên này
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { code: FORBIDDEN, message: Bạn không có quyền thực hiện thao tác này., traceId: tr_1e2f }
+    NotFound:
+      description: Không tìm thấy
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { code: NOT_FOUND, message: Không tìm thấy dữ liệu., traceId: tr_3a4b }
+    TooManyRequests:
+      description: Vượt giới hạn tốc độ
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { code: RATE_LIMITED, message: Thử lại sau ít phút., traceId: tr_5c6d }

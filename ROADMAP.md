@@ -3,9 +3,10 @@
 ## Domain packs
 - ✅ `domain-banking` — retail & digital banking (Vietnam focus)
 - ✅ `domain-ecommerce` — online stores & marketplaces (Vietnam focus)
-- 🔜 `domain-payments` — e-wallets, payment gateways, QR, reconciliation
+- ✅ `domain-payments` — e-wallets, payment gateways, QR, reconciliation
+- ✅ `domain-lending` — consumer loans, BNPL, collections
 - 🔜 `domain-insurance` — products, policy issuance, premiums, claims
-- 🔜 `domain-logistics` — warehouse, last-mile, COD, 3PL
+- ✅ `domain-logistics` — warehouse, last-mile, COD, 3PL
 - 🔜 `domain-healthcare` — clinics/hospitals, appointments, EMR, insurance claims
 - 🔜 `domain-hr` — HRM, payroll, timekeeping
 
@@ -34,8 +35,9 @@ Method skills are organized by **BABOK v3 knowledge area**. ✅ = available · �
 - ✅ `functional-decomposition`
 - ✅ `user-story-writer`
 - ✅ `ba-diagrams`
-- 🔜 `decision-table` — rules → decision table with missing/conflicting combinations and test cases
-- 🔜 `screen-spec` — field-level screen specification from a mockup image
+- ✅ `decision-table`
+- ✅ `screen-spec`
+- ✅ `edge-case-finder`
 - 🔜 `nfr-checklist` — ISO 25010-based NFR elicitation
 - 🔜 `business-rules-catalog`
 - 🔜 `use-case-spec` — fully dressed use case specification
@@ -43,5 +45,5 @@ Method skills are organized by **BABOK v3 knowledge area**. ✅ = available · �
 
 ## Solution Evaluation
 - 🔜 `uat-test-cases` — UAT test cases from stories & AC
-- 🔜 `api-spec-draft` — draft OpenAPI from requirements
+- ✅ `api-spec`
 - 🔜 `release-notes`

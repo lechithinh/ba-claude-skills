@@ -73,6 +73,10 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 | [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | Hệ thống → module → tính năng → chức năng, sơ đồ cây Mermaid, kiểm tra CRUD |
 | [`user-story-writer`](skills/user-story-writer/SKILL.md) | User story chuẩn INVEST, AC Gherkin có kịch bản lỗi, CSV cho Jira |
 | [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Sơ đồ quy trình swimlane, use case, sequence, ERD, trạng thái, context bằng Mermaid |
+| [`screen-spec`](skills/screen-spec/SKILL.md) | Đặc tả màn hình từ ảnh mockup: bảng trường, validation, hành vi nút, các trạng thái, câu hỏi mở (tách điều nhìn thấy với điều giả định) |
+| [`decision-table`](skills/decision-table/SKILL.md) | Rule nghiệp vụ thành bảng quyết định; script tìm tổ hợp **thiếu**, **mâu thuẫn**, **chồng lấn** và sinh test case |
+| [`edge-case-finder`](skills/edge-case-finder/SKILL.md) | Phản biện "nếu… thì sao" cho yêu cầu: danh sách ngắn, xếp ưu tiên, kèm câu hỏi theo stakeholder và AC Gherkin |
+| [`api-spec`](skills/api-spec/SKILL.md) | Bản nháp API contract từ yêu cầu: bảng endpoint, mã lỗi nghiệp vụ, OpenAPI 3.0 YAML |
 
 **Domain pack: BA cần biết gì**
 
@@ -80,6 +84,9 @@ AI đã biết *cách viết* một yêu cầu. BA lâu năm biết **cần hỏ
 |---|---|
 | [`domain-banking`](skills/domain-banking/SKILL.md) | eKYC, tài khoản, chuyển tiền (nội bộ / NAPAS / CITAD), thẻ, cho vay, tiền gửi, tra soát |
 | [`domain-ecommerce`](skills/domain-ecommerce/SKILL.md) | Danh mục, giá & voucher, checkout, thanh toán, đơn hàng, kho, vận chuyển & COD, đổi trả, đối soát seller |
+| [`domain-payments`](skills/domain-payments/SKILL.md) | Ví điện tử, cổng thanh toán/PSP, QR, nạp/rút tiền, hoàn tiền và chargeback, quyết toán, đối soát |
+| [`domain-lending`](skills/domain-lending/SKILL.md) | Cho vay tiêu dùng và BNPL: khởi tạo, ra quyết định, cách tính lãi, thứ tự phân bổ thanh toán, thu hồi nợ theo DPD |
+| [`domain-logistics`](skills/domain-logistics/SKILL.md) | Giao hàng và kho: chặng cuối, giao thất bại, đối soát COD, trọng lượng quy đổi, cơ bản WMS |
 
 Mỗi pack gồm thuật ngữ Anh–Việt, quy trình, pattern business rule, **checklist câu hỏi cho BA**, data model kèm trạng thái, bản đồ tích hợp, điểm chạm pháp lý và KPI. Mỗi skill phương pháp có thêm file `LEARN.md` giải thích kỹ thuật BA phía sau.
 
@@ -127,8 +134,8 @@ Skill chỉ là file hướng dẫn dạng Markdown. Dữ liệu của bạn ch�
 
 ## Lộ trình
 
-**Domain pack tiếp theo:** Thanh toán & ví điện tử · Bảo hiểm · Logistics · Y tế
-**Skill phương pháp tiếp theo:** decision table · đặc tả màn hình từ mockup · API spec (OpenAPI) · test case UAT · ma trận truy vết
+**Domain pack tiếp theo:** Bảo hiểm · Y tế · Nhân sự
+**Skill phương pháp tiếp theo:** test case UAT · ma trận truy vết · phân tích tác động thay đổi · data mapping
 
 [Lộ trình đầy đủ](ROADMAP.md) · [Đề xuất skill hoặc domain](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md)
 

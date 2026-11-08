@@ -1,7 +1,7 @@
 {
   "name": "ba-claude-skills",
   "version": "0.2.0",
-  "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams) + domain knowledge packs (Banking, E-commerce). BABOK-aligned, English & Vietnamese.",
+  "description": "BA method skills (meeting-to-requirements, requirements linter, functional decomposition, user stories, BA diagrams, BPMN, screen spec, decision table, edge-case finder, API spec) + domain knowledge packs (Banking, E-commerce, Payments, Lending, Logistics). BABOK-aligned, English & Vietnamese.",
   "author": {
     "name": "Le Chi Thinh",
     "url": "https://github.com/lechithinh"
@@ -10,15 +10,20 @@
   "repository": "https://github.com/lechithinh/ba-claude-skills",
   "license": "MIT",
   "keywords": [
-    "business-analysis",
-    "requirements",
     "babok",
-    "user-stories",
-    "bpmn",
-    "uml",
-    "mermaid",
     "banking",
+    "bpmn",
+    "business-analysis",
+    "decision-table",
+    "domain-knowledge",
     "ecommerce",
-    "domain-knowledge"
+    "lending",
+    "logistics",
+    "mermaid",
+    "openapi",
+    "payments",
+    "requirements",
+    "uml",
+    "user-stories"
   ]
 }

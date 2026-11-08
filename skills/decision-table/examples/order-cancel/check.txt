@@ -1,0 +1,2 @@
+Bảng quyết định: Hủy đơn hàng (sàn TMĐT) — 3 điều kiện · 16 tổ hợp · 8 rule
+Kết quả: 0 lỗi, 0 cảnh báo · phủ 16/16 tổ hợp

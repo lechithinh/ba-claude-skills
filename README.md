@@ -74,6 +74,10 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 | [`functional-decomposition`](skills/functional-decomposition/SKILL.md) | System → modules → features → functions, Mermaid tree, CRUD gap check |
 | [`user-story-writer`](skills/user-story-writer/SKILL.md) | INVEST user stories, Gherkin acceptance criteria with error paths, Jira CSV |
 | [`ba-diagrams`](skills/ba-diagrams/SKILL.md) | Swimlane process, use case, sequence, ERD, state and context diagrams in Mermaid |
+| [`screen-spec`](skills/screen-spec/SKILL.md) | Screen specification from a mockup image: field table, validations, button behaviour, states, open questions (what is seen vs assumed) |
+| [`decision-table`](skills/decision-table/SKILL.md) | Business rules to a decision table; a script finds **missing**, **conflicting** and **overlapping** rule combinations and generates tests |
+| [`edge-case-finder`](skills/edge-case-finder/SKILL.md) | "What if…" review of a requirement: a short prioritised list of edge cases with questions per stakeholder and Gherkin AC |
+| [`api-spec`](skills/api-spec/SKILL.md) | Draft API contract from requirements: endpoint table, business error codes, OpenAPI 3.0 YAML |
 
 **Domain packs: what a BA must know**
 
@@ -81,6 +85,9 @@ AI already knows *how to write* a requirement. A senior BA knows **what to ask**
 |---|---|
 | [`domain-banking`](skills/domain-banking/SKILL.md) | eKYC onboarding, accounts, transfers (internal / NAPAS / CITAD), cards, lending, deposits, disputes |
 | [`domain-ecommerce`](skills/domain-ecommerce/SKILL.md) | Catalog, pricing & vouchers, checkout, payment, orders, fulfillment, shipping & COD, returns, marketplace settlement |
+| [`domain-payments`](skills/domain-payments/SKILL.md) | E-wallet, payment gateway/PSP, QR, top-up, withdrawal, refund and chargeback, settlement, reconciliation |
+| [`domain-lending`](skills/domain-lending/SKILL.md) | Consumer loans and BNPL: origination, decisioning, interest methods, repayment allocation, collections by DPD |
+| [`domain-logistics`](skills/domain-logistics/SKILL.md) | Parcel delivery and warehouse: last mile, failed delivery, COD remittance, volumetric weight, WMS basics |
 
 Each pack contains a glossary, processes, business-rule patterns, **a BA question checklist**, a data model with status sets, integrations, regulatory touchpoints and KPIs. Every method skill also ships a `LEARN.md` that teaches the technique behind it.
 
@@ -128,8 +135,8 @@ Skills are plain Markdown instructions. Your data goes only to the AI tool you a
 
 ## Roadmap
 
-**Domain packs next:** Payments & e-wallets · Insurance · Logistics · Healthcare
-**Method skills next:** decision table · screen spec from mockups · API spec (OpenAPI) · UAT test cases · traceability matrix
+**Domain packs next:** Insurance · Healthcare · HR
+**Method skills next:** UAT test cases · traceability matrix · change-impact analysis · data mapping
 
 [Full roadmap](ROADMAP.md) · [Request a skill or domain](https://github.com/lechithinh/ba-claude-skills/issues/new?template=skill_request.md)
 

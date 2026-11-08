@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="760" viewBox="0 0 420 760" font-family="Helvetica, Arial, sans-serif" font-size="13">
+<rect width="420" height="760" fill="#f3f4f6"/><rect x="0" y="0" width="420" height="52" fill="#1d4ed8"/>
+<text x="16" y="32" fill="#fff" font-size="17" font-weight="700">← Đặt lịch khám</text>
+<g fill="none" stroke="#6b7280">
+<text x="20" y="84" fill="#111" stroke="none" font-weight="700">Chuyên khoa *</text><rect x="20" y="92" width="380" height="38" rx="6" fill="#fff"/><text x="32" y="116" fill="#6b7280" stroke="none">Chọn chuyên khoa  ▾</text>
+<text x="20" y="160" fill="#111" stroke="none" font-weight="700">Bác sĩ *</text><rect x="20" y="168" width="380" height="38" rx="6" fill="#fff"/><text x="32" y="192" fill="#6b7280" stroke="none">Chọn bác sĩ  ▾</text>
+<text x="20" y="236" fill="#111" stroke="none" font-weight="700">Ngày khám *</text><rect x="20" y="244" width="380" height="38" rx="6" fill="#fff"/><text x="32" y="268" fill="#6b7280" stroke="none">dd/mm/yyyy  📅</text>
+<text x="20" y="312" fill="#111" stroke="none" font-weight="700">Khung giờ *</text>
+<rect x="20" y="320" width="84" height="34" rx="17" fill="#fff"/><text x="40" y="342" fill="#111" stroke="none">08:00</text>
+<rect x="114" y="320" width="84" height="34" rx="17" fill="#dbeafe" stroke="#1d4ed8"/><text x="134" y="342" fill="#1d4ed8" stroke="none">08:30</text>
+<rect x="208" y="320" width="84" height="34" rx="17" fill="#e5e7eb"/><text x="228" y="342" fill="#9ca3af" stroke="none">09:00</text>
+<rect x="302" y="320" width="84" height="34" rx="17" fill="#fff"/><text x="322" y="342" fill="#111" stroke="none">09:30</text>
+<text x="20" y="378" fill="#6b7280" stroke="none" font-size="11">Khung giờ xám: đã có người đặt</text>
+<text x="20" y="410" fill="#111" stroke="none" font-weight="700">Họ và tên *</text><rect x="20" y="418" width="380" height="38" rx="6" fill="#fff"/><text x="32" y="442" fill="#9ca3af" stroke="none">Nguyễn Văn A</text>
+<text x="20" y="486" fill="#111" stroke="none" font-weight="700">Số điện thoại *</text><rect x="20" y="494" width="380" height="38" rx="6" fill="#fff"/><text x="32" y="518" fill="#9ca3af" stroke="none">09xx xxx xxx</text>
+<text x="20" y="562" fill="#111" stroke="none" font-weight="700">Triệu chứng / ghi chú</text><rect x="20" y="570" width="380" height="76" rx="6" fill="#fff"/><text x="32" y="594" fill="#9ca3af" stroke="none">Mô tả ngắn…</text><text x="360" y="640" fill="#9ca3af" stroke="none" font-size="11">0/300</text>
+<rect x="20" y="660" width="16" height="16" rx="3" fill="#fff"/><text x="44" y="673" fill="#111" stroke="none" font-size="12">Tôi đồng ý nhận SMS nhắc lịch khám *</text>
+</g>
+<rect x="20" y="696" width="380" height="44" rx="8" fill="#1d4ed8"/><text x="210" y="724" fill="#fff" text-anchor="middle" font-weight="700" font-size="15">Xác nhận đặt lịch</text>
+</svg>

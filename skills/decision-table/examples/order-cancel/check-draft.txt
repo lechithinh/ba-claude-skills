@@ -1,0 +1,9 @@
+Bảng quyết định: Hủy đơn hàng — BẢN NHÁP CÓ LỖI — 3 điều kiện · 16 tổ hợp · 8 rule
+LỖI       [MÂU THUẪN] Trạng thái đơn=Đã xác nhận, Hình thức thanh toán=Trả trước, Người hủy=Khách: R2, R2b cùng áp dụng nhưng cho kết quả khác nhau
+LỖI       [MÂU THUẪN] Trạng thái đơn=Đã xác nhận, Hình thức thanh toán=COD, Người hủy=Khách: R3, R2b cùng áp dụng nhưng cho kết quả khác nhau
+CẢNH BÁO  [THIẾU] Trạng thái đơn=Chờ thanh toán, Hình thức thanh toán=COD, Người hủy=Khách: Chưa có rule nào cho tổ hợp này
+CẢNH BÁO  [THIẾU] Trạng thái đơn=Chờ thanh toán, Hình thức thanh toán=COD, Người hủy=Người bán: Chưa có rule nào cho tổ hợp này
+CẢNH BÁO  [THIẾU] Trạng thái đơn=Đang xử lý, Hình thức thanh toán=COD, Người hủy=Người bán: Chưa có rule nào cho tổ hợp này
+CẢNH BÁO  [CHỒNG LẤN] Trạng thái đơn=Đang giao, Hình thức thanh toán=Trả trước, Người hủy=Khách: R7, R7b cùng áp dụng, kết quả giống nhau (rule thừa hoặc chưa tách rõ)
+CẢNH BÁO  [CHỒNG LẤN] Trạng thái đơn=Đang giao, Hình thức thanh toán=COD, Người hủy=Khách: R7, R7b cùng áp dụng, kết quả giống nhau (rule thừa hoặc chưa tách rõ)
+Kết quả: 2 lỗi, 5 cảnh báo · phủ 13/16 tổ hợp

@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/), versioning follows [SemVer](https://semver.org/).
 
+## [Unreleased]
+### Added
+- **Method skills (lightweight):** `screen-spec` (from mockup image), `decision-table` (with `dt_check.py` for missing/conflicting rule combinations), `edge-case-finder`, `api-spec` (OpenAPI 3.0 draft).
+- **Domain packs:** `domain-payments`, `domain-lending`, `domain-logistics`.
+- `functional-decomposition` upgraded to a full skill: spec JSON, lint, Mermaid/SVG/CSV/HTML explorer, examples and evals.
+- `bpmn-modeling` skill.
+
 ## [0.2.0] — 2026-11-07
 ### Added
 - **Domain packs:** `domain-banking` and `domain-ecommerce` — glossary, processes, business-rule patterns, BA checklist, data model, integrations, regulatory touchpoints, KPIs.

@@ -1,0 +1,146 @@
+{
+  "name": "Hủy đơn hàng (sàn TMĐT)",
+  "conditions": [
+    {
+      "id": "C1",
+      "name": "Trạng thái đơn",
+      "values": [
+        "Chờ thanh toán",
+        "Đã xác nhận",
+        "Đang xử lý",
+        "Đang giao"
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "Hình thức thanh toán",
+      "values": [
+        "Trả trước",
+        "COD"
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "Người hủy",
+      "values": [
+        "Khách",
+        "Người bán"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "A1",
+      "name": "Hủy đơn và giải phóng tồn kho"
+    },
+    {
+      "id": "A2",
+      "name": "Hoàn tiền về phương thức gốc"
+    },
+    {
+      "id": "A3",
+      "name": "Gửi yêu cầu hủy chờ người bán duyệt"
+    },
+    {
+      "id": "A4",
+      "name": "Từ chối hủy, hướng dẫn quy trình trả hàng"
+    },
+    {
+      "id": "A6",
+      "name": "Tổ hợp không hợp lệ, hệ thống không cho xảy ra"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R0",
+      "when": {
+        "C1": "Chờ thanh toán",
+        "C2": "COD"
+      },
+      "then": [
+        "A6"
+      ],
+      "source": "Đơn COD không có bước chờ thanh toán"
+    },
+    {
+      "id": "R1",
+      "when": {
+        "C1": "Chờ thanh toán",
+        "C2": "Trả trước"
+      },
+      "then": [
+        "A1"
+      ],
+      "source": "BR-01 [xác nhận]"
+    },
+    {
+      "id": "R2",
+      "when": {
+        "C1": "Đã xác nhận",
+        "C2": "Trả trước"
+      },
+      "then": [
+        "A1",
+        "A2"
+      ],
+      "source": "BR-02 [xác nhận]"
+    },
+    {
+      "id": "R3",
+      "when": {
+        "C1": "Đã xác nhận",
+        "C2": "COD"
+      },
+      "then": [
+        "A1"
+      ],
+      "source": "BR-02 [xác nhận]"
+    },
+    {
+      "id": "R4",
+      "when": {
+        "C1": "Đang xử lý",
+        "C3": "Khách"
+      },
+      "then": [
+        "A3"
+      ],
+      "source": "BR-03: sau khi người bán bắt đầu đóng gói cần duyệt [xác nhận]"
+    },
+    {
+      "id": "R5",
+      "when": {
+        "C1": "Đang xử lý",
+        "C2": "Trả trước",
+        "C3": "Người bán"
+      },
+      "then": [
+        "A1",
+        "A2"
+      ],
+      "source": "BR-04 [xác nhận]"
+    },
+    {
+      "id": "R6",
+      "when": {
+        "C1": "Đang xử lý",
+        "C2": "COD",
+        "C3": "Người bán"
+      },
+      "then": [
+        "A1"
+      ],
+      "source": "BR-04 [xác nhận]"
+    },
+    {
+      "id": "R7",
+      "when": {
+        "C1": "Đang giao"
+      },
+      "then": [
+        "A4"
+      ],
+      "source": "BR-05: đã giao cho hãng vận chuyển thì đi theo quy trình trả hàng [xác nhận]"
+    }
+  ]
+}
